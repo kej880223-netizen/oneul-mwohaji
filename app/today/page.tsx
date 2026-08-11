@@ -90,7 +90,9 @@ export default function TodayPage() {
           </p>
 
           {/* 야외 선택 시: GPS 기반 주변 장소 추천 */}
-          {place === "야외" && <NearbyPlaces />}
+          {place === "야외" && (
+            <NearbyPlaces child={child} childState={childState} />
+          )}
 
           <div className="pt-2">
             <Button variant="secondary" full onClick={() => setStep("ask")}>
