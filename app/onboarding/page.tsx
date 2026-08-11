@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { saveChild, getChild } from "@/lib/storage";
+import { saveChild, getChild, addChild } from "@/lib/storage";
 import { Child, Gender, PERSONALITY_OPTIONS, Personality } from "@/lib/types";
 import { uid, ageInMonths } from "@/lib/utils";
 import { fileToResizedDataUrl } from "@/lib/image";
@@ -16,8 +16,12 @@ const GENDERS: { value: Gender; label: string }[] = [
 
 export default function OnboardingPage() {
   const router = useRouter();
-  // 기존 프로필이 있으면 수정 모드로 값 프리필
-  const existing = typeof window !== "undefined" ? getChild() : null;
+  // ?mode=add 이면 새 아이 추가(프리필 없음), 아니면 활성 아이 수정
+  const isAddMode =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("mode") === "add";
+  const existing =
+    !isAddMode && typeof window !== "undefined" ? getChild() : null;
 
   const [name, setName] = useState(existing?.name ?? "");
   const [birthDate, setBirthDate] = useState(existing?.birthDate ?? "");
@@ -79,20 +83,27 @@ export default function OnboardingPage() {
       photo,
       createdAt: existing?.createdAt ?? new Date().toISOString(),
     };
-    saveChild(child);
+    if (isAddMode) addChild(child);
+    else saveChild(child);
     router.replace(isEdit ? "/profile" : "/");
   }
 
   return (
     <div className="px-5 py-8">
       <div className="text-center mb-6">
-        <div className="text-4xl mb-2">{isEdit ? "✏️" : "👋"}</div>
+        <div className="text-4xl mb-2">
+          {isEdit ? "✏️" : isAddMode ? "➕" : "👋"}
+        </div>
         <h1 className="text-2xl font-extrabold text-ink">
-          {isEdit ? "프로필 수정" : "아이 정보를 알려주세요"}
+          {isEdit
+            ? "프로필 수정"
+            : isAddMode
+              ? "새 아이 추가"
+              : "아이 정보를 알려주세요"}
         </h1>
         <p className="text-sm text-ink-soft mt-1">
           알려주실수록 더 꼭 맞는 놀이와 조언을 드릴 수 있어요.
-          {!isEdit && (
+          {!isEdit && !isAddMode && (
             <>
               <br />
               가입 없이 바로 시작해요.
@@ -257,7 +268,7 @@ export default function OnboardingPage() {
         )}
 
         <Button size="lg" full onClick={submit}>
-          {isEdit ? "저장하기" : "시작하기 →"}
+          {isEdit ? "저장하기" : isAddMode ? "아이 추가하기" : "시작하기 →"}
         </Button>
       </div>
     </div>

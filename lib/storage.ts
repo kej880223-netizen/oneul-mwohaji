@@ -2,14 +2,17 @@
 
 // ─────────────────────────────────────────────────────────
 //  localStorage 기반 데이터 레이어 (익명 사용 / 로그인 불필요)
-//  나중에 SQLite/Supabase로 교체할 때 이 파일의 함수 시그니처만
-//  유지하면 화면 코드는 바뀌지 않도록 캡슐화.
+//  다자녀 지원: children[] + activeChildId. getChild()는 "활성 아이"를 반환해
+//  기존 화면 코드는 그대로 동작. 구버전 단일 저장(omh.child)은 자동 마이그레이션.
+//  기록/질문은 활성 아이 기준으로 필터링.
 // ─────────────────────────────────────────────────────────
 
 import { Child, ActivityLog, ParentingQuestion, Activity } from "./types";
 
 const KEYS = {
-  child: "omh.child",
+  children: "omh.children",
+  activeChildId: "omh.activeChildId",
+  legacyChild: "omh.child", // 구버전 단일 저장 (마이그레이션용)
   logs: "omh.activityLogs",
   questions: "omh.parentingQuestions",
   favorites: "omh.favorites",
@@ -32,22 +35,92 @@ function write<T>(key: string, value: T): void {
   window.dispatchEvent(new Event("omh:storage"));
 }
 
-// ─── Child (MVP는 아이 1명) ────────────────────────────────
+// 구버전(단일 아이) → 다자녀 구조로 1회 마이그레이션
+function ensureMigrated(): void {
+  if (typeof window === "undefined") return;
+  if (window.localStorage.getItem(KEYS.children)) return;
+  const legacy = window.localStorage.getItem(KEYS.legacyChild);
+  if (!legacy) return;
+  try {
+    const c = JSON.parse(legacy) as Child;
+    window.localStorage.setItem(KEYS.children, JSON.stringify([c]));
+    window.localStorage.setItem(KEYS.activeChildId, JSON.stringify(c.id));
+    window.localStorage.removeItem(KEYS.legacyChild);
+  } catch {
+    /* noop */
+  }
+}
 
+// ─── Children (다자녀) ────────────────────────────────────
+
+export function getChildren(): Child[] {
+  ensureMigrated();
+  return read<Child[]>(KEYS.children, []);
+}
+
+export function getActiveChildId(): string | null {
+  ensureMigrated();
+  const id = read<string | null>(KEYS.activeChildId, null);
+  const children = read<Child[]>(KEYS.children, []);
+  if (id && children.some((c) => c.id === id)) return id;
+  return children[0]?.id ?? null;
+}
+
+// 활성 아이 (없으면 null) — 기존 화면은 이 함수만 쓰면 됨
 export function getChild(): Child | null {
-  return read<Child | null>(KEYS.child, null);
+  const id = getActiveChildId();
+  if (!id) return null;
+  return getChildren().find((c) => c.id === id) ?? null;
 }
 
+export function setActiveChild(id: string): void {
+  write(KEYS.activeChildId, id);
+}
+
+// 기존/활성 아이 저장(수정) — id가 있으면 교체, 없으면 추가.
+// 활성 아이가 아직 없으면(첫 생성) 이 아이를 활성으로 지정.
 export function saveChild(child: Child): void {
-  write(KEYS.child, child);
+  const children = getChildren();
+  const exists = children.some((c) => c.id === child.id);
+  const next = exists
+    ? children.map((c) => (c.id === child.id ? child : c))
+    : [...children, child];
+  write(KEYS.children, next);
+  if (!read<string | null>(KEYS.activeChildId, null)) {
+    write(KEYS.activeChildId, child.id);
+  }
 }
 
-// ─── ActivityLog ──────────────────────────────────────────
+// 새 아이 추가 + 그 아이로 전환
+export function addChild(child: Child): void {
+  write(KEYS.children, [...getChildren(), child]);
+  write(KEYS.activeChildId, child.id);
+}
+
+// 아이 삭제 (해당 아이의 기록·질문도 함께 삭제)
+export function deleteChild(id: string): void {
+  const children = getChildren().filter((c) => c.id !== id);
+  write(KEYS.children, children);
+  write(
+    KEYS.logs,
+    read<ActivityLog[]>(KEYS.logs, []).filter((l) => l.childId !== id)
+  );
+  write(
+    KEYS.questions,
+    read<ParentingQuestion[]>(KEYS.questions, []).filter((q) => q.childId !== id)
+  );
+  if (read<string | null>(KEYS.activeChildId, null) === id) {
+    write(KEYS.activeChildId, children[0]?.id ?? null);
+  }
+}
+
+// ─── ActivityLog (활성 아이 기준) ─────────────────────────
 
 export function getActivityLogs(): ActivityLog[] {
-  return read<ActivityLog[]>(KEYS.logs, []).sort(
-    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)
-  );
+  const active = getActiveChildId();
+  return read<ActivityLog[]>(KEYS.logs, [])
+    .filter((l) => !active || l.childId === active)
+    .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 }
 
 export function addActivityLog(log: ActivityLog): void {
@@ -66,12 +139,13 @@ export function updateActivityLog(
   );
 }
 
-// ─── ParentingQuestion ────────────────────────────────────
+// ─── ParentingQuestion (활성 아이 기준) ───────────────────
 
 export function getQuestions(): ParentingQuestion[] {
-  return read<ParentingQuestion[]>(KEYS.questions, []).sort(
-    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)
-  );
+  const active = getActiveChildId();
+  return read<ParentingQuestion[]>(KEYS.questions, [])
+    .filter((q) => !active || q.childId === active)
+    .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 }
 
 export function addQuestion(q: ParentingQuestion): void {
@@ -90,7 +164,7 @@ export function updateQuestion(
   );
 }
 
-// ─── 즐겨찾기 놀이 ────────────────────────────────────────
+// ─── 즐겨찾기 놀이 (아이 공통) ────────────────────────────
 // 놀이는 매번 새로 생성(id 변동)되므로 제목(title)을 기준으로 중복 방지.
 
 export function getFavorites(): Activity[] {
@@ -123,7 +197,7 @@ export function removeFavorite(title: string): void {
   );
 }
 
-// ─── 개발용: 전체 초기화 ──────────────────────────────────
+// ─── 전체 초기화(로그아웃) ────────────────────────────────
 
 export function resetAll(): void {
   if (typeof window === "undefined") return;

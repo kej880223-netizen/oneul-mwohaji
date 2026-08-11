@@ -3,6 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import {
   getChild,
+  getChildren,
+  getActiveChildId,
   getActivityLogs,
   getQuestions,
   getFavorites,
@@ -51,4 +53,10 @@ export function useQuestions() {
 export function useFavorites() {
   const [favorites, refresh] = useReactiveStore<Activity[]>(getFavorites);
   return { favorites, refresh };
+}
+
+export function useChildren() {
+  const [children, refresh] = useReactiveStore<Child[]>(getChildren);
+  const [activeId] = useReactiveStore<string | null>(getActiveChildId);
+  return { children, activeId, refresh };
 }

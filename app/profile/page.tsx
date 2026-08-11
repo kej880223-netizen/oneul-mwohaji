@@ -2,14 +2,20 @@
 
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useChild, useActivityLogs, useQuestions } from "@/lib/useStore";
-import { resetAll } from "@/lib/storage";
-import { ageLabel } from "@/lib/utils";
+import {
+  useChild,
+  useChildren,
+  useActivityLogs,
+  useQuestions,
+} from "@/lib/useStore";
+import { resetAll, setActiveChild, deleteChild } from "@/lib/storage";
+import { ageLabel, cx } from "@/lib/utils";
 import { Card, PageHeader, Button, Loading, SectionTitle } from "@/components/ui";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { child, ready } = useChild();
+  const { children, activeId } = useChildren();
   const { logs } = useActivityLogs();
   const { questions } = useQuestions();
 
@@ -19,6 +25,17 @@ export default function ProfilePage() {
   if (!child) {
     router.replace("/onboarding");
     return <Loading />;
+  }
+
+  function handleDeleteChild() {
+    if (children.length <= 1) return;
+    if (
+      window.confirm(
+        `'${child!.name}' 프로필과 이 아이의 기록을 삭제할까요? 되돌릴 수 없어요.`
+      )
+    ) {
+      deleteChild(child!.id);
+    }
   }
 
   function handleLogout() {
@@ -42,6 +59,61 @@ export default function ProfilePage() {
       <PageHeader title="아이 프로필" />
 
       <div className="px-5 space-y-4 pb-6">
+        {/* 우리 아이 전환 */}
+        <div className="flex gap-2.5 overflow-x-auto pb-1 -mx-1 px-1">
+          {children.map((c) => {
+            const active = c.id === activeId;
+            return (
+              <button
+                key={c.id}
+                onClick={() => setActiveChild(c.id)}
+                aria-pressed={active}
+                className="flex flex-col items-center gap-1 shrink-0"
+              >
+                <span
+                  className={cx(
+                    "w-14 h-14 rounded-full overflow-hidden flex items-center justify-center text-2xl border-2 transition",
+                    active
+                      ? "border-primary"
+                      : "border-transparent opacity-60"
+                  )}
+                >
+                  {c.photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={c.photo}
+                      alt={c.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="w-full h-full bg-primary-soft flex items-center justify-center">
+                      👶
+                    </span>
+                  )}
+                </span>
+                <span
+                  className={cx(
+                    "text-xs font-medium max-w-[64px] truncate",
+                    active ? "text-ink" : "text-ink-faint"
+                  )}
+                >
+                  {c.name}
+                </span>
+              </button>
+            );
+          })}
+          <button
+            onClick={() => router.push("/onboarding?mode=add")}
+            className="flex flex-col items-center gap-1 shrink-0"
+            aria-label="아이 추가"
+          >
+            <span className="w-14 h-14 rounded-full border-2 border-dashed border-primary-soft flex items-center justify-center text-primary text-xl">
+              ＋
+            </span>
+            <span className="text-xs text-primary font-medium">아이 추가</span>
+          </button>
+        </div>
+
         {/* 프로필 요약 */}
         <Card>
           <div className="flex items-center gap-3">
@@ -75,14 +147,20 @@ export default function ProfilePage() {
             <Row label="요즘 고민" value={child.concerns} />
           </dl>
 
-          <Button
-            variant="secondary"
-            full
-            className="mt-4"
-            onClick={() => router.push("/onboarding")}
-          >
-            프로필 수정
-          </Button>
+          <div className="mt-4 flex gap-2">
+            <Button
+              variant="secondary"
+              full
+              onClick={() => router.push("/onboarding")}
+            >
+              프로필 수정
+            </Button>
+            {children.length > 1 && (
+              <Button variant="secondary" onClick={handleDeleteChild}>
+                삭제
+              </Button>
+            )}
+          </div>
         </Card>
 
         {/* 개인화 리포트 */}

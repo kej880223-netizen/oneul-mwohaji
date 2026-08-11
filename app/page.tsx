@@ -35,7 +35,7 @@ export default function HomePage() {
   // 오늘의 추천 미리보기 (하루 1번 세션 캐시)
   useEffect(() => {
     if (!child) return;
-    const cacheKey = `omh.homePicks.${new Date().toDateString()}`;
+    const cacheKey = `omh.homePicks.${child.id}.${new Date().toDateString()}`;
     const cached = sessionStorage.getItem(cacheKey);
     if (cached) {
       setPicks(JSON.parse(cached));
