@@ -86,6 +86,22 @@ function pickActivities(
     .map((t) => t.trim())
     .filter((t) => t.length >= 2);
 
+  // 발달 균형: 최근 놀이에서 적게 다룬 영역에 가점(개인화)
+  const domCount: Record<string, number> = {};
+  recent.forEach((l) =>
+    (l.activity.domains || []).forEach((d) => {
+      domCount[d] = (domCount[d] || 0) + 1;
+    })
+  );
+  const maxDom = Math.max(0, ...Object.values(domCount));
+  const weakDomains = new Set(
+    recent.length >= 3
+      ? (["신체", "언어", "사회정서", "인지", "창의감각"] as const).filter(
+          (d) => (domCount[d] || 0) < maxDom
+        )
+      : []
+  );
+
   const scored = ACTIVITY_POOL.map((t) => {
     let s = 0;
 
@@ -113,6 +129,9 @@ function pickActivities(
       t.materials || []
     ).join(" ")}`;
     if (likeTokens.some((tok) => haystack.includes(tok))) s += 2;
+
+    // 발달 균형: 최근 부족했던 영역을 다루는 놀이 가점
+    if ((t.domains || []).some((d) => weakDomains.has(d as any))) s += 1.5;
 
     // 과거 반응
     if (likedTitles.has(t.title)) s += 3;
@@ -243,7 +262,8 @@ const ADVICE: Record<string, AdviceTemplate> = {
 function makeAdvice(
   child: Child,
   category: string,
-  question: string
+  question: string,
+  isFollowUp = false
 ): SituationAdvice {
   const key = ADVICE[category] ? category : "기타";
   const t = ADVICE[key];
@@ -252,6 +272,24 @@ function makeAdvice(
     needsSafetyNotice(question) || needsSafetyNotice(category)
       ? SAFETY_MESSAGE
       : null;
+
+  if (isFollowUp) {
+    // 이어지는 상황: 한 단계 더 나아간 대응
+    return {
+      title: "조금 더 도와드릴게요",
+      firstStep: fill(
+        `계속 이어지는군요. 지금은 잠깐 자리를 바꾸거나 꼭 안아주며 ${child.name}를 먼저 진정시켜 주세요. 부모도 크게 심호흡 한 번!`
+      ),
+      sayThis: fill(t.afterwards),
+      avoidThis:
+        "같은 말을 반복하며 설득하려 하거나, 지쳐서 처음 세운 원칙을 갑자기 바꾸는 것.",
+      why: fill(t.why),
+      afterwards:
+        "많이 힘드시면 잠시 안전한 곳에서 쉬어가도 괜찮아요. 이런 상황이 자주·오래 반복되면 소아과나 육아 상담 전문가와 이야기해보는 것도 좋아요.",
+      safetyNotice: safety,
+    };
+  }
+
   return {
     title: "지금은 이렇게 해보세요",
     firstStep: fill(t.firstStep),
@@ -271,8 +309,9 @@ export const mockAdapter = {
     child: Child,
     category: string,
     question: string,
-    _recent: ActivityLog[]
+    _recent: ActivityLog[],
+    history: { question: string; advice: SituationAdvice }[] = []
   ) {
-    return makeAdvice(child, category, question);
+    return makeAdvice(child, category, question, history.length > 0);
   },
 };

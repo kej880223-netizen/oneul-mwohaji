@@ -28,12 +28,30 @@ export default function NowPage() {
 
   const [step, setStep] = useState<Step>("pick");
   const [category, setCategory] = useState("기타");
-  const [question, setQuestion] = useState("");
   const [customText, setCustomText] = useState("");
-  const [advice, setAdvice] = useState<SituationAdvice | null>(null);
+  const [thread, setThread] = useState<
+    { question: string; advice: SituationAdvice }[]
+  >([]);
+  const [followUp, setFollowUp] = useState("");
+  const [sending, setSending] = useState(false);
+  const [lastQ, setLastQ] = useState("");
   const [note, setNote] = useState("");
   const [saved, setSaved] = useState(false);
   const speech = useSpeechRecognition();
+
+  const adviceToSpeech = (a: SituationAdvice) =>
+    [
+      "먼저,",
+      a.firstStep,
+      "이렇게 말해보세요.",
+      a.sayThis,
+      "지금은 피해주세요.",
+      a.avoidThis,
+      "왜 그럴까요?",
+      a.why,
+      "그다음.",
+      a.afterwards,
+    ].join(" ");
 
   if (!ready) return <Loading />;
   if (!child) {
@@ -44,27 +62,46 @@ export default function NowPage() {
   async function ask(cat: string, q: string) {
     if (!child) return;
     setCategory(cat);
-    setQuestion(q);
+    setLastQ(q);
     setStep("loading");
     setSaved(false);
     setNote("");
+    setFollowUp("");
+    setThread([]);
     try {
-      const res = await requestNow(child, cat, q, logs.slice(0, 10));
-      setAdvice(res);
+      const res = await requestNow(child, cat, q, logs.slice(0, 10), []);
+      setThread([{ question: q, advice: res }]);
       setStep("result");
     } catch {
       setStep("error");
     }
   }
 
+  async function askFollowUp() {
+    const q = followUp.trim();
+    if (!q || !child || sending) return;
+    setFollowUp("");
+    setSending(true);
+    try {
+      const res = await requestNow(child, category, q, logs.slice(0, 10), thread);
+      setThread((prev) => [...prev, { question: q, advice: res }]);
+    } catch {
+      /* 유지 */
+    } finally {
+      setSending(false);
+    }
+  }
+
   function saveRecord() {
-    if (!child || !advice) return;
+    if (!child || !thread.length) return;
+    const first = thread[0];
+    const last = thread[thread.length - 1];
     const q: ParentingQuestion = {
       id: uid(),
       childId: child.id,
       category,
-      question,
-      aiResponse: advice,
+      question: first.question,
+      aiResponse: last.advice,
       note: note.trim(),
       createdAt: new Date().toISOString(),
     };
@@ -72,46 +109,91 @@ export default function NowPage() {
     setSaved(true);
   }
 
-  // ─── 결과 화면 ───────────────────────────────
-  if (step === "result" && advice) {
+  // ─── 결과 화면 (대화형) ──────────────────────
+  if (step === "result" && thread.length) {
     return (
       <div>
         <PageHeader
-          title={advice.title}
-          subtitle={question}
+          title="지금 어떡하지?"
+          subtitle={thread[0].question}
           onBack={() => setStep("pick")}
         />
-        <div className="px-5 space-y-3 pb-6">
-          {advice.safetyNotice && <SafetyNotice message={advice.safetyNotice} />}
+        <div className="px-5 space-y-4 pb-6">
+          {thread.map((turn, idx) => (
+            <div key={idx} className="space-y-3">
+              {idx > 0 && (
+                <p className="text-sm font-semibold text-ink bg-primary-soft rounded-xl px-3 py-2">
+                  💬 {turn.question}
+                </p>
+              )}
+              {turn.advice.safetyNotice && (
+                <SafetyNotice message={turn.advice.safetyNotice} />
+              )}
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-bold text-ink">{turn.advice.title}</h2>
+                <SpeakButton text={adviceToSpeech(turn.advice)} label="읽어주기" />
+              </div>
+              <AdviceItem n="1" title="먼저" body={turn.advice.firstStep} />
+              <AdviceItem
+                n="2"
+                title="이렇게 말해보세요"
+                body={turn.advice.sayThis}
+                highlight
+              />
+              <AdviceItem
+                n="3"
+                title="지금은 피해주세요"
+                body={turn.advice.avoidThis}
+              />
+              <AdviceItem n="4" title="왜 그럴까요?" body={turn.advice.why} />
+              <AdviceItem n="5" title="그다음" body={turn.advice.afterwards} />
+            </div>
+          ))}
 
-          <div className="flex justify-end">
-            <SpeakButton
-              text={[
-                "먼저,",
-                advice.firstStep,
-                "이렇게 말해보세요.",
-                advice.sayThis,
-                "지금은 피해주세요.",
-                advice.avoidThis,
-                "왜 그럴까요?",
-                advice.why,
-                "상황이 끝난 뒤.",
-                advice.afterwards,
-              ].join(" ")}
-              label="조언 읽어주기"
+          {sending && <Loading label="이어서 방법을 찾는 중..." />}
+
+          {/* 이어서 물어보기 (대화형 후속질문) */}
+          <Card>
+            <p className="text-sm font-semibold text-ink mb-2">
+              💬 해봐도 안 되나요? 이어서 물어보세요
+            </p>
+            <textarea
+              value={followUp}
+              onChange={(e) => setFollowUp(e.target.value)}
+              rows={2}
+              placeholder="예: 그래도 계속 울어요 / 그건 이미 해봤어요"
+              className="w-full rounded-xl border border-primary-soft px-3 py-2.5 text-sm focus:border-primary outline-none resize-none mb-2"
             />
-          </div>
-
-          <AdviceItem n="1" title="먼저" body={advice.firstStep} />
-          <AdviceItem
-            n="2"
-            title="이렇게 말해보세요"
-            body={advice.sayThis}
-            highlight
-          />
-          <AdviceItem n="3" title="지금은 피해주세요" body={advice.avoidThis} />
-          <AdviceItem n="4" title="왜 그럴까요?" body={advice.why} />
-          <AdviceItem n="5" title="상황이 끝난 뒤" body={advice.afterwards} />
+            <div className="flex gap-2">
+              {speech.supported && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    speech.listening
+                      ? speech.stop()
+                      : speech.start((t) =>
+                          setFollowUp((prev) => (prev ? prev + " " : "") + t)
+                        )
+                  }
+                  className={
+                    "shrink-0 rounded-xl px-3 text-sm font-semibold transition " +
+                    (speech.listening
+                      ? "bg-red-500 text-white animate-pulse"
+                      : "bg-primary-soft text-primary-dark")
+                  }
+                >
+                  {speech.listening ? "🔴" : "🎤"}
+                </button>
+              )}
+              <Button
+                full
+                disabled={!followUp.trim() || sending}
+                onClick={askFollowUp}
+              >
+                이어서 물어보기
+              </Button>
+            </div>
+          </Card>
 
           {/* 기록 */}
           {!saved ? (
@@ -164,7 +246,7 @@ export default function NowPage() {
     return (
       <ErrorState
         message="답변을 불러오지 못했어요. 다시 시도해주세요."
-        onRetry={() => ask(category, question)}
+        onRetry={() => ask(category, lastQ)}
       />
     );
 

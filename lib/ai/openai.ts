@@ -83,10 +83,11 @@ export const openaiAdapter = {
     child: Child,
     category: string,
     question: string,
-    recent: ActivityLog[]
+    recent: ActivityLog[],
+    history: import("./index").AdviceTurn[] = []
   ): Promise<SituationAdvice> {
     const json = await chatJSON(
-      buildNowPrompt(child, category, question, recent)
+      buildNowPrompt(child, category, question, recent, history)
     );
     const forcedSafety =
       needsSafetyNotice(question) || needsSafetyNotice(category);

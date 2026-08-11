@@ -30,19 +30,28 @@ export async function aiToday(
   return { ...mockAdapter.today(child, conditions, recent), source: "mock" };
 }
 
+export interface AdviceTurn {
+  question: string;
+  advice: SituationAdvice;
+}
+
 export async function aiNow(
   child: Child,
   category: string,
   question: string,
-  recent: ActivityLog[]
+  recent: ActivityLog[],
+  history: AdviceTurn[] = []
 ): Promise<SituationAdvice & { source: string }> {
   if (provider() === "openai") {
     try {
-      const r = await openaiAdapter.now(child, category, question, recent);
+      const r = await openaiAdapter.now(child, category, question, recent, history);
       return { ...r, source: "openai" };
     } catch (e) {
       console.error("[ai] openai now failed, fallback to mock:", e);
     }
   }
-  return { ...mockAdapter.now(child, category, question, recent), source: "mock" };
+  return {
+    ...mockAdapter.now(child, category, question, recent, history),
+    source: "mock",
+  };
 }

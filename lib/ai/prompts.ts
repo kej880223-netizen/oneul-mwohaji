@@ -3,8 +3,39 @@
 //  아이 프로필 + 과거 기록을 항상 참고하도록 구성 (개인화, 지시서 10번)
 // ─────────────────────────────────────────────────────────
 
-import { Child, ActivityLog, TodayConditions } from "../types";
+import {
+  Child,
+  ActivityLog,
+  TodayConditions,
+  DevDomain,
+  DEV_DOMAINS,
+} from "../types";
 import { ageLabel } from "../utils";
+import type { AdviceTurn } from "./index";
+
+// 최근 놀이의 발달 영역 중 적게 다룬 영역(개인화 균형 힌트)
+function weakDomainHint(recent: ActivityLog[]): string {
+  if (recent.length < 3) return "";
+  const count: Record<DevDomain, number> = {
+    신체: 0,
+    언어: 0,
+    사회정서: 0,
+    인지: 0,
+    창의감각: 0,
+  };
+  recent.forEach((l) =>
+    (l.activity.domains || []).forEach((d) => {
+      if (d in count) count[d]++;
+    })
+  );
+  const sorted = DEV_DOMAINS.map((d) => ({ d, c: count[d] })).sort(
+    (a, b) => a.c - b.c
+  );
+  const max = Math.max(...DEV_DOMAINS.map((d) => count[d]));
+  const weak = sorted.filter((s) => s.c < max).slice(0, 2).map((s) => s.d);
+  if (!weak.length) return "";
+  return `\n- 발달 균형: 최근 '${weak.join(", ")}' 영역 놀이가 적었어. 이 영역을 돕는 놀이를 최소 1개 포함해줘.`;
+}
 
 export const SYSTEM_PROMPT = `너는 24~48개월(만 2~4세) 아이를 키우는 부모를 돕는 한국어 육아 도우미다.
 
@@ -53,7 +84,7 @@ export function buildTodayPrompt(
 - 부모 체력: ${conditions.parentEnergy}
 - 아이 상태: ${conditions.childState}${
     conditions.weather ? `\n- 현재 날씨: ${conditions.weather}` : ""
-  }
+  }${weakDomainHint(recent)}
 
 위 정보를 바탕으로 오늘 아이와 할 놀이 8개를 추천해줘.
 과거에 반응이 좋았던 놀이의 결은 살리고, 반응이 안 좋았던 놀이는 피해줘.
@@ -86,15 +117,29 @@ export function buildNowPrompt(
   child: Child,
   category: string,
   question: string,
-  recent: ActivityLog[]
+  recent: ActivityLog[],
+  history: AdviceTurn[] = []
 ): string {
-  return `${childContext(child, recent)}
+  const historyBlock = history.length
+    ? `\n[이전 대화 — 이어지는 상황]\n${history
+        .map(
+          (t, i) =>
+            `${i + 1}. 부모: ${t.question}\n   도우미 요약: ${t.advice.firstStep}`
+        )
+        .join("\n")}\n`
+    : "";
 
+  const askLine = history.length
+    ? `부모가 위 조언을 해봤지만 상황이 이어지고 있어. 앞의 조언과 겹치지 않게, 한 단계 더 나아간 대응을 알려줘. 300~500자 이내.`
+    : `이 상황에서 부모가 지금 바로 실행할 수 있는 대응을 알려줘. 300~500자 이내.`;
+
+  return `${childContext(child, recent)}
+${historyBlock}
 [지금 겪는 상황]
 - 분류: ${category}
 - 부모 설명: ${question}
 
-이 상황에서 부모가 지금 바로 실행할 수 있는 대응을 알려줘. 300~500자 이내.
+${askLine}
 
 반드시 아래 JSON 형식으로만 응답:
 {

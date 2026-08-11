@@ -52,13 +52,21 @@ export async function requestNow(
   child: Child,
   category: string,
   question: string,
-  recent: ActivityLog[]
+  recent: ActivityLog[],
+  history: { question: string; advice: SituationAdvice }[] = []
 ): Promise<SituationAdvice> {
   try {
-    const data = await post({ type: "now", child, category, question, recent });
+    const data = await post({
+      type: "now",
+      child,
+      category,
+      question,
+      recent,
+      history,
+    });
     return data as SituationAdvice;
   } catch (e) {
     console.warn("[ai/client] now fallback to local mock:", e);
-    return mockAdapter.now(child, category, question, recent);
+    return mockAdapter.now(child, category, question, recent, history);
   }
 }

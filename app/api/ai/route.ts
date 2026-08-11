@@ -29,8 +29,8 @@ export async function POST(req: NextRequest) {
     }
 
     if (type === "now") {
-      const { category = "기타", question = "", recent = [] } = body;
-      const result = await aiNow(child, category, question, recent);
+      const { category = "기타", question = "", recent = [], history = [] } = body;
+      const result = await aiNow(child, category, question, recent, history);
       return NextResponse.json(result);
     }
 
