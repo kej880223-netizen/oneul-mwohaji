@@ -89,3 +89,27 @@ export interface TodayConditions {
   parentEnergy: string; // 힘들어요 / 보통 / 같이 놀아주고 싶어요
   childState: string; // 심심 / 에너지 넘침 / 짜증 / 차분 / 모름
 }
+
+// ─── 주변 장소 (야외 GPS 추천) ─────────────────────────────
+
+export type PlaceCategory =
+  | "playground"
+  | "park"
+  | "zoo"
+  | "aquarium"
+  | "museum"
+  | "themepark"
+  | "waterpark"
+  | "library"
+  | "other";
+
+export interface Place {
+  id: string;
+  name: string;
+  category: PlaceCategory;
+  lat: number;
+  lng: number;
+  distanceM: number; // 현재 위치로부터 거리(m)
+  address?: string;
+  mapUrl: string; // 지도에서 열기 링크
+}

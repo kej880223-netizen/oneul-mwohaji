@@ -20,6 +20,7 @@ import {
 } from "@/components/ui";
 import ActivityCard from "@/components/ActivityCard";
 import { Disclaimer } from "@/components/Notices";
+import NearbyPlaces from "@/components/NearbyPlaces";
 import { setSelectedActivity } from "@/lib/session";
 
 type Step = "ask" | "loading" | "result" | "error";
@@ -87,6 +88,10 @@ export default function TodayPage() {
           <p className="text-center text-xs text-ink-faint pt-1">
             카드를 누르면 놀이 방법을 볼 수 있어요.
           </p>
+
+          {/* 야외 선택 시: GPS 기반 주변 장소 추천 */}
+          {place === "야외" && <NearbyPlaces />}
+
           <div className="pt-2">
             <Button variant="secondary" full onClick={() => setStep("ask")}>
               조건 바꿔서 다시 추천받기
