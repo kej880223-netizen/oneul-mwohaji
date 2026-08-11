@@ -12,6 +12,7 @@ import { resetAll, setActiveChild, deleteChild } from "@/lib/storage";
 import { ageLabel, cx } from "@/lib/utils";
 import { Card, PageHeader, Button, Loading, SectionTitle } from "@/components/ui";
 import NotifySettings from "@/components/NotifySettings";
+import FamilyShare from "@/components/FamilyShare";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -200,6 +201,9 @@ export default function ProfilePage() {
             <p className="text-[11px] text-ink-faint mt-0.5">놀이 순간 타임라인</p>
           </Card>
         </div>
+
+        {/* 부부 공유 */}
+        <FamilyShare />
 
         {/* 알림 설정 */}
         <NotifySettings />

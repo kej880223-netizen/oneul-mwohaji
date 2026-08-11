@@ -3,6 +3,7 @@ import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import NotificationScheduler from "@/components/NotificationScheduler";
+import FamilySync from "@/components/FamilySync";
 
 export const metadata: Metadata = {
   applicationName: "오늘 뭐하지?",
@@ -50,6 +51,7 @@ export default function RootLayout({
         </div>
         <ServiceWorkerRegister />
         <NotificationScheduler />
+        <FamilySync />
       </body>
     </html>
   );
