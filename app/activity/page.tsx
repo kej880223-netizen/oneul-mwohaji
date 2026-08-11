@@ -10,6 +10,7 @@ import { uid } from "@/lib/utils";
 import { Button, Card, PageHeader, OptionButton, EmptyState, Loading } from "@/components/ui";
 import { energyLabel, difficultyStars } from "@/components/ActivityCard";
 import FavoriteButton from "@/components/FavoriteButton";
+import SpeakButton from "@/components/SpeakButton";
 
 type Phase = "detail" | "record";
 
@@ -184,7 +185,15 @@ export default function ActivityPage() {
         </Card>
 
         <Card>
-          <h2 className="text-sm font-bold text-ink mb-3">👀 놀이 방법</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-bold text-ink">👀 놀이 방법</h2>
+            <SpeakButton
+              text={`${activity.title}. ${activity.steps
+                .map((s, i) => `${i + 1}. ${s}`)
+                .join(" ")}`}
+              label="방법 읽어주기"
+            />
+          </div>
           <ol className="space-y-2.5">
             {activity.steps.map((s, i) => (
               <li key={i} className="flex gap-2.5 text-sm text-ink">

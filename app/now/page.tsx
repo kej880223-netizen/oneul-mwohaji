@@ -8,6 +8,7 @@ import { addQuestion } from "@/lib/storage";
 import { SituationAdvice, ParentingQuestion } from "@/lib/types";
 import { SITUATIONS } from "@/lib/constants";
 import { uid } from "@/lib/utils";
+import { useSpeechRecognition } from "@/lib/useSpeech";
 import {
   Button,
   Card,
@@ -16,6 +17,7 @@ import {
   ErrorState,
 } from "@/components/ui";
 import { SafetyNotice, Disclaimer } from "@/components/Notices";
+import SpeakButton from "@/components/SpeakButton";
 
 type Step = "pick" | "input" | "loading" | "result" | "error";
 
@@ -31,6 +33,7 @@ export default function NowPage() {
   const [advice, setAdvice] = useState<SituationAdvice | null>(null);
   const [note, setNote] = useState("");
   const [saved, setSaved] = useState(false);
+  const speech = useSpeechRecognition();
 
   if (!ready) return <Loading />;
   if (!child) {
@@ -80,6 +83,24 @@ export default function NowPage() {
         />
         <div className="px-5 space-y-3 pb-6">
           {advice.safetyNotice && <SafetyNotice message={advice.safetyNotice} />}
+
+          <div className="flex justify-end">
+            <SpeakButton
+              text={[
+                "먼저,",
+                advice.firstStep,
+                "이렇게 말해보세요.",
+                advice.sayThis,
+                "지금은 피해주세요.",
+                advice.avoidThis,
+                "왜 그럴까요?",
+                advice.why,
+                "상황이 끝난 뒤.",
+                advice.afterwards,
+              ].join(" ")}
+              label="조언 읽어주기"
+            />
+          </div>
 
           <AdviceItem n="1" title="먼저" body={advice.firstStep} />
           <AdviceItem
@@ -166,6 +187,26 @@ export default function NowPage() {
               placeholder="예: 마트에서 장난감 사달라고 바닥에 누워서 울어요"
               className="w-full rounded-xl border border-primary-soft px-3 py-2.5 text-sm focus:border-primary outline-none resize-none"
             />
+            {speech.supported && (
+              <button
+                type="button"
+                onClick={() =>
+                  speech.listening
+                    ? speech.stop()
+                    : speech.start((t) =>
+                        setCustomText((prev) => (prev ? prev + " " : "") + t)
+                      )
+                }
+                className={
+                  "mt-2 inline-flex items-center gap-1.5 text-sm font-semibold rounded-full px-3.5 py-2 transition " +
+                  (speech.listening
+                    ? "bg-red-500 text-white animate-pulse"
+                    : "bg-primary-soft text-primary-dark")
+                }
+              >
+                {speech.listening ? "🔴 듣는 중... (탭하면 중지)" : "🎤 말로 입력하기"}
+              </button>
+            )}
           </Card>
           <Button
             size="lg"

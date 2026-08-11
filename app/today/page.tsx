@@ -21,6 +21,7 @@ import {
 import ActivityCard from "@/components/ActivityCard";
 import { Disclaimer } from "@/components/Notices";
 import NearbyPlaces from "@/components/NearbyPlaces";
+import WeatherBadge from "@/components/WeatherBadge";
 import { setSelectedActivity } from "@/lib/session";
 
 type Step = "ask" | "loading" | "result" | "error";
@@ -35,6 +36,7 @@ export default function TodayPage() {
   const [time, setTime] = useState<string>("");
   const [energy, setEnergy] = useState<string>("");
   const [childState, setChildState] = useState<string>("");
+  const [weather, setWeather] = useState<string>("");
   const [results, setResults] = useState<Activity[]>([]);
 
   if (!ready) return <Loading />;
@@ -53,6 +55,7 @@ export default function TodayPage() {
       time,
       parentEnergy: energy,
       childState,
+      weather: weather || undefined,
     };
     try {
       const acts = await requestToday(child, conditions, logs.slice(0, 10));
@@ -131,6 +134,12 @@ export default function TodayPage() {
       />
 
       <div className="px-5 space-y-6">
+        <WeatherBadge
+          currentPlace={place}
+          onWeather={setWeather}
+          onPickPlace={setPlace}
+        />
+
         <Question title="오늘 어디에서 놀 예정인가요?">
           <div className="grid grid-cols-2 gap-2">
             {TODAY_PLACES.map((p) => (

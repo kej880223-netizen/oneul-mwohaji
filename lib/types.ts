@@ -89,6 +89,7 @@ export interface TodayConditions {
   time: string; // 10분 이하 / 10~30분 / 30분~1시간 / 1시간 이상
   parentEnergy: string; // 힘들어요 / 보통 / 같이 놀아주고 싶어요
   childState: string; // 심심 / 에너지 넘침 / 짜증 / 차분 / 모름
+  weather?: string; // 예: "맑음 22°C" (선택, 날씨 반영 시)
 }
 
 // ─── 주변 장소 (야외 GPS 추천) ─────────────────────────────

@@ -51,7 +51,9 @@ export function buildTodayPrompt(
 - 장소: ${conditions.place}
 - 사용 가능 시간: ${conditions.time}
 - 부모 체력: ${conditions.parentEnergy}
-- 아이 상태: ${conditions.childState}
+- 아이 상태: ${conditions.childState}${
+    conditions.weather ? `\n- 현재 날씨: ${conditions.weather}` : ""
+  }
 
 위 정보를 바탕으로 오늘 아이와 할 놀이 8개를 추천해줘.
 과거에 반응이 좋았던 놀이의 결은 살리고, 반응이 안 좋았던 놀이는 피해줘.
