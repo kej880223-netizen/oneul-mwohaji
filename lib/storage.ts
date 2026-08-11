@@ -214,6 +214,12 @@ export function exportAll(): Record<string, unknown> {
 
 export function resetAll(): void {
   if (typeof window === "undefined") return;
-  Object.values(KEYS).forEach((k) => window.localStorage.removeItem(k));
+  // omh.* 로 시작하는 모든 키 제거 (알림 설정 등 포함)
+  const keys: string[] = [];
+  for (let i = 0; i < window.localStorage.length; i++) {
+    const k = window.localStorage.key(i);
+    if (k && k.startsWith("omh.")) keys.push(k);
+  }
+  keys.forEach((k) => window.localStorage.removeItem(k));
   window.dispatchEvent(new Event("omh:storage"));
 }

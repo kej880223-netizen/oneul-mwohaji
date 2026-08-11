@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import NotificationScheduler from "@/components/NotificationScheduler";
 
 export const metadata: Metadata = {
   applicationName: "오늘 뭐하지?",
@@ -48,6 +49,7 @@ export default function RootLayout({
           <BottomNav />
         </div>
         <ServiceWorkerRegister />
+        <NotificationScheduler />
       </body>
     </html>
   );

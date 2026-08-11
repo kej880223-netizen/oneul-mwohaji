@@ -11,6 +11,7 @@ import {
 import { resetAll, setActiveChild, deleteChild } from "@/lib/storage";
 import { ageLabel, cx } from "@/lib/utils";
 import { Card, PageHeader, Button, Loading, SectionTitle } from "@/components/ui";
+import NotifySettings from "@/components/NotifySettings";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -199,6 +200,9 @@ export default function ProfilePage() {
             <p className="text-[11px] text-ink-faint mt-0.5">놀이 순간 타임라인</p>
           </Card>
         </div>
+
+        {/* 알림 설정 */}
+        <NotifySettings />
 
         {/* 통계 요약 */}
         <div className="grid grid-cols-2 gap-3">
