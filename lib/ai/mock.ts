@@ -1,186 +1,68 @@
 // ─────────────────────────────────────────────────────────
 //  Mock AI 어댑터
 //  API key 없이 전체 플로우를 테스트하기 위한 규칙 기반 생성기.
-//  입력(장소/체력/아이 상태/성향/과거 기록)에 따라 결과가 달라져
-//  실제 개인화된 것처럼 보이도록 구성.
+//
+//  핵심 개념 분리:
+//   - energyLevel : "부모 체력 소모"(부모가 얼마나 힘든가) — UI에도 표시
+//   - childEnergy : "아이 활동량"(아이가 얼마나 몸을 쓰는가) — 채점용 내부값
+//  → 부모는 지쳤지만 아이는 에너지 넘칠 때, "부모는 앉아서 / 아이는 실컷"인
+//    놀이(신문지 찢기·풍선·쿠션 징검다리)를 고를 수 있다.
+//
+//  놀이 풀(100+개)은 lib/ai/activities.json 에 분리 저장.
 // ─────────────────────────────────────────────────────────
 
-import { Activity, Child, ActivityLog, SituationAdvice, TodayConditions } from "../types";
+import {
+  Activity,
+  Child,
+  ActivityLog,
+  SituationAdvice,
+  TodayConditions,
+  EnergyLevel,
+} from "../types";
 import { uid } from "../utils";
 import { needsSafetyNotice, SAFETY_MESSAGE } from "./safety";
+import poolData from "./activities.json";
 
 type Template = Omit<Activity, "id" | "parentPhrases"> & {
+  childEnergy: EnergyLevel; // 아이 활동량 (채점용)
   places: string[];
   parentPhrases: string[];
 };
 
-const ACTIVITY_POOL: Template[] = [
-  {
-    title: "🎨 색깔 탐정 놀이",
-    description: "집 안에서 특정 색깔 물건을 함께 찾는 놀이예요.",
-    ageRange: "24-48",
-    duration: 10,
-    materials: [],
-    energyLevel: "low",
-    difficulty: 1,
-    purpose: "관찰력과 색깔·사물 이름을 말하는 언어 표현을 자연스럽게 자극해요.",
-    steps: [
-      "먼저 빨간색 물건을 하나 찾아 보여줘요.",
-      "아이에게 같은 색 물건을 찾아보게 해요.",
-      "찾은 물건을 한곳에 모아요.",
-      "마지막에 아이가 가장 좋아하는 색을 골라보게 해요.",
-    ],
-    parentPhrases: ["빨간색을 찾아볼까?", "우와, {name}가 찾았네!"],
-    places: ["집", "이동 중", "어린이집·기관"],
-  },
-  {
-    title: "🧺 빨래 정리 도우미",
-    description: "빨래를 색·짝 맞춰 정리하며 노는 생활 놀이예요.",
-    ageRange: "24-48",
-    duration: 15,
-    materials: ["빨래(양말 등)"],
-    energyLevel: "low",
-    difficulty: 1,
-    purpose: "분류·짝짓기 개념과 '나도 도왔다'는 성취감을 길러줘요.",
-    steps: [
-      "양말을 바닥에 펼쳐 놓아요.",
-      "같은 짝을 찾아 맞춰보게 해요.",
-      "색깔별로 바구니에 나눠 담아요.",
-      "다 하면 크게 칭찬해줘요.",
-    ],
-    parentPhrases: ["이 양말의 짝은 어디 있을까?", "{name} 덕분에 정리 끝났다!"],
-    places: ["집"],
-  },
-  {
-    title: "🐻 이불 동굴 탐험",
-    description: "이불로 동굴을 만들고 손전등으로 탐험하는 놀이예요.",
-    ageRange: "24-48",
-    duration: 20,
-    materials: ["이불", "손전등(휴대폰 가능)"],
-    energyLevel: "medium",
-    difficulty: 1,
-    purpose: "상상 놀이로 정서적 안정감과 이야기 표현력을 키워줘요.",
-    steps: [
-      "식탁이나 의자에 이불을 덮어 동굴을 만들어요.",
-      "손전등을 들고 함께 안으로 들어가요.",
-      "'무엇이 보이는지' 서로 이야기해요.",
-      "동굴 안에서 좋아하는 인형을 초대해요.",
-    ],
-    parentPhrases: ["동굴 안에 뭐가 있을까?", "{name}가 대장 탐험가네!"],
-    places: ["집"],
-  },
-  {
-    title: "🏃 신호등 멈춰 놀이",
-    description: "'초록불엔 달리고 빨간불엔 멈추는' 몸놀이예요.",
-    ageRange: "24-48",
-    duration: 15,
-    materials: [],
-    energyLevel: "high",
-    difficulty: 2,
-    purpose: "넘치는 에너지를 발산하고 자기조절(멈추기)을 연습해요.",
-    steps: [
-      "'초록불'이라고 외치면 함께 달려요.",
-      "'빨간불'이라고 외치면 그대로 멈춰요.",
-      "역할을 바꿔 아이가 신호를 외치게 해요.",
-      "멈추기에 성공하면 하이파이브!",
-    ],
-    parentPhrases: ["초록불! 출발!", "빨간불! 멈춰! 우와 잘 멈췄다!"],
-    places: ["야외", "집", "어린이집·기관"],
-  },
-  {
-    title: "🍳 엄마아빠와 요리 놀이",
-    description: "안전한 재료로 함께 섞고 담는 부엌 놀이예요.",
-    ageRange: "24-48",
-    duration: 25,
-    materials: ["그릇", "간단한 재료(과일·시리얼 등)"],
-    energyLevel: "medium",
-    difficulty: 2,
-    purpose: "소근육과 순서 개념을 기르고 편식 완화에도 도움이 돼요.",
-    steps: [
-      "재료를 그릇에 담아 준비해요.",
-      "아이가 직접 섞거나 담게 해요.",
-      "완성한 음식을 함께 이름 붙여요.",
-      "직접 만든 것을 같이 맛봐요.",
-    ],
-    parentPhrases: ["이번엔 {name}가 섞어볼까?", "{name} 요리사님, 완성!"],
-    places: ["집"],
-  },
-  {
-    title: "🌳 자연물 보물찾기",
-    description: "밖에서 나뭇잎·돌 같은 보물을 모으는 놀이예요.",
-    ageRange: "24-48",
-    duration: 30,
-    materials: ["작은 봉투나 바구니"],
-    energyLevel: "high",
-    difficulty: 1,
-    purpose: "오감 자극과 신체 활동, 자연 관찰력을 함께 길러줘요.",
-    steps: [
-      "'노란 나뭇잎 찾기' 같은 미션을 정해요.",
-      "함께 걸으며 보물을 모아요.",
-      "모은 것을 바닥에 늘어놓고 세어봐요.",
-      "가장 마음에 드는 보물을 골라 집에 가져와요.",
-    ],
-    parentPhrases: ["동그란 돌을 찾아볼까?", "{name}가 보물을 이만큼 찾았네!"],
-    places: ["야외"],
-  },
-  {
-    title: "🎵 손유희 노래 부르기",
-    description: "손동작을 곁들여 익숙한 동요를 부르는 놀이예요.",
-    ageRange: "24-48",
-    duration: 10,
-    materials: [],
-    energyLevel: "low",
-    difficulty: 1,
-    purpose: "리듬감과 언어 발달, 부모와의 애착을 동시에 키워줘요.",
-    steps: [
-      "아이가 좋아하는 동요를 골라요.",
-      "간단한 손동작을 함께 만들어요.",
-      "속도를 빠르게·느리게 바꿔 불러봐요.",
-      "마지막엔 꼭 안아주며 마무리해요.",
-    ],
-    parentPhrases: ["이 노래 손동작 같이 해볼까?", "{name} 목소리 정말 예쁘다!"],
-    places: ["집", "이동 중", "어린이집·기관"],
-  },
-  {
-    title: "🚗 창밖 관찰 이야기",
-    description: "이동 중 창밖 사물을 함께 찾고 이야기하는 놀이예요.",
-    ageRange: "24-48",
-    duration: 10,
-    materials: [],
-    energyLevel: "low",
-    difficulty: 1,
-    purpose: "지루한 이동 시간을 언어·관찰 놀이로 바꿔줘요.",
-    steps: [
-      "'빨간 차 찾기' 미션을 정해요.",
-      "먼저 찾는 사람이 손을 들어요.",
-      "찾은 것에 대해 한 문장씩 이야기해요.",
-      "다음 미션(버스, 강아지 등)으로 바꿔요.",
-    ],
-    parentPhrases: ["저기 노란 버스 보인다!", "{name}가 먼저 찾았네!"],
-    places: ["이동 중"],
-  },
-  {
-    title: "📦 상자 우체통 놀이",
-    description: "상자에 구멍을 내 물건을 넣고 꺼내는 조용한 놀이예요.",
-    ageRange: "24-48",
-    duration: 15,
-    materials: ["상자", "작은 물건들"],
-    energyLevel: "low",
-    difficulty: 1,
-    purpose: "소근육과 '넣다·꺼내다' 개념, 집중력을 길러줘요.",
-    steps: [
-      "상자 윗면에 손이 들어갈 구멍을 만들어요.",
-      "블록이나 인형을 '편지'라고 부르며 넣어요.",
-      "다시 꺼내며 무엇이 나왔는지 말해요.",
-      "아이가 직접 우체부가 되어보게 해요.",
-    ],
-    parentPhrases: ["편지를 넣어볼까?", "{name} 우체부님, 편지 왔어요!"],
-    places: ["집", "어린이집·기관"],
-  },
-];
+const ACTIVITY_POOL = poolData as unknown as Template[];
 
-function energyRank(e: string): number {
-  return e === "low" ? 0 : e === "medium" ? 1 : 2;
+// ─── 조건별 점수 함수 ──────────────────────────────────
+
+function parentFit(pe: string, el: EnergyLevel): number {
+  // 부모 체력(=부모 노력) 매칭. 힘들 땐 고체력 놀이 강한 감점.
+  if (pe === "힘들어요") return el === "low" ? 5 : el === "medium" ? 0 : -8;
+  if (pe === "보통") return el === "low" ? 2 : el === "medium" ? 3 : 0;
+  if (pe === "같이 놀고싶어요") return el === "low" ? 0 : el === "medium" ? 2 : 4;
+  return 0;
+}
+
+function childFit(cs: string, ce: EnergyLevel): number {
+  // 아이 상태 ↔ 아이 활동량 매칭
+  switch (cs) {
+    case "에너지넘침":
+      return ce === "high" ? 4 : ce === "medium" ? 1 : -3;
+    case "짜증":
+      return ce === "low" ? 3 : ce === "medium" ? 1 : -2;
+    case "차분":
+      return ce === "low" ? 2 : ce === "medium" ? 1 : -1;
+    case "심심":
+      return ce === "high" ? 2 : ce === "medium" ? 2 : 0;
+    default:
+      return 0; // 모름
+  }
+}
+
+function durationFit(time: string, dur: number): number {
+  if (time === "10분 이하") return dur <= 10 ? 2 : dur <= 15 ? 0 : -3;
+  if (time === "10~30분") return dur >= 10 && dur <= 30 ? 2 : -1;
+  if (time === "30분~1시간") return dur >= 20 ? 2 : dur <= 10 ? -1 : 1;
+  if (time === "1시간 이상") return dur >= 25 ? 2 : 0;
+  return 0;
 }
 
 function pickActivities(
@@ -195,49 +77,64 @@ function pickActivities(
     recent.filter((l) => l.reaction === "good").map((l) => l.activity.title)
   );
 
+  // 좋아하는 것 토큰
+  const likeTokens = (child.likes || "")
+    .split(/[\s,]+/)
+    .map((t) => t.trim())
+    .filter((t) => t.length >= 2);
+
   const scored = ACTIVITY_POOL.map((t) => {
-    let score = 0;
-    if (t.places.includes(c.place)) score += 3;
+    let s = 0;
 
-    // 부모 체력에 맞춘 강도
-    if (c.parentEnergy === "힘들어요" && t.energyLevel === "low") score += 3;
-    if (c.parentEnergy === "같이 놀고싶어요" && t.energyLevel !== "low") score += 2;
+    // 장소 (안 맞으면 사실상 제외)
+    s += t.places.includes(c.place) ? 4 : -6;
 
-    // 아이 상태
-    if (c.childState === "에너지넘침" && t.energyLevel === "high") score += 3;
-    if (c.childState === "짜증" && t.energyLevel === "low") score += 2;
-    if (c.childState === "차분" && t.energyLevel !== "high") score += 1;
-    if (c.childState === "심심" && t.energyLevel === "medium") score += 1;
+    // 부모 체력 / 아이 상태 / 시간
+    s += parentFit(c.parentEnergy, t.energyLevel);
+    s += childFit(c.childState, t.childEnergy);
+    s += durationFit(c.time, t.duration);
 
     // 성향
-    if (child.personality.includes("활동적인 편") && t.energyLevel === "high") score += 1;
-    if (child.personality.includes("조심스러운 편") && t.energyLevel === "low") score += 1;
+    if (child.personality.includes("활동적인 편") && t.childEnergy === "high")
+      s += 1;
+    if (
+      child.personality.includes("조심스러운 편") ||
+      child.personality.includes("낯선 환경을 어려워하는 편")
+    ) {
+      if (t.childEnergy === "low") s += 1;
+      if (t.childEnergy === "high") s -= 1;
+    }
 
-    // 과거 기록: 좋아한 결은 살리고 싫어한 것은 피함
-    if (likedTitles.has(t.title)) score += 2;
-    if (dislikedTitles.has(t.title)) score -= 5;
+    // 좋아하는 것 매칭 (제목·설명·목적·준비물에 포함되면 가점)
+    const haystack = `${t.title} ${t.description} ${t.purpose} ${(
+      t.materials || []
+    ).join(" ")}`;
+    if (likeTokens.some((tok) => haystack.includes(tok))) s += 2;
 
-    // 시간 제약: 10분 이하인데 오래 걸리는 놀이는 감점
-    if (c.time === "10분 이하" && t.duration > 12) score -= 2;
+    // 과거 반응
+    if (likedTitles.has(t.title)) s += 3;
+    if (dislikedTitles.has(t.title)) s -= 6;
 
-    return { t, score };
-  })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
-    .map(({ t }) => t);
+    // 매번 조금씩 다른 조합을 위한 소량 무작위성
+    s += Math.random() * 1.5;
 
-  return scored.map((t) => ({
+    return { t, s };
+  }).sort((a, b) => b.s - a.s);
+
+  return scored.slice(0, 3).map(({ t }) => ({
     id: uid(),
     title: t.title,
     description: t.description,
     ageRange: t.ageRange,
     duration: t.duration,
-    materials: t.materials,
+    materials: t.materials || [],
     energyLevel: t.energyLevel,
     difficulty: t.difficulty,
     purpose: t.purpose,
     steps: t.steps,
-    parentPhrases: t.parentPhrases.map((p) => p.replaceAll("{name}", child.name)),
+    parentPhrases: (t.parentPhrases || []).map((p) =>
+      p.replaceAll("{name}", child.name)
+    ),
   }));
 }
 

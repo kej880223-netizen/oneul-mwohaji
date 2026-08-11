@@ -94,7 +94,10 @@ export default function TodayPage() {
             <NearbyPlaces child={child} childState={childState} />
           )}
 
-          <div className="pt-2">
+          <div className="pt-2 space-y-2">
+            <Button full onClick={submit}>
+              🔄 다른 놀이 보기
+            </Button>
             <Button variant="secondary" full onClick={() => setStep("ask")}>
               조건 바꿔서 다시 추천받기
             </Button>

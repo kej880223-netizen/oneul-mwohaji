@@ -1,0 +1,2926 @@
+[
+  {
+    "title": "🎨 색깔 탐정 놀이",
+    "description": "집 안에서 같은 색 물건을 찾아 모으는 색 인지 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "색종이 또는 색깔 카드"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "색 이름을 익히고 사물을 분류하며 관찰력을 키운다.",
+    "steps": [
+      "색종이 한 장을 아이에게 보여준다",
+      "같은 색 물건을 함께 찾는다",
+      "찾은 물건을 색종이 위에 모은다"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 색이랑 똑같은 거 어디 있을까?",
+      "우와 {name}이가 빨간색을 정말 잘 찾네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🖍️ 큰 도화지 낙서 놀이",
+    "description": "바닥에 붙인 큰 종이에 마음껏 그리는 자유 표현 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "전지 또는 큰 종이",
+      "크레용",
+      "마스킹테이프"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "손목과 팔 근육을 쓰며 소근육과 표현력을 발달시킨다.",
+    "steps": [
+      "큰 종이를 바닥에 테이프로 고정한다",
+      "크레용을 아이에게 쥐어준다",
+      "자유롭게 선과 동그라미를 그리게 한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 크레용으로 어떤 그림 그려볼까?",
+      "{name}이가 그린 동그라미 정말 멋지다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "✋ 손도장 물감 놀이",
+    "description": "손바닥에 물감을 묻혀 종이에 도장 찍는 촉감 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "수성 물감",
+      "도화지",
+      "물티슈",
+      "접시"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "촉감을 자극하고 손 전체를 사용해 감각 통합을 돕는다.",
+    "steps": [
+      "접시에 물감을 짜둔다",
+      "손바닥에 물감을 골고루 묻힌다",
+      "종이에 손도장을 콕 찍는다",
+      "물티슈로 손을 닦는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 손바닥이 말랑말랑 물감이 묻었네!",
+      "{name}이 손도장이 나비 같아 보인다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🌈 스티커 붙이기 놀이",
+    "description": "동그라미 스티커를 종이 위에 자유롭게 붙이는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "동그라미 스티커",
+      "도화지"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "손가락 끝 소근육과 집게 잡기 능력을 정교하게 발달시킨다.",
+    "steps": [
+      "스티커 한 장을 떼어 아이에게 준다",
+      "종이 위 원하는 곳에 붙인다",
+      "여러 색으로 그림처럼 채운다"
+    ],
+    "parentPhrases": [
+      "{name}아, 스티커 여기에 콕 붙여볼까?",
+      "{name}이가 알록달록 예쁘게 붙였네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🍚 밀가루 촉감 탐색",
+    "description": "쟁반 위 밀가루를 만지고 그림 그리며 노는 촉감 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "밀가루",
+      "넓은 쟁반"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "부드러운 촉감을 느끼며 감각 자극과 손가락 조작을 돕는다.",
+    "steps": [
+      "쟁반에 밀가루를 넓게 펼친다",
+      "손가락으로 만지고 뿌려본다",
+      "손가락으로 선을 그린다"
+    ],
+    "parentPhrases": [
+      "{name}아, 밀가루가 보들보들하지?",
+      "{name}이가 손가락으로 길을 만들었네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🧱 블록 높이 쌓기",
+    "description": "블록을 하나씩 높이 쌓아 올리는 균형 조작 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "큰 블록"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "손과 눈의 협응과 공간 개념, 균형 감각을 기른다.",
+    "steps": [
+      "블록을 바닥에 늘어놓는다",
+      "하나씩 위로 쌓아 올린다",
+      "무너지면 다시 함께 쌓는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 얼마나 높이 쌓을 수 있을까?",
+      "우와 {name}이 탑이 정말 높다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎈 점토 조물조물 놀이",
+    "description": "점토를 손으로 주무르고 굴려 모양 만드는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "말랑한 점토"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "손가락 힘을 기르고 모양 만들기로 창의력을 자극한다.",
+    "steps": [
+      "점토를 손바닥으로 주무른다",
+      "동글동글 공을 만든다",
+      "길게 밀어 뱀을 만든다"
+    ],
+    "parentPhrases": [
+      "{name}아, 점토로 동그란 공 만들어볼까?",
+      "{name}이가 만든 뱀 정말 길다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🔵 색깔 분류 컵 놀이",
+    "description": "색깔별 컵에 같은 색 공을 나눠 담는 분류 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "색깔 컵",
+      "색깔 공 또는 폼폼이"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "색 구분과 분류 능력, 집게 잡기 소근육을 발달시킨다.",
+    "steps": [
+      "색깔 컵을 나란히 놓는다",
+      "같은 색 공을 골라낸다",
+      "맞는 색 컵에 담는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 공은 어느 컵에 넣을까?",
+      "{name}이가 색깔을 딱딱 맞췄네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "📄 색종이 찢기 놀이",
+    "description": "색종이를 손으로 찢어 종이에 붙이는 콜라주 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "색종이",
+      "풀",
+      "도화지"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "양손 협응과 손가락 힘을 기르고 소근육을 발달시킨다.",
+    "steps": [
+      "색종이를 양손으로 쭉 찢는다",
+      "찢은 조각에 풀을 바른다",
+      "도화지에 자유롭게 붙인다"
+    ],
+    "parentPhrases": [
+      "{name}아, 종이를 쭉쭉 찢어볼까?",
+      "{name}이가 붙인 조각들이 꽃 같아!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🖌️ 물 붓 그림 놀이",
+    "description": "물만 묻힌 붓으로 색이 나타나는 신기한 그림 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "물통",
+      "붓",
+      "물그림 도안 또는 검은 도화지"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "붓 조작으로 소근육을 쓰고 변화를 관찰하며 호기심을 키운다.",
+    "steps": [
+      "물통에 물을 조금 담는다",
+      "붓에 물을 묻힌다",
+      "종이 위를 붓으로 칠한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 붓으로 칠하니까 색이 나타나네!",
+      "{name}이가 붓질을 정말 살살 잘하네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🍜 삶은 면 촉감 놀이",
+    "description": "삶아 식힌 국수를 만지며 노는 미끌미끌 촉감 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "삶은 국수",
+      "넓은 그릇"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "독특한 촉감을 경험하며 감각 자극과 손 탐색을 돕는다.",
+    "steps": [
+      "국수를 삶아 식힌 뒤 그릇에 담는다",
+      "손으로 만지고 잡아본다",
+      "손가락 사이로 흘려본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 국수가 미끌미끌 재밌지?",
+      "{name}이 손에서 국수가 쏙 빠져나가네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🥕 도장 채소 찍기",
+    "description": "채소 단면에 물감을 묻혀 종이에 찍는 도장 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "채소 단면(당근·연근 등)",
+      "물감",
+      "도화지",
+      "접시"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "다양한 모양을 관찰하고 손힘을 조절하며 표현력을 기른다.",
+    "steps": [
+      "접시에 물감을 짠다",
+      "채소에 물감을 묻힌다",
+      "종이에 꾹 눌러 찍는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 당근을 찍으면 어떤 모양이 나올까?",
+      "{name}이가 찍은 도장이 꽃밭 같아!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "⭕ 구멍에 끼우기 놀이",
+    "description": "구멍에 굵은 끈이나 막대를 끼워 넣는 조작 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "구멍 뚫린 판 또는 통",
+      "굵은 끈이나 빨대"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "눈과 손의 협응과 집중력, 정교한 소근육을 발달시킨다.",
+    "steps": [
+      "구멍이 있는 판을 준비한다",
+      "끈이나 빨대를 구멍에 맞춘다",
+      "쏙 넣고 다시 빼본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 여기 구멍에 쏙 넣어볼까?",
+      "{name}이가 딱 맞게 끼웠네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🐟 종이접기 첫걸음",
+    "description": "색종이를 반으로 접어 간단한 모양 만드는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "색종이"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 3,
+    "purpose": "선을 맞춰 접으며 손가락 조절력과 집중력을 기른다.",
+    "steps": [
+      "색종이를 반으로 접는다",
+      "손가락으로 접은 선을 꾹 누른다",
+      "삼각형으로 한 번 더 접는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 여기 모서리를 맞춰서 접어볼까?",
+      "{name}이가 손가락으로 꾹 눌러 잘 접었네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎨 색칠 도안 놀이",
+    "description": "큰 그림 도안에 크레용으로 색칠하는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "색칠 도안",
+      "크레용"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "손목 조절과 색 선택을 통해 소근육과 표현력을 키운다.",
+    "steps": [
+      "색칠할 도안을 펼친다",
+      "좋아하는 색 크레용을 고른다",
+      "그림 안을 칠한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 사과는 무슨 색으로 칠할까?",
+      "{name}이가 예쁘게 칠했네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🫧 뽁뽁이 물감 놀이",
+    "description": "에어캡에 물감을 묻혀 종이에 찍는 질감 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "에어캡(뽁뽁이)",
+      "물감",
+      "도화지"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "독특한 질감을 관찰하고 손으로 눌러 감각을 자극한다.",
+    "steps": [
+      "에어캡에 물감을 바른다",
+      "도화지 위에 뒤집어 올린다",
+      "손으로 꾹꾹 누른다",
+      "천천히 떼어낸다"
+    ],
+    "parentPhrases": [
+      "{name}아, 뽁뽁이를 눌러볼까?",
+      "{name}이가 만든 동글동글 무늬가 신기하다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🧩 모양 맞추기 놀이",
+    "description": "동그라미·세모·네모 모양을 맞는 자리에 넣는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "모양 끼우기 장난감"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "도형을 구분하고 공간 인지와 문제 해결력을 기른다.",
+    "steps": [
+      "모양 조각을 늘어놓는다",
+      "맞는 구멍을 찾는다",
+      "제자리에 넣는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 세모는 어디에 들어갈까?",
+      "{name}이가 딱 맞게 넣었네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🌟 면봉 점 찍기 그림",
+    "description": "면봉에 물감을 묻혀 점을 찍어 그림 채우는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "면봉",
+      "물감",
+      "도화지",
+      "접시"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "집게 잡기와 손끝 조절로 정교한 소근육을 발달시킨다.",
+    "steps": [
+      "면봉에 물감을 살짝 묻힌다",
+      "종이에 점을 콕콕 찍는다",
+      "점을 모아 그림을 채운다"
+    ],
+    "parentPhrases": [
+      "{name}아, 점을 콕콕 찍어볼까?",
+      "{name}이가 찍은 점들이 나무가 됐네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🏗️ 컵 쌓기 무너뜨리기",
+    "description": "종이컵을 높이 쌓았다가 무너뜨리는 신나는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "종이컵 여러 개"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "균형과 공간 감각을 기르고 몸을 움직이며 즐거움을 느낀다.",
+    "steps": [
+      "종이컵을 위로 쌓는다",
+      "탑을 최대한 높인다",
+      "손으로 밀어 와르르 무너뜨린다"
+    ],
+    "parentPhrases": [
+      "{name}아, 컵을 얼마나 높이 쌓을까?",
+      "{name}아, 하나 둘 셋 하면 무너뜨리자!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🍮 젤리 촉감 탐색",
+    "description": "말랑한 한천 젤리를 만지고 부수며 노는 촉감 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "한천 젤리",
+      "넓은 쟁반"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "탱글탱글한 촉감을 느끼며 감각 자극과 손 탐색을 돕는다.",
+    "steps": [
+      "한천 젤리를 쟁반에 담는다",
+      "손으로 만지고 눌러본다",
+      "손가락으로 부숴본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 젤리가 탱글탱글하지?",
+      "{name}이가 조물조물 부쉈네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎀 마스킹테이프 떼기 놀이",
+    "description": "바닥이나 벽에 붙인 테이프를 떼어내는 손끝 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "마스킹테이프"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "손끝으로 집어 떼며 집게 힘과 소근육을 정교하게 기른다.",
+    "steps": [
+      "테이프를 바닥이나 낮은 벽에 붙인다",
+      "끝을 손끝으로 잡는다",
+      "쭉 잡아당겨 떼어낸다"
+    ],
+    "parentPhrases": [
+      "{name}아, 테이프 끝을 잡고 쭉 당겨볼까?",
+      "{name}이가 야무지게 떼어냈네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🖐️ 밀가루 반죽 놀이",
+    "description": "밀가루와 물을 섞어 만든 반죽을 주무르는 놀이",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "밀가루",
+      "물",
+      "넓은 그릇"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "촉감 변화를 경험하고 손힘을 기르며 감각을 통합한다.",
+    "steps": [
+      "밀가루에 물을 조금씩 넣는다",
+      "손으로 섞어 반죽을 만든다",
+      "동글동글 뭉치고 눌러본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 물을 넣으니까 끈적끈적해지네!",
+      "{name}이가 반죽을 조물조물 잘 만드네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎁 종이봉투 인형 만들기",
+    "description": "종이봉투에 눈·입 스티커를 붙여 인형 만드는 공작",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "종이봉투",
+      "눈알 스티커",
+      "색펜"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "얼굴 구성을 익히고 붙이기·그리기로 소근육을 발달시킨다.",
+    "steps": [
+      "종이봉투를 펼쳐 놓는다",
+      "눈 스티커를 붙인다",
+      "색펜으로 입과 코를 그린다"
+    ],
+    "parentPhrases": [
+      "{name}아, 눈을 어디에 붙여줄까?",
+      "{name}이가 만든 인형이 웃고 있네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🚗 자동차 물감 길 놀이",
+    "description": "장난감 자동차 바퀴에 물감을 묻혀 길을 그리는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "장난감 자동차",
+      "물감",
+      "큰 도화지",
+      "접시"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "팔을 뻗어 움직이며 인과 관계와 표현력을 함께 기른다.",
+    "steps": [
+      "접시에 물감을 짠다",
+      "자동차 바퀴에 물감을 묻힌다",
+      "종이 위로 자동차를 굴린다"
+    ],
+    "parentPhrases": [
+      "{name}아, 자동차가 지나가면 어떤 길이 생길까?",
+      "{name}이 자동차가 알록달록 길을 만들었네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🔗 빨래집게 꽂기 놀이",
+    "description": "종이 접시나 상자 가장자리에 빨래집게 꽂는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "빨래집게",
+      "종이 접시"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "손가락으로 집게를 눌러 벌리며 손힘과 소근육을 강화한다.",
+    "steps": [
+      "종이 접시를 준비한다",
+      "빨래집게를 손으로 벌린다",
+      "접시 가장자리에 하나씩 꽂는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 집게를 꾹 눌러서 꽂아볼까?",
+      "{name}이가 태양처럼 빙 둘러 꽂았네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🌼 뿅뿅이 붙이기 꾸미기",
+    "description": "풀 바른 종이에 폼폼이를 붙여 그림 꾸미는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "폼폼이",
+      "풀",
+      "도화지"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "작은 물건을 집어 붙이며 집게 잡기와 색 감각을 기른다.",
+    "steps": [
+      "도화지에 풀을 바른다",
+      "폼폼이를 손끝으로 집는다",
+      "풀 위에 하나씩 붙인다"
+    ],
+    "parentPhrases": [
+      "{name}아, 폼폼이를 여기에 콕 붙여볼까?",
+      "{name}이가 꾸민 그림이 폭신폭신하다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🌊 물놀이 색깔 섞기",
+    "description": "투명 컵에 물감 탄 물을 섞어 색 변화를 보는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "투명 컵",
+      "물",
+      "물감",
+      "숟가락"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "색이 섞이는 변화를 관찰하며 인과 관계와 호기심을 키운다.",
+    "steps": [
+      "컵에 물을 담고 물감을 푼다",
+      "다른 색 물을 조금씩 섞는다",
+      "색이 변하는 걸 관찰한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 파랑이랑 노랑을 섞으면 무슨 색이 될까?",
+      "우와 {name}아, 초록색으로 변했다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "📦 상자 붙이기 만들기",
+    "description": "작은 상자들을 테이프로 붙여 로봇이나 집 만드는 공작",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "작은 상자 여러 개",
+      "테이프",
+      "색펜"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 3,
+    "purpose": "입체 구성을 경험하며 창의력과 손 협응 능력을 기른다.",
+    "steps": [
+      "상자들을 늘어놓는다",
+      "부모가 테이프로 이어 붙인다",
+      "색펜으로 아이가 꾸민다"
+    ],
+    "parentPhrases": [
+      "{name}아, 상자로 뭘 만들어볼까?",
+      "{name}이가 만든 로봇 정말 멋지다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎈 풍선 띄우기 놀이",
+    "description": "풍선을 바닥에 안 떨어뜨리고 계속 쳐올리는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "풍선"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "눈과 손의 협응력과 순발력을 기르며 온몸을 움직이게 한다.",
+    "steps": [
+      "풍선을 하나 불어 준다",
+      "바닥에 닿지 않게 손으로 톡톡 쳐올린다",
+      "떨어질 것 같으면 달려가서 다시 친다"
+    ],
+    "parentPhrases": [
+      "{name}, 풍선 떨어지면 안 돼! 톡톡!",
+      "우와 {name}가 진짜 잘 받아치네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "📰 신문지 찢기 대회",
+    "description": "신문지를 마음껏 찢으며 스트레스를 발산하는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "신문지"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "손 근육을 쓰고 스트레스를 풀며 감각을 자극한다.",
+    "steps": [
+      "신문지를 여러 장 펼쳐 준다",
+      "양손으로 길게 쭉쭉 찢게 한다",
+      "찢은 조각을 위로 뿌리며 논다"
+    ],
+    "parentPhrases": [
+      "{name}, 힘껏 쭉 찢어 볼까?",
+      "{name}가 눈처럼 뿌리니까 예쁘다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🛋️ 쿠션 징검다리 건너기",
+    "description": "바닥 쿠션을 밟고 건너며 균형을 잡는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "쿠션",
+      "방석"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "균형 감각과 다리 근력, 공간 지각력을 함께 키운다.",
+    "steps": [
+      "쿠션을 바닥에 띄엄띄엄 놓는다",
+      "바닥은 물이라고 알려 준다",
+      "쿠션만 밟고 반대편까지 건너게 한다"
+    ],
+    "parentPhrases": [
+      "{name}, 바닥은 물이야! 쿠션만 밟아!",
+      "우와 {name} 안 빠지고 건넜다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "⭐ 스티커 붙이러 달려가기",
+    "description": "벽까지 달려가 스티커를 붙이고 돌아오는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "스티커"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "전신 달리기와 손끝 조작 활동을 번갈아 하며 지구력을 기른다.",
+    "steps": [
+      "스티커를 아이에게 한 장 준다",
+      "저쪽 벽까지 달려가 붙이라고 한다",
+      "다시 달려와 다음 스티커를 받는다"
+    ],
+    "parentPhrases": [
+      "{name}, 저 벽까지 달려가서 붙여 봐!",
+      "벌써 다섯 개나 붙였어, {name} 최고!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🧺 빨래 바구니 공 넣기",
+    "description": "공이나 인형을 던져 바구니에 넣는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "빨래 바구니",
+      "부드러운 공"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "던지기 동작으로 팔 힘과 목표 조준 능력을 발달시킨다.",
+    "steps": [
+      "바구니를 바닥에 놓는다",
+      "조금 떨어진 곳에서 공을 던지게 한다",
+      "성공하면 한 걸음씩 뒤로 물러난다"
+    ],
+    "parentPhrases": [
+      "{name}, 바구니 안에 골인시켜 볼까?",
+      "우와 들어갔다! {name} 슛 성공!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🐻 곰처럼 기어가기",
+    "description": "손발로 바닥을 짚고 곰처럼 기어 다니는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "팔다리 협응과 대근육, 어깨 힘을 골고루 발달시킨다.",
+    "steps": [
+      "손과 발을 바닥에 짚게 한다",
+      "엉덩이를 들고 곰처럼 걷는다",
+      "\"어흥\" 하며 방을 한 바퀴 돈다"
+    ],
+    "parentPhrases": [
+      "{name}, 우리 곰처럼 어흥 하며 걸어 볼까?",
+      "{name} 곰돌이가 진짜 힘이 세네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🚗 이불 썰매 타기",
+    "description": "이불에 아이를 태우고 부모가 끌어 주는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "이불",
+      "담요"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "몸의 균형을 잡으며 전정 감각과 코어 힘을 자극한다.",
+    "steps": [
+      "이불 위에 아이를 앉힌다",
+      "이불 끝을 잡고 천천히 끌어 준다",
+      "속도를 바꿔 가며 방을 돈다"
+    ],
+    "parentPhrases": [
+      "{name}, 꼭 잡아! 썰매 출발합니다!",
+      "{name} 안 떨어지고 잘 타네, 신난다!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🎵 신나는 춤 따라하기",
+    "description": "음악에 맞춰 부모 동작을 따라 추는 율동 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "리듬감과 신체 표현력, 대근육 운동을 함께 발달시킨다.",
+    "steps": [
+      "신나는 노래를 튼다",
+      "부모가 간단한 동작을 보여 준다",
+      "아이가 따라 추게 한다"
+    ],
+    "parentPhrases": [
+      "{name}, 엄마 아빠 따라서 이렇게 흔들어 봐!",
+      "{name} 춤추는 거 너무 멋지다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🚧 거실 장애물 코스",
+    "description": "가구와 쿠션으로 만든 코스를 통과하는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "쿠션",
+      "의자",
+      "상자"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "기어가기, 넘기, 돌기 등 다양한 대근육 동작을 통합한다.",
+    "steps": [
+      "의자 밑으로 기어가는 구간을 만든다",
+      "쿠션을 뛰어넘는 구간을 만든다",
+      "출발부터 끝까지 순서대로 통과한다"
+    ],
+    "parentPhrases": [
+      "{name}, 의자 밑으로 쏙 기어가 볼까?",
+      "{name}가 끝까지 다 통과했어, 대단해!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎯 벽에 공 던지기",
+    "description": "벽을 향해 공을 힘껏 던졌다 받는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "부드러운 공"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "던지고 받는 동작으로 상체 근력과 반응 속도를 기른다.",
+    "steps": [
+      "벽 앞에 서게 한다",
+      "벽을 향해 공을 던진다",
+      "튀어나온 공을 쫓아가 다시 던진다"
+    ],
+    "parentPhrases": [
+      "{name}, 벽에다 힘껏 던져 볼까?",
+      "{name} 팔 힘이 정말 세졌네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🦘 폴짝폴짝 토끼뛰기",
+    "description": "두 발을 모아 토끼처럼 폴짝 뛰는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "두 발 모아 점프하며 다리 근력과 균형력을 키운다.",
+    "steps": [
+      "두 손을 머리 위에 올려 토끼 귀를 만든다",
+      "두 발을 모으고 폴짝 뛴다",
+      "목표 지점까지 뛰어서 이동한다"
+    ],
+    "parentPhrases": [
+      "{name}, 토끼처럼 폴짝폴짝 뛰어 볼까?",
+      "{name} 진짜 토끼처럼 잘 뛴다!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎈 풍선 배구",
+    "description": "부모와 마주 보고 풍선을 주고받는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "풍선"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "번갈아 주고받으며 협응력과 사회적 상호작용을 기른다.",
+    "steps": [
+      "마주 보고 앉거나 선다",
+      "풍선을 서로에게 톡 쳐서 보낸다",
+      "떨어지지 않게 계속 주고받는다"
+    ],
+    "parentPhrases": [
+      "{name}, 엄마한테 풍선 다시 보내 줘!",
+      "{name}랑 하니까 진짜 재밌다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🏃 신호등 멈춰 놀이",
+    "description": "초록불엔 달리고 빨간불엔 멈추는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "달리기와 갑작스러운 멈춤으로 자기 조절력과 순발력을 키운다.",
+    "steps": [
+      "초록불이면 마음껏 달리게 한다",
+      "빨간불을 외치면 그 자리에 멈춘다",
+      "멈추기 잘하면 크게 칭찬한다"
+    ],
+    "parentPhrases": [
+      "초록불! {name} 달려!",
+      "빨간불! {name} 딱 멈췄네, 최고야!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "⚽ 데굴데굴 공 굴리기",
+    "description": "마주 앉아 공을 데굴데굴 굴려 주고받는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "공"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "공을 굴리고 잡으며 손 협응과 차례 지키기를 배운다.",
+    "steps": [
+      "다리를 벌려 마주 앉는다",
+      "공을 아이에게 데굴 굴린다",
+      "아이가 다시 굴려 주게 한다"
+    ],
+    "parentPhrases": [
+      "{name}, 엄마한테 데굴데굴 굴려 줘!",
+      "{name}가 공 진짜 잘 굴리네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🐧 발등 위 펭귄 걷기",
+    "description": "부모 발등에 아이 발을 올리고 함께 걷는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "부모와 밀착해 균형을 잡으며 리듬 있는 걷기를 익힌다.",
+    "steps": [
+      "아이를 마주 보게 세운다",
+      "부모 발등에 아이 발을 올린다",
+      "손을 잡고 뒤뚱뒤뚱 함께 걷는다"
+    ],
+    "parentPhrases": [
+      "{name}, 아빠 발 위에 올라와 봐!",
+      "우리 {name} 펭귄처럼 뒤뚱뒤뚱 걷는다!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🎪 터널 통과하기",
+    "description": "이불이나 상자로 만든 터널을 기어서 지나는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "이불",
+      "의자",
+      "상자"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "기어가기로 팔다리 힘과 공간 지각, 도전 정신을 기른다.",
+    "steps": [
+      "의자 위에 이불을 덮어 터널을 만든다",
+      "반대편에서 아이를 부른다",
+      "터널을 기어서 통과하게 한다"
+    ],
+    "parentPhrases": [
+      "{name}, 터널 지나서 엄마한테 와 봐!",
+      "{name}가 어두운 터널도 씩씩하게 지났네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🦩 한 발로 서기 시합",
+    "description": "누가 더 오래 한 발로 서는지 겨루는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 3,
+    "purpose": "한 발 서기로 균형 감각과 다리 힘, 집중력을 키운다.",
+    "steps": [
+      "부모와 나란히 선다",
+      "한 발을 살짝 들고 균형을 잡는다",
+      "숫자를 세며 누가 오래 서는지 겨룬다"
+    ],
+    "parentPhrases": [
+      "{name}, 홍학처럼 한 발로 서 볼까?",
+      "{name}가 엄마보다 더 오래 섰네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🧦 양말 공 눈싸움",
+    "description": "돌돌 만 양말을 서로에게 던지는 실내 눈싸움",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "양말"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "던지고 피하며 순발력과 팔 힘, 즐거운 발산을 돕는다.",
+    "steps": [
+      "양말을 여러 개 돌돌 만다",
+      "서로에게 살살 던진다",
+      "맞으면 웃으며 다시 주워 던진다"
+    ],
+    "parentPhrases": [
+      "{name}, 엄마한테 양말 공 던져 봐!",
+      "{name} 피하는 거 진짜 빠르다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🌟 별 모양 크게 만들기",
+    "description": "팔다리를 쭉 벌려 큰 별을 만드는 스트레칭 놀이",
+    "ageRange": "24-48",
+    "duration": 5,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "온몸을 크게 뻗으며 유연성과 신체 인식을 높인다.",
+    "steps": [
+      "두 팔과 두 다리를 활짝 벌린다",
+      "몸을 별처럼 최대한 크게 만든다",
+      "작은 공처럼 웅크렸다 다시 별이 된다"
+    ],
+    "parentPhrases": [
+      "{name}, 팔다리 쭉 펴서 큰 별 만들어 봐!",
+      "우와 {name} 반짝반짝 큰 별이네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🏐 큰 공 밀고 가기",
+    "description": "짐볼이나 큰 공을 온몸으로 밀며 이동하는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "큰 공",
+      "짐볼"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "무거운 것을 미는 동작으로 코어와 다리 힘을 키운다.",
+    "steps": [
+      "큰 공을 아이 앞에 놓는다",
+      "두 손으로 밀며 앞으로 나아간다",
+      "목표 지점까지 공을 밀고 간다"
+    ],
+    "parentPhrases": [
+      "{name}, 공을 저기까지 힘껏 밀어 볼까?",
+      "{name} 힘이 진짜 장사네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🚂 밀고 당기기 기차",
+    "description": "손을 잡고 서로 밀고 당기며 힘겨루기 하는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "밀고 당기는 힘겨루기로 전신 근력과 균형을 발달시킨다.",
+    "steps": [
+      "마주 서서 두 손을 맞잡는다",
+      "\"영차\" 하며 서로 당긴다",
+      "이번엔 반대로 밀어 본다"
+    ],
+    "parentPhrases": [
+      "{name}, 영차 하고 아빠 당겨 봐!",
+      "{name} 힘이 세서 아빠가 밀리네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🍂 낙엽 밟으며 달리기",
+    "description": "야외에서 낙엽을 밟고 뛰며 뛰노는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "야외에서 마음껏 달리며 심폐 지구력과 자연 감각을 키운다.",
+    "steps": [
+      "낙엽이 쌓인 곳을 찾는다",
+      "낙엽을 밟으며 바스락 소리를 낸다",
+      "낙엽을 발로 차며 신나게 달린다"
+    ],
+    "parentPhrases": [
+      "{name}, 낙엽 밟으면 무슨 소리 나?",
+      "{name}가 낙엽 차니까 우수수 날린다!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🪜 계단 오르내리기 탐험",
+    "description": "손잡이를 잡고 계단을 한 칸씩 오르내리는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "계단 오르내리기로 다리 근력과 균형, 조심성을 기른다.",
+    "steps": [
+      "손잡이를 꼭 잡게 한다",
+      "한 칸씩 발을 올려 계단을 오른다",
+      "내려올 땐 더 천천히 한 칸씩 딛는다"
+    ],
+    "parentPhrases": [
+      "{name}, 손잡이 꼭 잡고 한 칸씩 올라가자!",
+      "{name} 혼자서도 잘 올라가네, 조심조심!"
+    ],
+    "places": [
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🫧 비눗방울 잡으러 뛰기",
+    "description": "부모가 불어 주는 비눗방울을 쫓아 잡는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "비눗방울"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "움직이는 목표를 쫓으며 달리기와 눈 추적 능력을 키운다.",
+    "steps": [
+      "부모가 비눗방울을 불어 준다",
+      "아이가 방울을 쫓아 달린다",
+      "손으로 톡 터뜨리게 한다"
+    ],
+    "parentPhrases": [
+      "{name}, 저 비눗방울 잡아 봐!",
+      "{name}가 방울 터뜨리는 거 진짜 빠르다!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🐸 개구리 점프 놀이",
+    "description": "쪼그려 앉았다 개구리처럼 폴짝 뛰는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "쪼그렸다 뛰며 다리 근력과 점프력, 리듬감을 키운다.",
+    "steps": [
+      "개구리처럼 쪼그려 앉는다",
+      "\"개굴\" 하며 앞으로 폴짝 뛴다",
+      "부모와 함께 방을 개구리로 돈다"
+    ],
+    "parentPhrases": [
+      "{name}, 개구리처럼 개굴 하고 뛰어 봐!",
+      "{name} 진짜 개구리처럼 멀리 뛰네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎀 리본 흔들며 달리기",
+    "description": "손에 리본을 들고 흔들며 뛰어다니는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "리본",
+      "손수건"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "리본의 움직임을 보며 달리기와 팔 동작, 표현력을 키운다.",
+    "steps": [
+      "아이 손에 리본을 쥐여 준다",
+      "팔을 크게 휘저으며 달린다",
+      "리본으로 동그라미와 물결을 그린다"
+    ],
+    "parentPhrases": [
+      "{name}, 리본으로 큰 동그라미 그려 봐!",
+      "{name}가 뛰니까 리본이 춤을 추네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🦁 동물 흉내 걷기",
+    "description": "여러 동물 걸음을 흉내 내며 이동하는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "다양한 동물 동작을 흉내 내며 대근육과 상상력을 함께 키운다.",
+    "steps": [
+      "부모가 동물 이름을 하나 외친다",
+      "그 동물처럼 걷거나 뛴다",
+      "코끼리, 뱀, 캥거루로 바꿔 가며 논다"
+    ],
+    "parentPhrases": [
+      "{name}, 이번엔 코끼리처럼 걸어 볼까?",
+      "{name} 동물 흉내 진짜 잘 낸다!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🥁 냄비 두드리며 행진",
+    "description": "냄비를 두드리며 방을 씩씩하게 행진하는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "냄비",
+      "국자"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "리듬에 맞춰 걸으며 박자 감각과 대근육 활동을 함께 기른다.",
+    "steps": [
+      "냄비와 국자를 아이에게 준다",
+      "쿵짝쿵짝 두드리며 걷는다",
+      "부모 뒤를 따라 방을 행진한다"
+    ],
+    "parentPhrases": [
+      "{name}, 북 치면서 씩씩하게 걸어 볼까?",
+      "{name} 행진 대장이네, 앞장서!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🗣️ 끝말잇기 첫걸음",
+    "description": "쉬운 단어로 주고받는 우리 아이 첫 끝말잇기",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "소리와 낱말을 연결하며 음운 인식과 어휘력이 자라요.",
+    "steps": [
+      "쉬운 단어 하나를 말해요",
+      "끝 글자로 시작하는 단어를 찾아요",
+      "번갈아 가며 이어가요"
+    ],
+    "parentPhrases": [
+      "{name}아, '사과' 하면 무슨 말이 나올까?",
+      "우와 {name}이 끝말잇기 정말 잘한다!"
+    ],
+    "places": [
+      "집",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🐄 동물 소리 흉내내기",
+    "description": "동물 이름 듣고 우는 소리 따라 하는 말놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "소리 흉내로 발음 연습과 동물 어휘를 익혀요.",
+    "steps": [
+      "부모가 동물 이름을 말해요",
+      "아이가 그 동물 소리를 내요",
+      "역할을 바꿔 해봐요"
+    ],
+    "parentPhrases": [
+      "{name}아, 소는 어떻게 울까?",
+      "{name}이 소리 진짜 똑같다!"
+    ],
+    "places": [
+      "집",
+      "이동 중",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "📖 그림책 속 물건 찾기",
+    "description": "그림책 펼쳐 숨은 물건 찾아보는 눈놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "그림책"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "그림 속에서 대상을 찾으며 집중력과 관찰력이 커져요.",
+    "steps": [
+      "그림책 한 장을 펼쳐요",
+      "'강아지 어디 있지?' 물어봐요",
+      "아이가 손가락으로 찾아요"
+    ],
+    "parentPhrases": [
+      "{name}아, 노란 공은 어디 있을까?",
+      "{name}이 눈이 정말 밝구나!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🔢 계단 오르며 숫자 세기",
+    "description": "한 칸씩 오르며 숫자 소리 내어 세는 놀이",
+    "ageRange": "24-48",
+    "duration": 5,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "몸의 움직임과 수 세기를 연결해 수 개념이 자라요.",
+    "steps": [
+      "계단 앞에 서요",
+      "한 칸 오를 때마다 숫자를 세요",
+      "다 오르면 몇 칸인지 말해요"
+    ],
+    "parentPhrases": [
+      "{name}아, 같이 세어볼까? 하나!",
+      "{name}이 열까지 다 셌네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🧦 양말 짝꿍 찾기",
+    "description": "같은 무늬 양말끼리 짝지어보는 분류 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "양말 여러 켤레"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "같은 것끼리 맞추며 짝짓기와 분류 능력이 자라요.",
+    "steps": [
+      "양말을 바닥에 펼쳐요",
+      "같은 무늬끼리 찾아요",
+      "짝을 맞춰 개켜요"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 양말이랑 똑같은 거 어디 있지?",
+      "{name}이 짝꿍 다 찾았구나!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🏥 병원놀이 의사 선생님",
+    "description": "인형 환자를 진찰하는 역할극 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "인형",
+      "장난감 청진기"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "역할을 맡아 상황을 표현하며 사회성과 공감이 자라요.",
+    "steps": [
+      "아이가 의사가 돼요",
+      "인형을 청진기로 진찰해요",
+      "약을 주고 낫게 해줘요"
+    ],
+    "parentPhrases": [
+      "{name} 선생님, 곰돌이가 어디가 아파요?",
+      "{name}이 덕분에 곰돌이가 다 나았네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🛒 마트놀이 장보기",
+    "description": "장바구니 들고 물건 담는 마트 역할극",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "장바구니",
+      "장난감 식품"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "물건을 고르고 계산하며 언어와 수 개념을 함께 익혀요.",
+    "steps": [
+      "물건을 진열해요",
+      "아이가 원하는 걸 담아요",
+      "계산하는 척 인사해요"
+    ],
+    "parentPhrases": [
+      "{name}아, 오늘은 뭘 사러 왔어요?",
+      "{name}이 계산도 척척 잘하네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "👨‍🍳 요리사 놀이",
+    "description": "장난감 재료로 요리하는 척하는 역할극",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "장난감 그릇",
+      "장난감 음식"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "요리 과정을 흉내 내며 순서 개념과 상상력이 자라요.",
+    "steps": [
+      "냄비에 재료를 넣어요",
+      "휘휘 젓고 끓이는 척해요",
+      "완성한 요리를 대접해요"
+    ],
+    "parentPhrases": [
+      "{name} 요리사님, 오늘 메뉴는 뭐예요?",
+      "{name}이 만든 요리 정말 맛있다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎵 곰 세 마리 손유희",
+    "description": "노래에 맞춰 손동작하며 부르는 손유희",
+    "ageRange": "24-48",
+    "duration": 5,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "노래와 손동작을 함께 하며 리듬감과 신체 조절이 커져요.",
+    "steps": [
+      "곰 세 마리 노래를 불러요",
+      "가사에 맞춰 손동작을 해요",
+      "점점 빠르게 불러봐요"
+    ],
+    "parentPhrases": [
+      "{name}아, 아빠곰은 어떻게 하지?",
+      "{name}이 율동 정말 귀엽다!"
+    ],
+    "places": [
+      "집",
+      "이동 중",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🥁 냄비 뚜껑 악기놀이",
+    "description": "집안 물건으로 소리 내는 신나는 악기놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "냄비",
+      "나무 숟가락"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "여러 소리를 만들며 청각 자극과 리듬 감각이 자라요.",
+    "steps": [
+      "냄비와 숟가락을 준비해요",
+      "톡톡 두드려 소리를 내요",
+      "노래에 맞춰 박자를 맞춰요"
+    ],
+    "parentPhrases": [
+      "{name}아, 이건 어떤 소리가 날까?",
+      "{name}이 진짜 연주자 같다!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "❓ 이건 뭐게 수수께끼",
+    "description": "특징을 듣고 정답 맞히는 말 수수께끼",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "설명을 듣고 추리하며 사고력과 어휘력이 자라요.",
+    "steps": [
+      "부모가 특징을 설명해요",
+      "아이가 정답을 맞혀요",
+      "역할을 바꿔 내봐요"
+    ],
+    "parentPhrases": [
+      "{name}아, 빨갛고 동그란 과일은 뭘까?",
+      "{name}이 수수께끼 박사네!"
+    ],
+    "places": [
+      "집",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🍵 컵 숨바꼭질 기억놀이",
+    "description": "컵 아래 숨긴 물건 위치 기억하는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "컵 3개",
+      "작은 장난감"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 3,
+    "purpose": "숨긴 위치를 기억하며 작업 기억과 집중력이 자라요.",
+    "steps": [
+      "컵 아래 장난감을 숨겨요",
+      "컵을 천천히 섞어요",
+      "장난감이 어디 있는지 맞혀요"
+    ],
+    "parentPhrases": [
+      "{name}아, 곰돌이가 어느 컵에 숨었을까?",
+      "{name} 기억력이 정말 대단하다!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🎨 색깔 물건 찾기",
+    "description": "정한 색깔 물건을 집안에서 찾아오는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "색 이름을 익히고 분류하며 관찰력이 자라요.",
+    "steps": [
+      "색깔 하나를 정해요",
+      "그 색 물건을 찾아와요",
+      "모아놓고 이름을 말해요"
+    ],
+    "parentPhrases": [
+      "{name}아, 빨간색 물건 찾아올 수 있어?",
+      "{name}이 빨간 거 정말 많이 찾았네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "📏 누가 더 클까",
+    "description": "두 물건을 대보며 크기 비교하는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "크기 다른 물건 여러 개"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "크고 작음을 비교하며 수량과 크기 개념이 자라요.",
+    "steps": [
+      "물건 두 개를 나란히 놓아요",
+      "어느 게 큰지 물어봐요",
+      "큰 것부터 줄 세워요"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 곰돌이랑 저 인형 중 누가 더 커?",
+      "{name}이 크기 순서 잘 맞췄네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎶 반짝반짝 작은별 부르기",
+    "description": "함께 부르며 반짝 손동작 하는 노래놀이",
+    "ageRange": "24-48",
+    "duration": 5,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "익숙한 멜로디를 따라 부르며 언어 리듬감이 자라요.",
+    "steps": [
+      "작은별 노래를 시작해요",
+      "손을 반짝반짝 흔들어요",
+      "작은 목소리로도 불러봐요"
+    ],
+    "parentPhrases": [
+      "{name}아, 별처럼 손 반짝반짝 해볼까?",
+      "{name} 노래 소리가 참 예쁘다!"
+    ],
+    "places": [
+      "집",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🧸 무엇이 사라졌을까",
+    "description": "늘어놓은 물건 중 사라진 것 찾는 기억놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "장난감 3개",
+      "천"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 3,
+    "purpose": "물건을 기억하고 비교하며 기억력과 주의력이 자라요.",
+    "steps": [
+      "장난감 세 개를 늘어놓아요",
+      "아이가 눈을 감아요",
+      "하나를 숨기고 뭐가 없는지 맞혀요"
+    ],
+    "parentPhrases": [
+      "{name}아, 뭐가 없어졌는지 볼까?",
+      "{name}이 없어진 걸 딱 맞췄네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🐰 흉내말 따라하기",
+    "description": "깡충깡충 같은 흉내말 몸으로 표현하기",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "의성어·의태어를 몸으로 표현하며 어휘가 풍부해져요.",
+    "steps": [
+      "부모가 흉내말을 말해요",
+      "아이가 몸으로 표현해요",
+      "같이 소리 내며 움직여요"
+    ],
+    "parentPhrases": [
+      "{name}아, 토끼처럼 깡충깡충 해볼까?",
+      "{name}이 깡충깡충 진짜 토끼 같다!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🔺 모양 짝 맞추기",
+    "description": "같은 모양끼리 찾아 맞추는 도형 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "도형 카드",
+      "도형 블록"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "동그라미·세모·네모를 구분하며 도형 개념이 자라요.",
+    "steps": [
+      "도형을 여러 개 펼쳐요",
+      "같은 모양끼리 찾아요",
+      "모양 이름을 말해요"
+    ],
+    "parentPhrases": [
+      "{name}아, 동그라미는 어디 있을까?",
+      "{name}이 세모 네모 다 알고 있네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🚗 창밖 사물 이름대기",
+    "description": "차 타고 가며 보이는 것 이름 말하는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "본 것을 말로 표현하며 어휘력과 관찰력이 자라요.",
+    "steps": [
+      "창밖을 함께 봐요",
+      "보이는 것을 말해요",
+      "색깔이나 개수도 덧붙여요"
+    ],
+    "parentPhrases": [
+      "{name}아, 저기 뭐가 지나가지?",
+      "{name}이 버스를 금방 찾았네!"
+    ],
+    "places": [
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🖐️ 다섯 손가락 세기 노래",
+    "description": "손가락 접으며 하나둘 세는 노래놀이",
+    "ageRange": "24-48",
+    "duration": 5,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "손가락과 숫자를 연결하며 수 세기 기초가 자라요.",
+    "steps": [
+      "손가락을 다 펴요",
+      "하나씩 접으며 세요",
+      "다 접으면 주먹을 쥐어요"
+    ],
+    "parentPhrases": [
+      "{name}아, 손가락 몇 개 남았지?",
+      "{name}이 손가락 세기 다 했네!"
+    ],
+    "places": [
+      "집",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🍎 같은 그림 찾기",
+    "description": "카드를 뒤집어 같은 그림 짝 찾는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "그림 카드 여러 쌍"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 3,
+    "purpose": "위치를 기억하고 같은 것을 찾으며 기억력이 자라요.",
+    "steps": [
+      "카드를 뒤집어 놓아요",
+      "두 장을 뒤집어 봐요",
+      "같은 그림이면 가져가요"
+    ],
+    "parentPhrases": [
+      "{name}아, 사과 짝꿍은 어디 숨었을까?",
+      "{name}이 짝을 정말 잘 찾는다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🐸 오리 가족 흉내내기",
+    "description": "동물 가족처럼 걷고 말하는 역할 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "가족 역할을 흉내 내며 상상력과 사회성이 자라요.",
+    "steps": [
+      "엄마 오리와 아기 오리를 정해요",
+      "뒤뚱뒤뚱 줄지어 걸어요",
+      "꽥꽥 소리를 내요"
+    ],
+    "parentPhrases": [
+      "{name}아, 아기 오리는 엄마를 따라오세요!",
+      "{name}이 아기 오리 정말 귀엽다!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🔢 스티커 개수만큼 붙이기",
+    "description": "말한 숫자만큼 스티커 붙이는 수놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "스티커",
+      "종이"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "수와 양을 일대일로 연결하며 수 개념이 튼튼해져요.",
+    "steps": [
+      "숫자 하나를 말해요",
+      "그만큼 스티커를 붙여요",
+      "다 붙이고 같이 세요"
+    ],
+    "parentPhrases": [
+      "{name}아, 스티커 세 개 붙여볼까?",
+      "{name}이 딱 세 개 맞게 붙였네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎤 노래 이어 부르기",
+    "description": "부모가 멈추면 아이가 다음 가사 잇기",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "가사를 기억해 이어 부르며 기억력과 언어가 자라요.",
+    "steps": [
+      "익숙한 노래를 함께 불러요",
+      "부모가 한 소절에서 멈춰요",
+      "아이가 다음 가사를 불러요"
+    ],
+    "parentPhrases": [
+      "{name}아, 산토끼 토끼야 다음은?",
+      "{name}이 다음 가사 딱 알고 있네!"
+    ],
+    "places": [
+      "집",
+      "이동 중"
+    ]
+  },
+  {
+    "title": "📚 그림책 뒷이야기 상상",
+    "description": "책을 덮고 다음에 어떻게 될지 말해보기",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "그림책"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 3,
+    "purpose": "이야기를 상상해 말하며 표현력과 창의력이 자라요.",
+    "steps": [
+      "그림책을 중간까지 읽어요",
+      "책을 덮어요",
+      "다음에 어떻게 될지 이야기해요"
+    ],
+    "parentPhrases": [
+      "{name}아, 이제 곰돌이는 어디로 갈까?",
+      "{name} 이야기가 정말 재밌다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🥕 채소 과일 나누기",
+    "description": "장난감을 채소와 과일로 나누는 분류 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "장난감 채소·과일"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "기준에 따라 나누며 분류와 개념 구분 능력이 자라요.",
+    "steps": [
+      "채소와 과일을 섞어 놓아요",
+      "채소 바구니, 과일 바구니를 정해요",
+      "하나씩 담으며 이름을 말해요"
+    ],
+    "parentPhrases": [
+      "{name}아, 사과는 어느 바구니에 넣을까?",
+      "{name}이 다 알맞게 나눴구나!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🚌 버스 운전사 놀이",
+    "description": "의자를 버스 삼아 태우고 가는 역할극",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "의자",
+      "인형"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "운전사 역할을 하며 상상력과 언어 표현이 자라요.",
+    "steps": [
+      "의자를 나란히 놓아 버스를 만들어요",
+      "인형 손님을 태워요",
+      "정류장마다 문을 열고 인사해요"
+    ],
+    "parentPhrases": [
+      "{name} 기사님, 다음 정류장은 어디예요?",
+      "{name}이 운전 정말 잘하네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🎈 풍선 색 짝짓기",
+    "description": "같은 색 풍선과 물건 짝지어보는 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "색색 풍선",
+      "색색 물건"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "색을 기준으로 짝지으며 색 구분과 분류가 자라요.",
+    "steps": [
+      "색색 풍선을 놓아요",
+      "같은 색 물건을 찾아요",
+      "풍선 옆에 나란히 두어요"
+    ],
+    "parentPhrases": [
+      "{name}아, 파란 풍선 친구는 어디 있지?",
+      "{name}이 색깔 짝꿍 다 찾았네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🍂 낙엽 밟기 산책",
+    "description": "바스락 소리를 들으며 낙엽을 밟는 가을 산책 놀이",
+    "ageRange": "24-48",
+    "duration": 30,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "다양한 소리와 촉감을 경험하며 대근육과 감각을 함께 발달시킨다.",
+    "steps": [
+      "낙엽이 쌓인 길을 찾는다",
+      "함께 낙엽을 밟으며 소리를 듣는다",
+      "마음에 드는 낙엽을 주워 모은다"
+    ],
+    "parentPhrases": [
+      "{name}아, 바스락바스락 소리가 들려?",
+      "{name}이가 제일 예쁜 낙엽을 골라볼까?"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🐜 돋보기 개미 관찰",
+    "description": "땅바닥의 작은 벌레를 쪼그려 앉아 관찰하는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "돋보기"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "작은 생물에 대한 호기심과 집중력, 관찰력을 키운다.",
+    "steps": [
+      "개미가 다니는 길을 찾는다",
+      "쪼그려 앉아 돋보기로 살펴본다",
+      "개미가 어디로 가는지 따라가 본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 개미가 어디로 가는 걸까?",
+      "{name}이 눈에는 개미 다리가 몇 개 보여?"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🪨 반질반질 돌멩이 줍기",
+    "description": "모양과 크기가 다른 돌멩이를 모아보는 자연물 놀이",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "작은 바구니"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "크기와 촉감을 비교하며 분류 개념과 손 감각을 발달시킨다.",
+    "steps": [
+      "돌멩이가 많은 곳을 찾는다",
+      "매끈한 돌과 거친 돌을 만져본다",
+      "바구니에 크기별로 모아본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 돌은 매끈매끈하네?",
+      "{name}이가 제일 큰 돌을 찾아볼까?"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🏰 모래성 쌓기",
+    "description": "모래를 퍼서 두드리며 성을 만드는 모래놀이",
+    "ageRange": "24-48",
+    "duration": 40,
+    "materials": [
+      "모래놀이 삽",
+      "양동이"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "손과 도구를 함께 쓰며 소근육과 창의력, 성취감을 기른다.",
+    "steps": [
+      "양동이에 모래를 가득 담는다",
+      "뒤집어서 톡톡 두드려 성을 만든다",
+      "나뭇가지로 깃발을 꽂아 꾸민다"
+    ],
+    "parentPhrases": [
+      "{name}아, 모래를 꾹꾹 눌러 담아볼까?",
+      "우와, {name}이가 만든 성이 정말 튼튼하다!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🕳️ 흙 구덩이 파기",
+    "description": "삽으로 흙을 파고 물을 부어보는 흙놀이",
+    "ageRange": "24-48",
+    "duration": 30,
+    "materials": [
+      "모래놀이 삽",
+      "물통"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "팔 힘을 쓰며 대근육을 키우고 흙의 변화를 탐색한다.",
+    "steps": [
+      "흙이 부드러운 곳을 고른다",
+      "삽으로 구덩이를 판다",
+      "물을 조금 부어 진흙 변화를 관찰한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 구덩이를 얼마나 깊게 팔 수 있을까?",
+      "물을 부으니 흙이 어떻게 변했어, {name}아?"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "💧 물 옮기기 놀이",
+    "description": "컵으로 물을 이 통 저 통 옮겨 담는 얕은 물놀이",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "플라스틱 컵",
+      "대야 2개",
+      "물"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "물을 붓고 담으며 눈과 손의 협응과 양감을 익힌다.",
+    "steps": [
+      "대야 두 개에 얕게 물을 준비한다",
+      "컵으로 물을 떠서 옮겨 담는다",
+      "누가 더 안 흘리는지 해본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 물을 살살 부어볼까?",
+      "{name}이가 물을 하나도 안 흘렸네!"
+    ],
+    "places": [
+      "집",
+      "야외"
+    ]
+  },
+  {
+    "title": "🚿 물뿌리개로 물주기",
+    "description": "물뿌리개로 식물이나 바닥에 물을 뿌리는 물놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "작은 물뿌리개",
+      "물"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "손목 힘 조절을 연습하고 식물을 돌보는 책임감을 배운다.",
+    "steps": [
+      "물뿌리개에 물을 반쯤 담는다",
+      "식물이나 화분에 천천히 물을 준다",
+      "물이 흙에 스며드는 걸 지켜본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 꽃이 물을 먹고 싶대!",
+      "{name}이가 주는 물로 쑥쑥 자라겠다!"
+    ],
+    "places": [
+      "집",
+      "야외"
+    ]
+  },
+  {
+    "title": "🫧 비눗방울 잡기",
+    "description": "날아가는 비눗방울을 쫓아다니며 터뜨리는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "비눗방울"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "움직이는 물체를 쫓으며 순발력과 눈 추적 능력을 키운다.",
+    "steps": [
+      "부모가 비눗방울을 불어준다",
+      "아이가 방울을 쫓아 손뼉으로 터뜨린다",
+      "높이 나는 방울, 낮은 방울을 잡아본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 저기 방울이 도망간다, 잡아!",
+      "{name}이가 방울을 톡 터뜨렸네!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🌱 씨앗 심기",
+    "description": "화분에 씨앗을 심고 흙을 덮어주는 텃밭 놀이",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "작은 화분",
+      "흙",
+      "씨앗",
+      "물"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "생명을 심고 기다리며 인내심과 자연에 대한 애정을 배운다.",
+    "steps": [
+      "화분에 흙을 담는다",
+      "손가락으로 구멍을 내고 씨앗을 넣는다",
+      "흙을 덮고 물을 살짝 준다"
+    ],
+    "parentPhrases": [
+      "{name}아, 씨앗을 흙 이불로 덮어줄까?",
+      "{name}이가 심었으니 곧 싹이 날 거야!"
+    ],
+    "places": [
+      "집",
+      "야외"
+    ]
+  },
+  {
+    "title": "🌸 꽃과 잎 색깔 찾기",
+    "description": "산책하며 같은 색 꽃과 잎을 찾아보는 관찰 놀이",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "색깔 이름과 자연물 명칭을 익히며 어휘와 관찰력을 넓힌다.",
+    "steps": [
+      "산책길에서 꽃과 잎을 살펴본다",
+      "빨간색, 노란색 꽃을 찾아본다",
+      "같은 색끼리 손으로 가리켜본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 노란색 꽃은 어디 있을까?",
+      "{name}이가 빨간 꽃을 찾았구나!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🛝 미끄럼틀 순서 지키기",
+    "description": "친구들과 줄 서서 차례로 미끄럼틀을 타는 놀이터 놀이",
+    "ageRange": "24-48",
+    "duration": 30,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "차례를 기다리며 사회적 규칙과 자기 조절 능력을 배운다.",
+    "steps": [
+      "미끄럼틀 계단 앞에 줄을 선다",
+      "앞 친구가 다 내려가면 올라간다",
+      "다 타면 뒤 친구에게 양보한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 친구가 먼저 타고 있으니 기다려줄까?",
+      "{name}이가 차례를 잘 지켰네, 멋지다!"
+    ],
+    "places": [
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "⚖️ 시소 함께 타기",
+    "description": "친구와 마주 앉아 오르락내리락 시소를 타는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "상대와 힘의 균형을 맞추며 협동과 몸의 조절을 배운다.",
+    "steps": [
+      "친구와 마주 보고 시소에 앉는다",
+      "손잡이를 꼭 잡는다",
+      "번갈아 발로 밀며 오르락내리락한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 친구랑 같이 밀어볼까?",
+      "{name}이가 올라가니 친구는 내려가네!"
+    ],
+    "places": [
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🧺 소풍 도시락 나누기",
+    "description": "돗자리에 앉아 준비한 간식을 친구와 나눠 먹는 놀이",
+    "ageRange": "24-48",
+    "duration": 40,
+    "materials": [
+      "돗자리",
+      "간식",
+      "물통"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "함께 먹고 나누는 경험으로 사회성과 배려심을 기른다.",
+    "steps": [
+      "그늘에 돗자리를 편다",
+      "간식을 꺼내 함께 놓는다",
+      "친구에게 하나씩 나눠준다"
+    ],
+    "parentPhrases": [
+      "{name}아, 친구한테 하나 나눠줄까?",
+      "{name}이랑 같이 먹으니 더 맛있다!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🐦 새소리 듣기 놀이",
+    "description": "가만히 앉아 눈을 감고 자연의 소리를 듣는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "청각에 집중하며 자연을 느끼고 정서적 안정을 얻는다.",
+    "steps": [
+      "조용한 곳에 함께 앉는다",
+      "눈을 감고 귀를 기울인다",
+      "무슨 소리가 들리는지 이야기한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 어떤 소리가 들려?",
+      "{name}이가 새소리를 찾았구나!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🧦 빨래 양말 짝 맞추기",
+    "description": "마른 빨래에서 같은 양말끼리 짝을 찾는 집안일 돕기",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "빨래한 양말"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "같은 것끼리 짝짓기를 하며 분류 능력과 관찰력을 키운다.",
+    "steps": [
+      "빨래에서 양말을 모두 꺼낸다",
+      "같은 무늬끼리 짝을 찾는다",
+      "짝을 맞춰 돌돌 접는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 이 양말 짝꿍은 어디 있을까?",
+      "{name}이가 짝을 다 맞췄네, 고마워!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🧹 장난감 제자리에 정리하기",
+    "description": "놀이 후 장난감을 종류별 상자에 담는 정리 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "정리 상자"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "스스로 정리하며 책임감과 정리 습관, 분류 개념을 익힌다.",
+    "steps": [
+      "정리할 시간을 노래로 알린다",
+      "블록은 블록 상자에 담는다",
+      "다 담으면 상자를 제자리에 놓는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 블록들을 집에 데려다줄까?",
+      "{name}이가 정리하니 방이 반짝반짝하다!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🥗 상추 씻기 돕기",
+    "description": "물에 채소를 담가 조물조물 씻는 요리 돕기 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "상추",
+      "채소",
+      "물이 담긴 대야"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "음식 준비에 참여하며 자립심과 촉감 경험을 얻는다.",
+    "steps": [
+      "대야에 물을 얕게 받는다",
+      "상추를 넣고 조물조물 씻는다",
+      "깨끗한 잎을 채반에 건진다"
+    ],
+    "parentPhrases": [
+      "{name}아, 상추를 살살 흔들어 씻어볼까?",
+      "{name}이가 씻은 채소로 맛있는 밥 먹자!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🍚 주먹밥 조물조물",
+    "description": "밥을 손으로 뭉쳐 동그란 주먹밥을 만드는 요리 돕기",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "따뜻한 밥",
+      "비닐장갑",
+      "김가루"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "손으로 뭉치며 소근육을 쓰고 만든 음식으로 성취감을 얻는다.",
+    "steps": [
+      "비닐장갑을 낀다",
+      "밥을 한 줌 쥐고 동그랗게 뭉친다",
+      "김가루를 묻혀 완성한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 밥을 동글동글 굴려볼까?",
+      "{name}이가 만든 주먹밥, 정말 예쁘다!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🍌 바나나 자르기 돕기",
+    "description": "안전한 도구로 바나나를 톡톡 자르는 요리 돕기 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [
+      "바나나",
+      "아이용 안전 칼",
+      "접시"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 2,
+    "purpose": "도구 사용을 연습하며 집중력과 자립심을 기른다.",
+    "steps": [
+      "껍질 벗긴 바나나를 도마에 놓는다",
+      "안전 칼로 조심조심 자른다",
+      "자른 조각을 접시에 담는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 천천히 꾹 눌러 잘라볼까?",
+      "{name}이가 자른 바나나 같이 먹자!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🍽️ 수저 놓기 상 차리기",
+    "description": "식사 전 가족 자리에 수저를 놓아주는 집안일 돕기",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "수저",
+      "그릇"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "가족을 위한 역할을 하며 소속감과 자립심을 기른다.",
+    "steps": [
+      "가족 수만큼 수저를 센다",
+      "각자 자리 앞에 하나씩 놓는다",
+      "다 놓으면 밥 먹자고 부른다"
+    ],
+    "parentPhrases": [
+      "{name}아, 아빠 수저는 어디 놓을까?",
+      "{name}이 덕분에 상이 다 차려졌네!"
+    ],
+    "places": [
+      "집"
+    ]
+  },
+  {
+    "title": "🌾 텃밭 채소 수확하기",
+    "description": "다 자란 방울토마토나 상추를 따보는 텃밭 놀이",
+    "ageRange": "24-48",
+    "duration": 25,
+    "materials": [
+      "작은 바구니"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 2,
+    "purpose": "직접 기른 것을 수확하며 성취감과 자연의 순환을 배운다.",
+    "steps": [
+      "빨갛게 익은 채소를 찾는다",
+      "손으로 살살 잡고 딴다",
+      "바구니에 담아 함께 세어본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 빨간 토마토를 찾았니?",
+      "{name}이가 딴 채소로 저녁 먹자!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🪱 나뭇가지 그림 그리기",
+    "description": "나뭇가지로 흙이나 모래 위에 그림을 그리는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "나뭇가지"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "자연 도구로 끄적이며 표현력과 손 조절 능력을 키운다.",
+    "steps": [
+      "곧은 나뭇가지를 하나 줍는다",
+      "평평한 흙바닥을 고른다",
+      "동그라미와 선을 그려본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 커다란 동그라미를 그려볼까?",
+      "{name}이가 그린 그림이 뭐야, 궁금해!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🚶 징검다리 건너기",
+    "description": "돌이나 블록을 밟고 균형 잡으며 건너는 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "평평한 돌",
+      "발판"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "한 발씩 딛으며 균형 감각과 대근육 조절을 발달시킨다.",
+    "steps": [
+      "안전한 발판을 일렬로 놓는다",
+      "손을 잡고 한 발씩 건넌다",
+      "익숙해지면 혼자 건너본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 물에 빠지지 않게 콩콩 건너자!",
+      "{name}이가 균형을 정말 잘 잡네!"
+    ],
+    "places": [
+      "야외",
+      "집"
+    ]
+  },
+  {
+    "title": "🐛 자연물 보물찾기",
+    "description": "솔방울·도토리 등 정해진 자연물을 찾아오는 놀이",
+    "ageRange": "24-48",
+    "duration": 30,
+    "materials": [
+      "작은 봉투"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 2,
+    "purpose": "목표물을 탐색하며 관찰력과 성취감, 어휘를 기른다.",
+    "steps": [
+      "찾을 자연물을 정한다",
+      "산책하며 솔방울과 도토리를 찾는다",
+      "봉투에 모아 개수를 세어본다"
+    ],
+    "parentPhrases": [
+      "{name}아, 솔방울은 어디 숨어 있을까?",
+      "{name}이가 도토리를 세 개나 찾았네!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🤝 공 주고받기",
+    "description": "친구와 마주 앉아 공을 굴려 주고받는 사회성 놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "말랑한 공"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "medium",
+    "difficulty": 1,
+    "purpose": "주고받기를 하며 순서 개념과 또래 상호작용을 배운다.",
+    "steps": [
+      "친구와 마주 보고 앉는다",
+      "공을 상대에게 굴린다",
+      "받으면 다시 굴려 주고받는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 친구한테 공을 굴려줄까?",
+      "{name}이가 공을 잘 받았네!"
+    ],
+    "places": [
+      "집",
+      "야외",
+      "어린이집·기관"
+    ]
+  },
+  {
+    "title": "🌧️ 웅덩이 첨벙 장화 놀이",
+    "description": "비 온 뒤 장화 신고 얕은 웅덩이를 밟아보는 물놀이",
+    "ageRange": "24-48",
+    "duration": 20,
+    "materials": [
+      "장화",
+      "우비"
+    ],
+    "energyLevel": "medium",
+    "childEnergy": "high",
+    "difficulty": 1,
+    "purpose": "물의 저항과 소리를 온몸으로 느끼며 대근육을 발달시킨다.",
+    "steps": [
+      "장화와 우비를 챙겨 입는다",
+      "얕은 웅덩이를 찾는다",
+      "첨벙첨벙 밟으며 물방울을 관찰한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 첨벙 하면 물이 어떻게 될까?",
+      "{name}이 장화가 물을 막아주네!"
+    ],
+    "places": [
+      "야외"
+    ]
+  },
+  {
+    "title": "🚗 창밖 풍경 이름 대기",
+    "description": "이동 중 창밖에 보이는 것을 함께 말해보는 놀이",
+    "ageRange": "24-48",
+    "duration": 15,
+    "materials": [],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "보이는 사물을 말로 표현하며 어휘력과 관찰력을 넓힌다.",
+    "steps": [
+      "창밖을 함께 바라본다",
+      "보이는 것을 하나씩 말한다",
+      "번갈아 새로운 것을 찾아 말한다"
+    ],
+    "parentPhrases": [
+      "{name}아, 저기 빨간 버스가 보이네?",
+      "{name}이는 뭐가 보여?"
+    ],
+    "places": [
+      "이동 중"
+    ]
+  },
+  {
+    "title": "🧴 손 씻기 스스로 하기",
+    "description": "거품 내고 헹구며 스스로 손을 씻는 생활자립 놀이",
+    "ageRange": "24-48",
+    "duration": 10,
+    "materials": [
+      "비누",
+      "수건"
+    ],
+    "energyLevel": "low",
+    "childEnergy": "low",
+    "difficulty": 1,
+    "purpose": "스스로 위생을 챙기며 자립심과 생활 습관을 기른다.",
+    "steps": [
+      "소매를 걷고 손을 적신다",
+      "비누로 거품을 내 조물조물 문지른다",
+      "깨끗이 헹구고 수건으로 닦는다"
+    ],
+    "parentPhrases": [
+      "{name}아, 손가락 사이사이도 문질러볼까?",
+      "{name}이 손이 뽀득뽀득 깨끗해졌네!"
+    ],
+    "places": [
+      "집",
+      "어린이집·기관"
+    ]
+  }
+]
