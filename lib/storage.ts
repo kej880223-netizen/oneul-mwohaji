@@ -197,6 +197,19 @@ export function removeFavorite(title: string): void {
   );
 }
 
+// ─── 데이터 내보내기(백업) ────────────────────────────────
+
+export function exportAll(): Record<string, unknown> {
+  const out: Record<string, unknown> = { exportedAt: new Date().toISOString() };
+  if (typeof window === "undefined") return out;
+  (Object.entries(KEYS) as [string, string][]).forEach(([name, key]) => {
+    if (name === "legacyChild") return;
+    const raw = window.localStorage.getItem(key);
+    out[name] = raw ? JSON.parse(raw) : null;
+  });
+  return out;
+}
+
 // ─── 전체 초기화(로그아웃) ────────────────────────────────
 
 export function resetAll(): void {

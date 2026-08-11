@@ -138,6 +138,7 @@ function pickActivities(
     parentPhrases: (t.parentPhrases || []).map((p) =>
       p.replaceAll("{name}", child.name)
     ),
+    domains: t.domains,
   }));
 }
 

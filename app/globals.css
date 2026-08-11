@@ -66,3 +66,17 @@ body {
 .spin {
   animation: spin 0.8s linear infinite;
 }
+
+/* 인쇄/PDF 저장 시: 하단 네비와 인쇄 제외 요소 숨김 */
+@media print {
+  nav[aria-label="주요 메뉴"],
+  .no-print {
+    display: none !important;
+  }
+  .app-shell {
+    max-width: 100% !important;
+  }
+  main {
+    padding-bottom: 0 !important;
+  }
+}

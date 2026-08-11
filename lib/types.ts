@@ -32,6 +32,16 @@ export interface Child {
 
 export type EnergyLevel = "low" | "medium" | "high";
 
+// 발달 영역 (리포트 균형 분석용)
+export const DEV_DOMAINS = [
+  "신체",
+  "언어",
+  "사회정서",
+  "인지",
+  "창의감각",
+] as const;
+export type DevDomain = (typeof DEV_DOMAINS)[number];
+
 export interface Activity {
   id: string;
   title: string;
@@ -44,6 +54,7 @@ export interface Activity {
   purpose: string; // 이 놀이가 좋은 이유
   steps: string[]; // 놀이 방법
   parentPhrases: string[]; // 부모가 이렇게 말해보세요
+  domains?: DevDomain[]; // 발달 영역 (선택)
 }
 
 export type Reaction = "good" | "soso" | "bad";
@@ -56,6 +67,7 @@ export interface ActivityLog {
   reaction: Reaction | null;
   wantAgain: boolean | null;
   note: string;
+  photo?: string; // 놀이 순간 사진 (성장앨범용, 리사이즈된 data URL)
   createdAt: string; // ISO
 }
 

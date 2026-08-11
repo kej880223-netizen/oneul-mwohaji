@@ -186,6 +186,20 @@ export default function ProfilePage() {
           </Card>
         </section>
 
+        {/* 리포트 · 성장앨범 바로가기 */}
+        <div className="grid grid-cols-2 gap-3">
+          <Card onClick={() => router.push("/report")} className="text-center py-5">
+            <div className="text-2xl mb-1">📊</div>
+            <p className="text-sm font-bold text-ink">발달 리포트</p>
+            <p className="text-[11px] text-ink-faint mt-0.5">주·월 발달 균형</p>
+          </Card>
+          <Card onClick={() => router.push("/album")} className="text-center py-5">
+            <div className="text-2xl mb-1">📸</div>
+            <p className="text-sm font-bold text-ink">성장 앨범</p>
+            <p className="text-[11px] text-ink-faint mt-0.5">놀이 순간 타임라인</p>
+          </Card>
+        </div>
+
         {/* 통계 요약 */}
         <div className="grid grid-cols-2 gap-3">
           <StatBox label="함께한 놀이" value={`${logs.length}개`} />

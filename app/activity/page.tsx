@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSelectedActivity } from "@/lib/session";
 import { useChild } from "@/lib/useStore";
 import { addActivityLog, updateActivityLog } from "@/lib/storage";
 import { Activity, ActivityLog, Reaction } from "@/lib/types";
 import { uid } from "@/lib/utils";
+import { fileToResizedDataUrl } from "@/lib/image";
 import { Button, Card, PageHeader, OptionButton, EmptyState, Loading } from "@/components/ui";
 import { energyLabel, difficultyStars } from "@/components/ActivityCard";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -30,10 +31,23 @@ export default function ActivityPage() {
   const [reaction, setReaction] = useState<Reaction | null>(null);
   const [wantAgain, setWantAgain] = useState<boolean | null>(null);
   const [note, setNote] = useState("");
+  const [photo, setPhoto] = useState<string | undefined>();
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setActivity(getSelectedActivity());
   }, []);
+
+  async function onPickPhoto(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    try {
+      setPhoto(await fileToResizedDataUrl(file, 480));
+    } catch {
+      /* noop */
+    }
+  }
 
   if (!ready) return <Loading />;
 
@@ -71,7 +85,7 @@ export default function ActivityPage() {
 
   function saveRecord() {
     if (!logId) return;
-    updateActivityLog(logId, { reaction, wantAgain, note: note.trim() });
+    updateActivityLog(logId, { reaction, wantAgain, note: note.trim(), photo });
     router.push("/");
   }
 
@@ -138,6 +152,51 @@ export default function ActivityPage() {
               rows={2}
               placeholder="예: 색깔 찾는 걸 특히 좋아했어요"
               className="w-full rounded-xl border border-primary-soft px-3 py-2.5 text-sm focus:border-primary outline-none resize-none"
+            />
+          </Card>
+
+          {/* 놀이 순간 사진 (성장앨범용) */}
+          <Card>
+            <p className="text-sm font-semibold text-ink mb-2">
+              📸 오늘 순간 사진 (선택)
+            </p>
+            {photo ? (
+              <div className="flex items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo}
+                  alt="놀이 순간"
+                  className="w-20 h-20 rounded-xl object-cover"
+                />
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => photoInputRef.current?.click()}
+                    className="text-xs font-semibold text-primary text-left"
+                  >
+                    사진 변경
+                  </button>
+                  <button
+                    onClick={() => setPhoto(undefined)}
+                    className="text-xs text-ink-faint text-left"
+                  >
+                    사진 제거
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => photoInputRef.current?.click()}
+                className="w-full rounded-xl border-2 border-dashed border-primary-soft py-4 text-sm text-primary-dark font-semibold"
+              >
+                📷 사진 추가하기
+              </button>
+            )}
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/*"
+              onChange={onPickPhoto}
+              className="hidden"
             />
           </Card>
 
