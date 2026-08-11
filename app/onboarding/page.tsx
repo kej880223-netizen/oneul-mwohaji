@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveChild, getChild } from "@/lib/storage";
 import { Child, Gender, PERSONALITY_OPTIONS, Personality } from "@/lib/types";
 import { uid, ageInMonths } from "@/lib/utils";
+import { fileToResizedDataUrl } from "@/lib/image";
 import { Button, Card, OptionButton } from "@/components/ui";
 
 const GENDERS: { value: Gender; label: string }[] = [
@@ -27,14 +28,28 @@ export default function OnboardingPage() {
     existing?.personality ?? []
   );
   const [concerns, setConcerns] = useState(existing?.concerns ?? "");
+  const [photo, setPhoto] = useState<string | undefined>(existing?.photo);
   const [error, setError] = useState("");
   const [forceAllow, setForceAllow] = useState(false);
   const isEdit = !!existing;
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function togglePersonality(p: Personality) {
     setPersonality((prev) =>
       prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p]
     );
+  }
+
+  async function onPickPhoto(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // 같은 파일 다시 선택 가능하도록 초기화
+    if (!file) return;
+    try {
+      const dataUrl = await fileToResizedDataUrl(file);
+      setPhoto(dataUrl);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "사진을 불러오지 못했어요.");
+    }
   }
 
   function submit() {
@@ -61,6 +76,7 @@ export default function OnboardingPage() {
       dislikes: dislikes.trim(),
       personality,
       concerns: concerns.trim(),
+      photo,
       createdAt: existing?.createdAt ?? new Date().toISOString(),
     };
     saveChild(child);
@@ -86,6 +102,53 @@ export default function OnboardingPage() {
       </div>
 
       <div className="space-y-4">
+        {/* 프로필 사진 (선택) */}
+        <div className="flex flex-col items-center gap-2 py-1">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="relative w-24 h-24 rounded-full overflow-hidden bg-primary-soft flex items-center justify-center active:scale-[0.98] transition"
+            aria-label="아이 사진 추가"
+          >
+            {photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={photo}
+                alt="아이 사진 미리보기"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="text-4xl">👶</span>
+            )}
+            <span className="absolute bottom-0 inset-x-0 bg-black/35 text-white text-[11px] py-0.5">
+              📷 사진
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="text-xs font-semibold text-primary"
+          >
+            {photo ? "사진 변경" : "사진 추가하기 (선택)"}
+          </button>
+          {photo && (
+            <button
+              type="button"
+              onClick={() => setPhoto(undefined)}
+              className="text-xs text-ink-faint"
+            >
+              사진 제거
+            </button>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={onPickPhoto}
+            className="hidden"
+          />
+        </div>
+
         <Card>
           <label className="block text-sm font-semibold text-ink mb-1.5">
             아이 이름 <span className="text-primary">*</span>

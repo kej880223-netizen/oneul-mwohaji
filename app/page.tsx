@@ -61,13 +61,27 @@ export default function HomePage() {
   return (
     <div className="px-5 pt-8">
       {/* 인사 헤더 */}
-      <header className="mb-6">
-        <p className="text-sm text-ink-soft">
-          {ageLabel(child.birthDate)} · 오늘도 반가워요
-        </p>
-        <h1 className="text-2xl font-extrabold text-ink mt-1 leading-snug">
-          오늘 {child.name}와<br />뭐하지? 🌤️
-        </h1>
+      <header className="mb-6 flex items-center gap-3">
+        {child.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={child.photo}
+            alt={`${child.name} 사진`}
+            className="w-14 h-14 rounded-full object-cover shadow-card shrink-0"
+          />
+        ) : (
+          <div className="w-14 h-14 rounded-full bg-primary-soft flex items-center justify-center text-2xl shrink-0">
+            👶
+          </div>
+        )}
+        <div>
+          <p className="text-sm text-ink-soft">
+            {ageLabel(child.birthDate)} · 오늘도 반가워요
+          </p>
+          <h1 className="text-xl font-extrabold text-ink mt-0.5 leading-snug">
+            오늘 {child.name}와 뭐하지? 🌤️
+          </h1>
+        </div>
       </header>
 
       {/* 두 개의 핵심 CTA */}
@@ -114,7 +128,7 @@ export default function HomePage() {
 
         {picks && (
           <div className="space-y-3">
-            {picks.map((a) => (
+            {picks.slice(0, 3).map((a) => (
               <ActivityCard
                 key={a.id}
                 activity={a}

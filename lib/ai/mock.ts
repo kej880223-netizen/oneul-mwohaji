@@ -31,6 +31,9 @@ type Template = Omit<Activity, "id" | "parentPhrases"> & {
 
 const ACTIVITY_POOL = poolData as unknown as Template[];
 
+// 오늘의 놀이 추천 개수 (10개 미만)
+const RECOMMEND_COUNT = 8;
+
 // ─── 조건별 점수 함수 ──────────────────────────────────
 
 function parentFit(pe: string, el: EnergyLevel): number {
@@ -121,7 +124,7 @@ function pickActivities(
     return { t, s };
   }).sort((a, b) => b.s - a.s);
 
-  return scored.slice(0, 3).map(({ t }) => ({
+  return scored.slice(0, RECOMMEND_COUNT).map(({ t }) => ({
     id: uid(),
     title: t.title,
     description: t.description,

@@ -26,6 +26,7 @@ export interface Child {
   dislikes: string;
   personality: Personality[];
   concerns: string; // 부모가 가장 고민하는 부분
+  photo?: string; // 프로필 사진 (리사이즈된 data URL, 선택)
   createdAt: string; // ISO
 }
 

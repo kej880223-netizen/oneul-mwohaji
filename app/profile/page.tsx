@@ -21,9 +21,14 @@ export default function ProfilePage() {
     return <Loading />;
   }
 
-  function handleReset() {
-    // 브라우저 confirm은 자동화/접근성 이슈가 있어 두 단계 버튼 대신 간단 확인
-    if (window.confirm("모든 프로필과 기록을 삭제할까요? 되돌릴 수 없어요.")) {
+  function handleLogout() {
+    // 이 앱은 별도 계정이 없어 데이터를 이 기기에만 저장해요.
+    // 로그아웃 = 이 기기의 프로필·기록을 지우고 처음 화면으로.
+    if (
+      window.confirm(
+        "로그아웃할까요?\n이 앱은 계정 없이 기기에만 저장돼서, 로그아웃하면 이 기기의 프로필과 기록이 지워져요."
+      )
+    ) {
       resetAll();
       router.replace("/onboarding");
     }
@@ -40,9 +45,18 @@ export default function ProfilePage() {
         {/* 프로필 요약 */}
         <Card>
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-primary-soft flex items-center justify-center text-2xl">
-              👶
-            </div>
+            {child.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={child.photo}
+                alt={`${child.name} 사진`}
+                className="w-14 h-14 rounded-full object-cover shrink-0"
+              />
+            ) : (
+              <div className="w-14 h-14 rounded-full bg-primary-soft flex items-center justify-center text-2xl shrink-0">
+                👶
+              </div>
+            )}
             <div>
               <h2 className="text-lg font-extrabold text-ink">{child.name}</h2>
               <p className="text-sm text-ink-soft">
@@ -106,8 +120,8 @@ export default function ProfilePage() {
           정보예요. 모든 데이터는 이 기기에만 저장돼요.
         </p>
 
-        <Button variant="ghost" full onClick={handleReset} className="text-ink-faint">
-          데이터 초기화
+        <Button variant="ghost" full onClick={handleLogout} className="text-ink-faint">
+          로그아웃
         </Button>
       </div>
     </div>

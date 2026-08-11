@@ -76,7 +76,7 @@ export const openaiAdapter = {
   ): Promise<{ activities: Activity[] }> {
     const json = await chatJSON(buildTodayPrompt(child, conditions, recent));
     const list = Array.isArray(json.activities) ? json.activities : [];
-    return { activities: list.slice(0, 3).map(normalizeActivity) };
+    return { activities: list.slice(0, 8).map(normalizeActivity) };
   },
 
   async now(
