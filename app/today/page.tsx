@@ -192,7 +192,7 @@ export default function TodayPage() {
         </Question>
 
         <Button size="lg" full disabled={!canSubmit} onClick={submit}>
-          놀이 3개 추천받기 🎈
+          놀이 추천받기 🎈
         </Button>
       </div>
     </div>

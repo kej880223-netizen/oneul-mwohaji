@@ -2,6 +2,7 @@
 
 import { Activity } from "@/lib/types";
 import { Card } from "./ui";
+import FavoriteButton from "./FavoriteButton";
 
 export function energyLabel(e: Activity["energyLevel"]): string {
   return e === "low" ? "낮음" : e === "medium" ? "보통" : "높음";
@@ -23,7 +24,10 @@ export default function ActivityCard({
     <Card onClick={onClick} className="animate-fade-up">
       <div className="flex items-start justify-between gap-2">
         <h3 className="font-bold text-ink leading-snug">{activity.title}</h3>
-        <span className="text-xs shrink-0 mt-1">{difficultyStars(activity.difficulty)}</span>
+        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+          <span className="text-xs">{difficultyStars(activity.difficulty)}</span>
+          <FavoriteButton activity={activity} />
+        </div>
       </div>
       <p className="text-sm text-ink-soft mt-1">{activity.description}</p>
 

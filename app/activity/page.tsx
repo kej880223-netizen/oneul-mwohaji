@@ -9,6 +9,7 @@ import { Activity, ActivityLog, Reaction } from "@/lib/types";
 import { uid } from "@/lib/utils";
 import { Button, Card, PageHeader, OptionButton, EmptyState, Loading } from "@/components/ui";
 import { energyLabel, difficultyStars } from "@/components/ActivityCard";
+import FavoriteButton from "@/components/FavoriteButton";
 
 type Phase = "detail" | "record";
 
@@ -158,9 +159,12 @@ export default function ActivityPage() {
       <PageHeader title="놀이 방법" onBack={() => router.back()} />
       <div className="px-5 space-y-4 pb-6">
         <div className="animate-fade-up">
-          <h1 className="text-2xl font-extrabold text-ink leading-snug">
-            {activity.title}
-          </h1>
+          <div className="flex items-start justify-between gap-2">
+            <h1 className="text-2xl font-extrabold text-ink leading-snug">
+              {activity.title}
+            </h1>
+            <FavoriteButton activity={activity} className="mt-1" />
+          </div>
           <p className="text-ink-soft mt-1">{activity.description}</p>
         </div>
 

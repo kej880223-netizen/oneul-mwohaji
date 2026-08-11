@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { getChild, getActivityLogs, getQuestions } from "./storage";
-import { Child, ActivityLog, ParentingQuestion } from "./types";
+import {
+  getChild,
+  getActivityLogs,
+  getQuestions,
+  getFavorites,
+} from "./storage";
+import { Child, ActivityLog, ParentingQuestion, Activity } from "./types";
 
 // localStorage 변경(같은 탭 커스텀 이벤트 + 다른 탭 storage 이벤트)을
 // 구독해 화면을 최신 상태로 유지하는 훅.
@@ -41,4 +46,9 @@ export function useQuestions() {
   const [questions, refresh] =
     useReactiveStore<ParentingQuestion[]>(getQuestions);
   return { questions, refresh };
+}
+
+export function useFavorites() {
+  const [favorites, refresh] = useReactiveStore<Activity[]>(getFavorites);
+  return { favorites, refresh };
 }
