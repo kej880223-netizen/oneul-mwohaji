@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { getSelectedActivity } from "@/lib/session";
 import { useChild } from "@/lib/useStore";
 import { addActivityLog, updateActivityLog } from "@/lib/storage";
+import { getAuthor } from "@/lib/identity";
 import { Activity, ActivityLog, Reaction } from "@/lib/types";
 import { uid } from "@/lib/utils";
 import { fileToResizedDataUrl } from "@/lib/image";
@@ -76,6 +77,7 @@ export default function ActivityPage() {
       reaction: null,
       wantAgain: null,
       note: "",
+      createdBy: getAuthor() ?? undefined,
       createdAt: new Date().toISOString(),
     };
     addActivityLog(log);

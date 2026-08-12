@@ -3,7 +3,14 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveChild, getChild, addChild } from "@/lib/storage";
-import { Child, Gender, PERSONALITY_OPTIONS, Personality } from "@/lib/types";
+import { getRole, setProfile, ROLE_META, ROLE_OPTIONS } from "@/lib/identity";
+import {
+  Child,
+  Gender,
+  CaregiverRole,
+  PERSONALITY_OPTIONS,
+  Personality,
+} from "@/lib/types";
 import { uid, ageInMonths } from "@/lib/utils";
 import { fileToResizedDataUrl } from "@/lib/image";
 import { Button, Card, OptionButton } from "@/components/ui";
@@ -36,6 +43,11 @@ export default function OnboardingPage() {
   const [error, setError] = useState("");
   const [forceAllow, setForceAllow] = useState(false);
   const isEdit = !!existing;
+  // 첫 실행에서만 "나는 누구인가요?"(양육자) 선택 — 부부 공유 시 작성자 표시용
+  const showRolePicker = !isEdit && !isAddMode;
+  const [role, setRole] = useState<CaregiverRole | null>(
+    typeof window !== "undefined" ? getRole() : null
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function togglePersonality(p: Personality) {
@@ -85,6 +97,8 @@ export default function OnboardingPage() {
     };
     if (isAddMode) addChild(child);
     else saveChild(child);
+    // 첫 실행에서 고른 양육자 역할을 이 기기 프로필로 저장
+    if (showRolePicker && role) setProfile(role);
     router.replace(isEdit ? "/profile" : "/");
   }
 
@@ -172,6 +186,29 @@ export default function OnboardingPage() {
             className="w-full rounded-xl border border-primary-soft px-3 py-2.5 text-sm focus:border-primary outline-none"
           />
         </Card>
+
+        {showRolePicker && (
+          <Card>
+            <span className="block text-sm font-semibold text-ink mb-1.5">
+              나는 아이의…
+            </span>
+            <p className="text-xs text-ink-faint mb-2">
+              배우자와 함께 쓸 때 “누가 기록했는지” 표시하는 데 쓰여요. (선택)
+            </p>
+            <div className="grid grid-cols-3 gap-2">
+              {ROLE_OPTIONS.map((r) => (
+                <OptionButton
+                  key={r}
+                  selected={role === r}
+                  onClick={() => setRole(r)}
+                  className="text-center py-2.5"
+                >
+                  {ROLE_META[r].emoji} {ROLE_META[r].label}
+                </OptionButton>
+              ))}
+            </div>
+          </Card>
+        )}
 
         <Card>
           <label className="block text-sm font-semibold text-ink mb-1.5">

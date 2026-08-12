@@ -55,6 +55,66 @@ function todayStr(): string {
   return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 }
 
+// 부부 공유: 동기화 중 배우자가 남긴 새 기록을 감지하면 알림.
+// (권한이 허용된 경우에만. 최초 로드/과거 기록 스팸은 share.ts의 신선도 필터로 차단)
+export interface PartnerItem {
+  kind: "play" | "situation";
+  by?: string; // 작성자 라벨 (예: "아빠")
+  title?: string; // 놀이 제목 또는 질문
+}
+
+export function notifyPartnerActivity(items: PartnerItem[]): void {
+  if (!notifySupported() || Notification.permission !== "granted") return;
+  if (!items.length) return;
+
+  const by = items[0].by || "배우자";
+  const n = items.length;
+  const title =
+    n === 1
+      ? `${by}님이 기록을 남겼어요 💞`
+      : `${by}님이 새 기록 ${n}개를 남겼어요 💞`;
+  const first = items[0].title ? `“${items[0].title}”` : "새 기록";
+  const body = n > 1 ? `${first} 외 ${n - 1}건` : first;
+
+  try {
+    const notif = new Notification(title, {
+      body,
+      icon: "/icons/icon-192.png",
+      badge: "/icons/icon-192.png",
+      tag: "omh-partner", // 같은 태그로 묶어 알림 폭주 방지
+    });
+    notif.onclick = () => {
+      window.focus();
+      window.location.href = "/records";
+      notif.close();
+    };
+  } catch {
+    /* noop */
+  }
+}
+
+// 부부 공유: 새 구성원(배우자)이 참여했을 때 알림.
+export function notifyMemberJoined(labels: string[]): void {
+  if (!notifySupported() || Notification.permission !== "granted") return;
+  if (!labels.length) return;
+  const name = labels[0] || "배우자";
+  try {
+    const notif = new Notification(`${name}님이 공유에 참여했어요 💞`, {
+      body: "이제 같은 아이 기록을 함께 쌓아요.",
+      icon: "/icons/icon-192.png",
+      badge: "/icons/icon-192.png",
+      tag: "omh-member",
+    });
+    notif.onclick = () => {
+      window.focus();
+      window.location.href = "/records";
+      notif.close();
+    };
+  } catch {
+    /* noop */
+  }
+}
+
 // 앱을 열었을 때 호출 — 조건 충족 시 '오늘의 놀이' 리마인더 1회 표시
 export function maybeShowDailyReminder(childName: string): void {
   if (!notifySupported()) return;

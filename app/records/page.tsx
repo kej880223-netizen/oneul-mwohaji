@@ -10,7 +10,8 @@ import {
 } from "@/lib/useStore";
 import { formatRelative } from "@/lib/utils";
 import { Card, PageHeader, EmptyState, Button, Loading } from "@/components/ui";
-import { Activity, Reaction } from "@/lib/types";
+import { Activity, Author, Reaction } from "@/lib/types";
+import { ROLE_META, isMine } from "@/lib/identity";
 import ActivityCard from "@/components/ActivityCard";
 import { setSelectedActivity } from "@/lib/session";
 
@@ -19,6 +20,26 @@ const REACTION_EMOJI: Record<Reaction, string> = {
   soso: "😐",
   bad: "👎",
 };
+
+// "누가 기록했나" 배지 (부부 공유). 작성자 정보가 없는 구버전 기록은 숨김.
+function AuthorTag({ author }: { author?: Author }) {
+  if (!author) return null;
+  const emoji = ROLE_META[author.role]?.emoji ?? "🧑";
+  const mine = isMine(author);
+  return (
+    <span
+      className={
+        "inline-flex items-center gap-1 text-[11px] font-semibold rounded-full px-2 py-0.5 " +
+        (mine
+          ? "bg-primary-soft text-primary-dark"
+          : "bg-accent-soft text-accent")
+      }
+    >
+      {emoji} {author.label}
+      {mine ? " · 나" : ""}
+    </span>
+  );
+}
 
 type Tab = "all" | "play" | "situation" | "fav";
 
@@ -148,7 +169,7 @@ export default function RecordsPage() {
                       {formatRelative(item.createdAt)}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 mt-2 text-sm text-ink-soft">
+                  <div className="flex items-center flex-wrap gap-x-3 gap-y-1.5 mt-2 text-sm text-ink-soft">
                     {item.data.reaction && (
                       <span>
                         {REACTION_EMOJI[item.data.reaction]} 아이 반응
@@ -156,6 +177,7 @@ export default function RecordsPage() {
                     )}
                     {item.data.wantAgain === true && <span>🔁 또 하고 싶어함</span>}
                     {item.data.wantAgain === false && <span>🙅 별로</span>}
+                    <AuthorTag author={item.data.createdBy} />
                   </div>
                   {item.data.note && (
                     <p className="text-sm text-ink-soft mt-2 bg-cream rounded-lg px-2.5 py-1.5">
@@ -185,6 +207,11 @@ export default function RecordsPage() {
                     <p className="text-sm text-ink-soft mt-2 bg-cream rounded-lg px-2.5 py-1.5">
                       “{item.data.note}”
                     </p>
+                  )}
+                  {item.data.createdBy && (
+                    <div className="mt-2">
+                      <AuthorTag author={item.data.createdBy} />
+                    </div>
                   )}
                 </Card>
               )

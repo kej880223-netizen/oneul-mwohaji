@@ -16,6 +16,7 @@ const KEYS = {
   logs: "omh.activityLogs",
   questions: "omh.parentingQuestions",
   favorites: "omh.favorites",
+  deletions: "omh.deletions", // 삭제 묘비(tombstone): 부부 공유 시 삭제 전파용
 } as const;
 
 function read<T>(key: string, fallback: T): T {
@@ -34,6 +35,43 @@ function write<T>(key: string, value: T): void {
   // 같은 탭 내 다른 컴포넌트에 변경 알림
   window.dispatchEvent(new Event("omh:storage"));
 }
+
+// ─── 삭제 묘비(tombstone) ─────────────────────────────────
+// 하드 삭제 대신 "삭제됨 + 시각"을 남겨, 병합 동기화 시 삭제가 배우자
+// 기기로 전파되고(합집합 병합의 부활 버그 방지), 재추가는 시각 비교로 살린다.
+// 형태: { "log:<id>": ISO, "question:<id>": ISO, "child:<id>": ISO, "favorite:<title>": ISO }
+
+export type DeletionMap = Record<string, string>;
+
+export function getDeletions(): DeletionMap {
+  return read<DeletionMap>(KEYS.deletions, {});
+}
+
+function tombstone(...tombKeys: string[]): void {
+  if (tombKeys.length === 0) return;
+  const map = getDeletions();
+  const now = new Date().toISOString();
+  tombKeys.forEach((k) => {
+    map[k] = now;
+  });
+  write(KEYS.deletions, map);
+}
+
+// 재추가 시 해당 항목의 묘비를 걷어낸다(로컬 정리; 병합은 시각 비교로도 안전).
+function clearTombstone(tombKey: string): void {
+  const map = getDeletions();
+  if (map[tombKey] === undefined) return;
+  delete map[tombKey];
+  write(KEYS.deletions, map);
+}
+
+// tombstone 키 규칙 (share.ts 병합과 반드시 동일하게 유지)
+export const tombKeyFor = {
+  log: (id: string) => `log:${id}`,
+  question: (id: string) => `question:${id}`,
+  child: (id: string) => `child:${id}`,
+  favorite: (title: string) => `favorite:${title}`,
+};
 
 // 구버전(단일 아이) → 다자녀 구조로 1회 마이그레이션
 function ensureMigrated(): void {
@@ -82,9 +120,10 @@ export function setActiveChild(id: string): void {
 export function saveChild(child: Child): void {
   const children = getChildren();
   const exists = children.some((c) => c.id === child.id);
+  const stamped = { ...child, updatedAt: new Date().toISOString() };
   const next = exists
-    ? children.map((c) => (c.id === child.id ? child : c))
-    : [...children, child];
+    ? children.map((c) => (c.id === child.id ? stamped : c))
+    : [...children, stamped];
   write(KEYS.children, next);
   if (!read<string | null>(KEYS.activeChildId, null)) {
     write(KEYS.activeChildId, child.id);
@@ -93,25 +132,57 @@ export function saveChild(child: Child): void {
 
 // 새 아이 추가 + 그 아이로 전환
 export function addChild(child: Child): void {
-  write(KEYS.children, [...getChildren(), child]);
+  const stamped = { ...child, updatedAt: child.updatedAt ?? child.createdAt };
+  write(KEYS.children, [...getChildren(), stamped]);
   write(KEYS.activeChildId, child.id);
 }
 
 // 아이 삭제 (해당 아이의 기록·질문도 함께 삭제)
 export function deleteChild(id: string): void {
   const children = getChildren().filter((c) => c.id !== id);
+  const gone = { logs: [] as string[], questions: [] as string[] };
   write(KEYS.children, children);
   write(
     KEYS.logs,
-    read<ActivityLog[]>(KEYS.logs, []).filter((l) => l.childId !== id)
+    read<ActivityLog[]>(KEYS.logs, []).filter((l) => {
+      if (l.childId === id) gone.logs.push(l.id);
+      return l.childId !== id;
+    })
   );
   write(
     KEYS.questions,
-    read<ParentingQuestion[]>(KEYS.questions, []).filter((q) => q.childId !== id)
+    read<ParentingQuestion[]>(KEYS.questions, []).filter((q) => {
+      if (q.childId === id) gone.questions.push(q.id);
+      return q.childId !== id;
+    })
+  );
+  // 아이 + 그 아이의 기록·질문 모두 묘비 처리(배우자 기기로 삭제 전파)
+  tombstone(
+    tombKeyFor.child(id),
+    ...gone.logs.map(tombKeyFor.log),
+    ...gone.questions.map(tombKeyFor.question)
   );
   if (read<string | null>(KEYS.activeChildId, null) === id) {
     write(KEYS.activeChildId, children[0]?.id ?? null);
   }
+}
+
+// 놀이 기록 삭제 (묘비 전파)
+export function deleteActivityLog(id: string): void {
+  write(
+    KEYS.logs,
+    read<ActivityLog[]>(KEYS.logs, []).filter((l) => l.id !== id)
+  );
+  tombstone(tombKeyFor.log(id));
+}
+
+// 상황 질문 삭제 (묘비 전파)
+export function deleteQuestion(id: string): void {
+  write(
+    KEYS.questions,
+    read<ParentingQuestion[]>(KEYS.questions, []).filter((q) => q.id !== id)
+  );
+  tombstone(tombKeyFor.question(id));
 }
 
 // ─── ActivityLog (활성 아이 기준) ─────────────────────────
@@ -125,7 +196,8 @@ export function getActivityLogs(): ActivityLog[] {
 
 export function addActivityLog(log: ActivityLog): void {
   const logs = read<ActivityLog[]>(KEYS.logs, []);
-  write(KEYS.logs, [log, ...logs]);
+  const stamped = { ...log, updatedAt: log.updatedAt ?? log.createdAt };
+  write(KEYS.logs, [stamped, ...logs]);
 }
 
 export function updateActivityLog(
@@ -133,9 +205,10 @@ export function updateActivityLog(
   patch: Partial<ActivityLog>
 ): void {
   const logs = read<ActivityLog[]>(KEYS.logs, []);
+  const now = new Date().toISOString();
   write(
     KEYS.logs,
-    logs.map((l) => (l.id === id ? { ...l, ...patch } : l))
+    logs.map((l) => (l.id === id ? { ...l, ...patch, updatedAt: now } : l))
   );
 }
 
@@ -150,7 +223,8 @@ export function getQuestions(): ParentingQuestion[] {
 
 export function addQuestion(q: ParentingQuestion): void {
   const qs = read<ParentingQuestion[]>(KEYS.questions, []);
-  write(KEYS.questions, [q, ...qs]);
+  const stamped = { ...q, updatedAt: q.updatedAt ?? q.createdAt };
+  write(KEYS.questions, [stamped, ...qs]);
 }
 
 export function updateQuestion(
@@ -158,9 +232,10 @@ export function updateQuestion(
   patch: Partial<ParentingQuestion>
 ): void {
   const qs = read<ParentingQuestion[]>(KEYS.questions, []);
+  const now = new Date().toISOString();
   write(
     KEYS.questions,
-    qs.map((q) => (q.id === id ? { ...q, ...patch } : q))
+    qs.map((q) => (q.id === id ? { ...q, ...patch, updatedAt: now } : q))
   );
 }
 
@@ -183,9 +258,15 @@ export function toggleFavorite(activity: Activity): boolean {
       KEYS.favorites,
       list.filter((a) => a.title !== activity.title)
     );
+    tombstone(tombKeyFor.favorite(activity.title));
     return false;
   }
-  write(KEYS.favorites, [{ ...activity }, ...list]);
+  // 재추가: favedAt을 지금으로 찍어 이전 삭제 묘비보다 최신임을 표시
+  write(KEYS.favorites, [
+    { ...activity, favedAt: new Date().toISOString() },
+    ...list,
+  ]);
+  clearTombstone(tombKeyFor.favorite(activity.title));
   return true;
 }
 
@@ -195,6 +276,7 @@ export function removeFavorite(title: string): void {
     KEYS.favorites,
     list.filter((a) => a.title !== title)
   );
+  tombstone(tombKeyFor.favorite(title));
 }
 
 // ─── 데이터 내보내기(백업) ────────────────────────────────

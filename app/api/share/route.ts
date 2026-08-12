@@ -4,8 +4,8 @@ export const runtime = "nodejs";
 
 // ─────────────────────────────────────────────────────────
 //  부부 공유 저장소 (가족 코드 기반)
-//  Vercel KV / Upstash Redis(REST) 사용. 미설정 시 인메모리 폴백
-//  (로컬/단일 인스턴스 전용 — 실제 기기 간 공유엔 KV 연결 필요).
+//  Vercel KV / Upstash Redis(REST) 사용. 미설정 시 인메모리 폴백은
+//  개발 환경에서만 허용하고, 프로덕션에서는 503으로 거절(가짜 공유 방지).
 // ─────────────────────────────────────────────────────────
 
 const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -13,6 +13,13 @@ const KV_TOKEN =
   process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const TTL = 60 * 60 * 24 * 180; // 180일
 const kvReady = !!(KV_URL && KV_TOKEN);
+
+// 인메모리 폴백은 개발/로컬에서만 허용. 프로덕션에서 KV 없이 폴백하면
+// 프로세스 재시작·다중 인스턴스에서 데이터가 조용히 사라져 "공유되는 척"만
+// 하므로 차단한다. 부득이 프로덕션에서 허용하려면 ALLOW_MEMORY_SHARE=1.
+const memoryAllowed =
+  process.env.NODE_ENV !== "production" ||
+  process.env.ALLOW_MEMORY_SHARE === "1";
 
 // 인메모리 폴백(프로세스 재시작/다중 인스턴스에서는 유지 안 됨)
 const g = globalThis as any;
@@ -55,6 +62,17 @@ export async function POST(req: NextRequest) {
     const { action, code, blob } = await req.json();
     if (typeof code !== "string" || !CODE_RE.test(code)) {
       return NextResponse.json({ error: "유효하지 않은 코드예요." }, { status: 400 });
+    }
+    // 프로덕션에서 KV 미연결이면 공유가 실제로 유지되지 않으므로 명시적으로 거절.
+    if (!kvReady && !memoryAllowed) {
+      return NextResponse.json(
+        {
+          error:
+            "공유 서버가 아직 준비되지 않았어요. 잠시 후 다시 시도해주세요.",
+          source: "unavailable",
+        },
+        { status: 503 }
+      );
     }
     const key = `omh:fam:${code}`;
     const source = kvReady ? "kv" : "memory";

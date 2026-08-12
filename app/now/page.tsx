@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useChild, useActivityLogs } from "@/lib/useStore";
 import { requestNow } from "@/lib/ai/client";
 import { addQuestion } from "@/lib/storage";
+import { getAuthor } from "@/lib/identity";
 import { SituationAdvice, ParentingQuestion } from "@/lib/types";
 import { SITUATIONS } from "@/lib/constants";
 import { uid } from "@/lib/utils";
@@ -103,6 +104,7 @@ export default function NowPage() {
       question: first.question,
       aiResponse: last.advice,
       note: note.trim(),
+      createdBy: getAuthor() ?? undefined,
       createdAt: new Date().toISOString(),
     };
     addQuestion(q);

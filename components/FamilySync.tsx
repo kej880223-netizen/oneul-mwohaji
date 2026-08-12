@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { getFamilyCode, syncOnce, pushToCloud } from "@/lib/share";
+import { notifyPartnerActivity, notifyMemberJoined } from "@/lib/notifications";
 
 // 가족 코드가 설정돼 있으면 앱이 열려 있는 동안 주기적으로 동기화.
 export default function FamilySync() {
@@ -12,7 +13,9 @@ export default function FamilySync() {
       const code = getFamilyCode();
       if (!code) return;
       try {
-        await syncOnce(code);
+        const { partnerNew, memberJoined } = await syncOnce(code);
+        if (memberJoined.length) notifyMemberJoined(memberJoined);
+        if (partnerNew.length) notifyPartnerActivity(partnerNew);
       } catch (e) {
         console.warn("[familySync] sync failed", e);
       }

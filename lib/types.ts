@@ -6,6 +6,26 @@
 
 export type Gender = "boy" | "girl" | "other";
 
+// ─── 양육자(부부 공유: 누가 기록했나) ──────────────────────
+export type CaregiverRole = "mom" | "dad" | "other";
+
+export interface Author {
+  id: string; // 작성한 기기의 deviceId
+  role: CaregiverRole;
+  label: string; // 표시 이름 스냅샷 (예: "엄마")
+}
+
+// 부부 공유 구성원(가족 코드에 참여한 각 기기). 블롭에 함께 동기화된다.
+export interface FamilyMember {
+  id: string; // deviceId
+  role: CaregiverRole;
+  label: string;
+  joinedAt: string; // 처음 참여한 시각(ISO)
+  lastSeenAt: string; // 마지막 동기화 시각(ISO)
+  left?: boolean; // 공유를 나갔는지
+  updatedAt: string; // LWW 병합용
+}
+
 export const PERSONALITY_OPTIONS = [
   "활동적인 편",
   "조심스러운 편",
@@ -28,6 +48,7 @@ export interface Child {
   concerns: string; // 부모가 가장 고민하는 부분
   photo?: string; // 프로필 사진 (리사이즈된 data URL, 선택)
   createdAt: string; // ISO
+  updatedAt?: string; // 마지막 수정 시각(ISO). 동기화 병합 시 최신본 우선(LWW).
 }
 
 export type EnergyLevel = "low" | "medium" | "high";
@@ -55,6 +76,7 @@ export interface Activity {
   steps: string[]; // 놀이 방법
   parentPhrases: string[]; // 부모가 이렇게 말해보세요
   domains?: DevDomain[]; // 발달 영역 (선택)
+  favedAt?: string; // 즐겨찾기에 담은 시각(ISO). 삭제 후 재추가 구분용.
 }
 
 export type Reaction = "good" | "soso" | "bad";
@@ -68,7 +90,9 @@ export interface ActivityLog {
   wantAgain: boolean | null;
   note: string;
   photo?: string; // 놀이 순간 사진 (성장앨범용, 리사이즈된 data URL)
+  createdBy?: Author; // 누가 기록했나 (부부 공유). 구버전 기록엔 없음.
   createdAt: string; // ISO
+  updatedAt?: string; // 마지막 수정 시각(ISO). 동기화 병합 시 최신본 우선(LWW).
 }
 
 export interface ParentingQuestion {
@@ -79,7 +103,9 @@ export interface ParentingQuestion {
   childState?: string;
   aiResponse: SituationAdvice;
   note: string;
+  createdBy?: Author; // 누가 물었나 (부부 공유). 구버전 기록엔 없음.
   createdAt: string; // ISO
+  updatedAt?: string; // 마지막 수정 시각(ISO). 동기화 병합 시 최신본 우선(LWW).
 }
 
 // ─── AI 구조화 응답 (지시서 15번) ───────────────────────────
