@@ -10,6 +10,9 @@ import { ageLabel } from "@/lib/utils";
 import { Card, Loading, SectionTitle, Button } from "@/components/ui";
 import ActivityCard from "@/components/ActivityCard";
 import { setSelectedActivity } from "@/lib/session";
+import HomeMilestone from "@/components/HomeMilestone";
+import HomeWeather from "@/components/HomeWeather";
+import HomeTip from "@/components/HomeTip";
 
 // 홈 미리보기용 기본 조건 (부담 없는 무난한 세팅)
 const DEFAULT_CONDITIONS: TodayConditions = {
@@ -104,6 +107,11 @@ export default function HomePage() {
         </Link>
       </div>
 
+      {/* 이 시기 발달 체크 */}
+      <div className="mb-8">
+        <HomeMilestone childId={child.id} birthDate={child.birthDate} />
+      </div>
+
       {/* 오늘의 추천 */}
       <section className="mb-4">
         <SectionTitle
@@ -137,6 +145,12 @@ export default function HomePage() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* 날씨 · 오늘의 팁 */}
+      <section className="space-y-3 mb-4">
+        <HomeWeather />
+        <HomeTip seed={child.id.length} />
       </section>
     </div>
   );
