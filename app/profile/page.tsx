@@ -188,7 +188,7 @@ export default function ProfilePage() {
           </Card>
         </section>
 
-        {/* 리포트 · 성장앨범 바로가기 */}
+        {/* 리포트 · 성장앨범 · 발달체크 · 이모티콘 바로가기 */}
         <div className="grid grid-cols-2 gap-3">
           <Card onClick={() => router.push("/report")} className="text-center py-5">
             <div className="text-2xl mb-1">📊</div>
@@ -199,6 +199,16 @@ export default function ProfilePage() {
             <div className="text-2xl mb-1">📸</div>
             <p className="text-sm font-bold text-ink">성장 앨범</p>
             <p className="text-[11px] text-ink-faint mt-0.5">놀이 순간 타임라인</p>
+          </Card>
+          <Card onClick={() => router.push("/growth")} className="text-center py-5">
+            <div className="text-2xl mb-1">📈</div>
+            <p className="text-sm font-bold text-ink">발달 체크</p>
+            <p className="text-[11px] text-ink-faint mt-0.5">개월별 발달 이정표</p>
+          </Card>
+          <Card onClick={() => router.push("/sticker")} className="text-center py-5">
+            <div className="text-2xl mb-1">🎨</div>
+            <p className="text-sm font-bold text-ink">이모티콘 만들기</p>
+            <p className="text-[11px] text-ink-faint mt-0.5">사진으로 스티커</p>
           </Card>
         </div>
 
