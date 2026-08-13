@@ -7,8 +7,12 @@ import { fileToResizedDataUrl } from "@/lib/image";
 import {
   STICKER_PRESETS,
   StickerPreset,
-  renderSticker,
+  StickerBase,
+  prepareStickerBase,
+  renderStickerFromBase,
 } from "@/lib/sticker";
+import { CartoonStyle, CARTOON_STYLE_LABELS } from "@/lib/cartoonize";
+import { warmupSegmenter } from "@/lib/segment";
 import { PageHeader, Card, Button, Loading, EmptyState } from "@/components/ui";
 
 interface Made {
@@ -23,52 +27,73 @@ export default function StickerPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const [style, setStyle] = useState<CartoonStyle>("cartoon");
+  const [cutout, setCutout] = useState(true);
+
+  const [base, setBase] = useState<StickerBase | null>(null);
   const [stickers, setStickers] = useState<Made[]>([]);
-  const [rendering, setRendering] = useState(false);
+  const [customMade, setCustomMade] = useState<Made[]>([]);
+  const [phase, setPhase] = useState<"" | "prep" | "render">("");
+
   const [selected, setSelected] = useState<Made | null>(null);
   const [custom, setCustom] = useState("");
   const [customEmoji, setCustomEmoji] = useState("💛");
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
 
-  // 초기 사진: 아이 프로필 사진
+  // 초기 사진: 아이 프로필 사진 + 배경제거 모델 예열
   useEffect(() => {
     if (child?.photo) setPhoto(child.photo);
+    warmupSegmenter();
   }, [child]);
 
-  // 사진이 준비되면 프리셋 스티커 일괄 렌더 (경쟁 방지 토큰)
+  // 사진/스타일/컷아웃 변경 → base 재생성 후 프리셋 일괄 렌더
   useEffect(() => {
     if (!photo) {
+      setBase(null);
       setStickers([]);
+      setCustomMade([]);
       return;
     }
     let alive = true;
-    setRendering(true);
     setErr("");
-    Promise.all(
-      STICKER_PRESETS.map(async (p: StickerPreset) => ({
-        key: p.id,
-        caption: p.caption,
-        url: await renderSticker(photo, p),
-      }))
-    )
-      .then((made) => {
-        if (alive) setStickers(made);
-      })
-      .catch(() => alive && setErr("스티커를 만들지 못했어요."))
-      .finally(() => alive && setRendering(false));
+    setPhase("prep");
+    setCustomMade([]);
+    (async () => {
+      try {
+        const b = await prepareStickerBase(photo, { style, cutout, size: 480 });
+        if (!alive) return;
+        setBase(b);
+        setPhase("render");
+        const made = STICKER_PRESETS.map((p: StickerPreset) => ({
+          key: p.id,
+          caption: p.caption,
+          url: renderStickerFromBase(b, p),
+        }));
+        if (!alive) return;
+        setStickers(made);
+        if (!b.cutout && cutout) {
+          setMsg("인물을 또렷이 인식하지 못해 배경은 그대로 뒀어요. 얼굴이 크게 나온 사진일수록 잘 잘려요.");
+        } else {
+          setMsg("");
+        }
+      } catch {
+        if (alive) setErr("스티커를 만들지 못했어요. 다른 사진으로 시도해 주세요.");
+      } finally {
+        if (alive) setPhase("");
+      }
+    })();
     return () => {
       alive = false;
     };
-  }, [photo]);
+  }, [photo, style, cutout]);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
     try {
-      // 스티커 화질을 위해 512px로
-      const url = await fileToResizedDataUrl(file, 512);
+      const url = await fileToResizedDataUrl(file, 640);
       setPhoto(url);
       setMsg("사진을 바꿨어요.");
     } catch (er) {
@@ -76,24 +101,21 @@ export default function StickerPage() {
     }
   }
 
-  async function makeCustom() {
+  function makeCustom() {
     const caption = custom.trim();
-    if (!photo || !caption) return;
-    try {
-      const url = await renderSticker(photo, {
-        id: `custom-${caption}`,
-        caption,
-        emoji: customEmoji,
-        color: "#F5883E",
-      });
-      setStickers((prev) => [
-        { key: `custom-${caption}-${prev.length}`, caption, url },
-        ...prev,
-      ]);
-      setCustom("");
-    } catch {
-      setErr("스티커를 만들지 못했어요.");
-    }
+    if (!base || !caption) return;
+    const url = renderStickerFromBase(base, {
+      id: `custom-${caption}`,
+      caption,
+      emoji: customEmoji,
+      color: "#F0885A",
+      mood: "sparkle",
+    });
+    setCustomMade((prev) => [
+      { key: `custom-${caption}-${prev.length}`, caption, url },
+      ...prev,
+    ]);
+    setCustom("");
   }
 
   function download(s: Made) {
@@ -120,7 +142,7 @@ export default function StickerPage() {
         await nav.share({ files: [file], title: "우리 아이 이모티콘" });
         return;
       }
-      download(s); // 공유 미지원 → 저장으로 폴백
+      download(s);
     } catch {
       /* 사용자가 공유 취소 */
     }
@@ -133,12 +155,14 @@ export default function StickerPage() {
   }
 
   const EMOJI_CHOICES = ["💛", "😄", "😍", "🥰", "😆", "🤗", "😎", "🌟"];
+  const busy = phase !== "";
+  const all = [...customMade, ...stickers];
 
   return (
     <div>
       <PageHeader
         title="이모티콘 만들기"
-        subtitle={`${child.name} 사진으로 스티커를 만들어요`}
+        subtitle={`${child.name} 사진을 만화 캐릭터로`}
         onBack={() => router.push("/profile")}
       />
 
@@ -176,7 +200,8 @@ export default function StickerPage() {
             className="hidden"
           />
           <p className="text-[11px] text-ink-faint mt-3 leading-relaxed">
-            🔒 사진은 이 기기 안에서만 처리돼요. 서버나 AI로 전송되지 않아요.
+            🔒 사진은 이 기기 안에서만 처리돼요. 배경 지우기·만화 변환 전부
+            기기에서 돌아가고, 서버나 AI로 전송되지 않아요.
           </p>
         </Card>
 
@@ -184,13 +209,58 @@ export default function StickerPage() {
           <EmptyState
             emoji="🎨"
             title="사진을 먼저 골라주세요"
-            description="아이 사진을 선택하면 다양한 표정 스티커를 만들어드려요."
+            description="아이 사진을 고르면 배경을 지우고 만화 캐릭터 스티커로 바꿔드려요."
             action={
               <Button onClick={() => fileRef.current?.click()}>사진 선택</Button>
             }
           />
         ) : (
           <>
+            {/* 스타일 선택 */}
+            <Card className="mb-4">
+              <p className="text-sm font-semibold text-ink mb-2">그림체</p>
+              <div className="grid grid-cols-4 gap-2 mb-3">
+                {CARTOON_STYLE_LABELS.map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => setStyle(s.id)}
+                    disabled={busy}
+                    className={
+                      "flex flex-col items-center gap-1 rounded-xl py-2.5 text-xs font-medium transition disabled:opacity-50 " +
+                      (style === s.id
+                        ? "bg-primary-soft ring-2 ring-primary text-primary-dark"
+                        : "bg-cream text-ink-soft")
+                    }
+                  >
+                    <span className="text-xl">{s.emoji}</span>
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+              <label className="flex items-center justify-between">
+                <span className="text-sm text-ink-soft">
+                  배경 지우기 <span className="text-ink-faint">(캐릭터 다이컷)</span>
+                </span>
+                <button
+                  onClick={() => setCutout((v) => !v)}
+                  disabled={busy}
+                  role="switch"
+                  aria-checked={cutout}
+                  className={
+                    "relative w-11 h-6 rounded-full transition disabled:opacity-50 " +
+                    (cutout ? "bg-primary" : "bg-ink-faint/40")
+                  }
+                >
+                  <span
+                    className={
+                      "absolute top-0.5 w-5 h-5 bg-white rounded-full transition-all " +
+                      (cutout ? "left-[22px]" : "left-0.5")
+                    }
+                  />
+                </button>
+              </label>
+            </Card>
+
             {/* 직접 문구 */}
             <Card className="mb-4">
               <p className="text-sm font-semibold text-ink mb-2">
@@ -203,7 +273,7 @@ export default function StickerPage() {
                   placeholder="예: 우리 아기 (최대 8자)"
                   className="flex-1 rounded-xl border border-primary-soft px-3 py-2.5 text-sm focus:border-primary outline-none"
                 />
-                <Button onClick={makeCustom} disabled={!custom.trim()}>
+                <Button onClick={makeCustom} disabled={!custom.trim() || !base}>
                   만들기
                 </Button>
               </div>
@@ -232,25 +302,32 @@ export default function StickerPage() {
             )}
             {msg && <p className="text-xs text-ink-soft mb-3">{msg}</p>}
 
-            {rendering && stickers.length === 0 ? (
-              <Loading label="스티커를 만드는 중..." />
+            {phase === "prep" && stickers.length === 0 ? (
+              <Loading label="배경을 지우고 만화로 그리는 중..." />
             ) : (
-              <div className="grid grid-cols-3 gap-3">
-                {stickers.map((s) => (
-                  <button
-                    key={s.key}
-                    onClick={() => setSelected(s)}
-                    className="rounded-2xl bg-white shadow-card p-1.5 active:scale-95 transition"
-                    aria-label={`${s.caption} 스티커 열기`}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={s.url}
-                      alt={`${s.caption} 스티커`}
-                      className="w-full aspect-square object-contain"
-                    />
-                  </button>
-                ))}
+              <div className="relative">
+                {busy && (
+                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-cream/60 rounded-2xl">
+                    <Loading label="다시 그리는 중..." />
+                  </div>
+                )}
+                <div className="grid grid-cols-3 gap-3">
+                  {all.map((s) => (
+                    <button
+                      key={s.key}
+                      onClick={() => setSelected(s)}
+                      className="rounded-2xl bg-white shadow-card p-1.5 active:scale-95 transition"
+                      aria-label={`${s.caption} 스티커 열기`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={s.url}
+                        alt={`${s.caption} 스티커`}
+                        className="w-full aspect-square object-contain"
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -272,12 +349,24 @@ export default function StickerPage() {
             className="w-full max-w-sm bg-white rounded-3xl p-5"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={selected.url}
-              alt={`${selected.caption} 스티커 미리보기`}
-              className="w-56 h-56 mx-auto object-contain mb-4"
-            />
+            {/* 체크무늬 배경으로 투명 다이컷을 보여줌 */}
+            <div
+              className="w-56 h-56 mx-auto mb-4 rounded-2xl"
+              style={{
+                backgroundColor: "#f4efe9",
+                backgroundImage:
+                  "linear-gradient(45deg,#e7ddd2 25%,transparent 25%),linear-gradient(-45deg,#e7ddd2 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e7ddd2 75%),linear-gradient(-45deg,transparent 75%,#e7ddd2 75%)",
+                backgroundSize: "16px 16px",
+                backgroundPosition: "0 0,0 8px,8px -8px,-8px 0",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selected.url}
+                alt={`${selected.caption} 스티커 미리보기`}
+                className="w-full h-full object-contain"
+              />
+            </div>
             <div className="flex gap-2">
               <Button full onClick={() => download(selected)}>
                 💾 저장
