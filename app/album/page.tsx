@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useChild, useActivityLogs } from "@/lib/useStore";
+import { useRequireChild, useActivityLogs } from "@/lib/useStore";
 import { formatDate } from "@/lib/utils";
 import { Card, PageHeader, Loading, EmptyState, Button } from "@/components/ui";
 import { ActivityLog, Reaction } from "@/lib/types";
@@ -15,7 +15,7 @@ const REACTION_EMOJI: Record<Reaction, string> = {
 
 export default function AlbumPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const { logs } = useActivityLogs();
 
   // 월별 그룹핑 (최신순)
@@ -30,11 +30,7 @@ export default function AlbumPage() {
     return Array.from(map.entries());
   }, [logs]);
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   const photoCount = logs.filter((l) => l.photo).length;
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import {
   getChild,
   getChildren,
@@ -36,6 +37,18 @@ export function useChild() {
   // 초기 서버 렌더와 클라이언트 값 불일치를 구분하기 위한 로딩 플래그
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
+  return { child, ready, refresh };
+}
+
+// 프로필(활성 아이)이 없으면 온보딩으로 보내는 가드 훅.
+// 렌더 도중 router.replace를 호출하던 안티패턴(React 경고·중복 이동)을
+// 대신해, 리다이렉트를 effect에서 안전하게 수행한다.
+export function useRequireChild() {
+  const router = useRouter();
+  const { child, ready, refresh } = useChild();
+  useEffect(() => {
+    if (ready && !child) router.replace("/onboarding");
+  }, [ready, child, router]);
   return { child, ready, refresh };
 }
 

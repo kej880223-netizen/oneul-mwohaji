@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useChild } from "@/lib/useStore";
+import { useRequireChild } from "@/lib/useStore";
 import { fileToResizedDataUrl } from "@/lib/image";
 import {
   STICKER_PRESETS,
@@ -23,7 +23,7 @@ interface Made {
 
 export default function StickerPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [photo, setPhoto] = useState<string | undefined>(undefined);
@@ -148,11 +148,7 @@ export default function StickerPage() {
     }
   }
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   const EMOJI_CHOICES = ["💛", "😄", "😍", "🥰", "😆", "🤗", "😎", "🌟"];
   const busy = phase !== "";

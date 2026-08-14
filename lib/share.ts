@@ -73,6 +73,44 @@ function readMap(key: string): Record<string, string> {
   }
 }
 
+const MILESTONE_PREFIX = "omh.milestones."; // 아이별 발달체크 (milestones.ts)
+
+// 아이별 발달체크 상태를 모두 모아 { childId: { itemId: true } } 로 반환.
+type MilestoneMap = Record<string, Record<string, boolean>>;
+function readMilestones(): MilestoneMap {
+  const out: MilestoneMap = {};
+  try {
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const k = window.localStorage.key(i);
+      if (!k || !k.startsWith(MILESTONE_PREFIX)) continue;
+      const childId = k.slice(MILESTONE_PREFIX.length);
+      const raw = window.localStorage.getItem(k);
+      const v = raw ? JSON.parse(raw) : null;
+      if (v && typeof v === "object") out[childId] = v;
+    }
+  } catch {
+    /* noop */
+  }
+  return out;
+}
+
+// 두 발달체크 맵을 OR 병합: 한쪽이라도 체크한 항목은 체크 유지.
+// (타임스탬프가 없어 '체크 해제'는 전파되지 않지만, 공유 아이의 발달 관찰은
+//  "부모 중 누구라도 확인했으면 완료"가 자연스러운 의미라 이 정책을 택함.)
+function mergeMilestones(a: MilestoneMap, b: MilestoneMap): MilestoneMap {
+  const out: MilestoneMap = {};
+  for (const src of [a || {}, b || {}]) {
+    for (const [childId, map] of Object.entries(src)) {
+      if (!map || typeof map !== "object") continue;
+      const dst = out[childId] || (out[childId] = {});
+      for (const [itemId, val] of Object.entries(map)) {
+        if (val) dst[itemId] = true;
+      }
+    }
+  }
+  return out;
+}
+
 function localBlob() {
   return {
     children: readArr(K.children),
@@ -81,6 +119,7 @@ function localBlob() {
     favorites: readArr(K.favorites),
     deletions: readMap(K.deletions), // 삭제 묘비도 함께 동기화
     members: readArr(K.members), // 공유 구성원도 함께 동기화
+    milestones: readMilestones(), // 아이별 발달체크도 함께 동기화
   };
 }
 
@@ -188,6 +227,12 @@ function mergeRemote(remote: any): MergeResult {
     (x) => x?.id
   );
 
+  // 발달체크는 OR 병합(체크 항목 합집합)
+  const milestones = mergeMilestones(
+    local.milestones,
+    (remote.milestones as MilestoneMap) || {}
+  );
+
   // 3) 묘비 적용(삭제 전파). 재추가분은 시각 비교로 생존.
   const merged = {
     children: keptBy(
@@ -216,12 +261,33 @@ function mergeRemote(remote: any): MergeResult {
     ),
   };
 
-  window.localStorage.setItem(K.children, JSON.stringify(merged.children));
-  window.localStorage.setItem(K.logs, JSON.stringify(merged.logs));
-  window.localStorage.setItem(K.questions, JSON.stringify(merged.questions));
-  window.localStorage.setItem(K.favorites, JSON.stringify(merged.favorites));
-  window.localStorage.setItem(K.deletions, JSON.stringify(del));
-  window.localStorage.setItem(K.members, JSON.stringify(members));
+  // 병합 결과를 로컬에 반영. 용량 초과(배우자 사진 유입 등)로 setItem이
+  // 던지면 조용히 부분 저장되던 문제를 방어 — 실패 시 사용자에게 안내 이벤트를
+  // 발화하고 상위(FamilySync)로 전파해 다음 폴링에서 재시도되게 한다.
+  try {
+    window.localStorage.setItem(K.children, JSON.stringify(merged.children));
+    window.localStorage.setItem(K.logs, JSON.stringify(merged.logs));
+    window.localStorage.setItem(K.questions, JSON.stringify(merged.questions));
+    window.localStorage.setItem(K.favorites, JSON.stringify(merged.favorites));
+    window.localStorage.setItem(K.deletions, JSON.stringify(del));
+    window.localStorage.setItem(K.members, JSON.stringify(members));
+    for (const [childId, map] of Object.entries(milestones)) {
+      window.localStorage.setItem(
+        MILESTONE_PREFIX + childId,
+        JSON.stringify(map)
+      );
+    }
+  } catch (e) {
+    const quota =
+      e instanceof DOMException &&
+      (e.name === "QuotaExceededError" ||
+        e.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
+        e.code === 22);
+    window.dispatchEvent(
+      new CustomEvent("omh:storage-error", { detail: { quota } })
+    );
+    throw e;
+  }
 
   const changed = before !== serialize();
   if (changed) window.dispatchEvent(new Event("omh:storage"));
@@ -279,6 +345,10 @@ async function api(body: unknown): Promise<any> {
   return j;
 }
 
+// 마지막으로 본 클라우드 버전(updatedAt). push 시 base로 보내 CAS에 사용.
+// (코드별로 유지. null = 클라우드가 비어 있었음)
+const lastSeenVersion = new Map<string, number | null>();
+
 // 서버 한계(1MB)보다 낮은 안전 임계치. 넘으면 사진부터 덜어 업로드.
 const UPLOAD_SAFE_BYTES = 950_000;
 
@@ -331,9 +401,26 @@ export async function pushToCloud(
   // register=false 는 '나가기'처럼 자신을 다시 활성 구성원으로 만들면
   // 안 되는 경우에 사용(left=true 상태를 그대로 업로드).
   if (opts?.register !== false) upsertSelfMember();
-  const { blob, trimmed } = trimForUpload(localBlob());
-  const j = await api({ action: "push", code, blob });
-  return { source: j.source, trimmed };
+
+  // 낙관적 동시성: base(마지막으로 본 클라우드 버전)를 함께 보낸다. 그 사이
+  // 상대가 먼저 올렸으면 서버가 conflict+최신본을 반환 → 로컬에 재병합 후
+  // 재시도. 이로써 pull~push 사이에 들어온 상대의 새 기록이 유실되지 않는다.
+  let trimmedOut = 0;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const { blob, trimmed } = trimForUpload(localBlob());
+    trimmedOut = trimmed;
+    const base = lastSeenVersion.has(code) ? lastSeenVersion.get(code) : null;
+    const force = attempt === 2; // 마지막 시도는 강제(무한 충돌 방지)
+    const j = await api({ action: "push", code, blob, base, force });
+    if (j.conflict) {
+      mergeRemote(j.blob); // 상대 최신본을 병합(합집합/LWW)
+      lastSeenVersion.set(code, j.updatedAt);
+      continue; // 병합된 로컬로 재시도
+    }
+    lastSeenVersion.set(code, j.updatedAt);
+    return { source: j.source, trimmed: trimmedOut };
+  }
+  return { source: "kv", trimmed: trimmedOut };
 }
 
 export async function pullAndMerge(code: string): Promise<{
@@ -344,7 +431,8 @@ export async function pullAndMerge(code: string): Promise<{
   memberJoined: string[];
 }> {
   const j = await api({ action: "pull", code });
-  if (j.empty)
+  if (j.empty) {
+    lastSeenVersion.set(code, null); // 클라우드 비어 있음 → 첫 push의 base
     return {
       changed: false,
       source: j.source,
@@ -352,6 +440,8 @@ export async function pullAndMerge(code: string): Promise<{
       partnerNew: [],
       memberJoined: [],
     };
+  }
+  lastSeenVersion.set(code, j.updatedAt); // 방금 본 클라우드 버전 기록
   const r = mergeRemote(j.blob);
   return {
     changed: r.changed,

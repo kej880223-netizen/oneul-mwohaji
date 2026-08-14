@@ -29,9 +29,36 @@ function read<T>(key: string, fallback: T): T {
   }
 }
 
+// localStorage 용량 초과(사진 누적 등)로 setItem이 던지면 앱이 조용히
+// 크래시하며 저장이 유실되던 문제를 방어한다. 저장 실패 시 이전 값이 그대로
+// 남고, 화면 어디서든 안내할 수 있도록 omh:storage-error 이벤트를 발화한다.
+export class StorageWriteError extends Error {
+  constructor(public quota: boolean) {
+    super(quota ? "저장 공간이 가득 찼어요" : "저장에 실패했어요");
+    this.name = "StorageWriteError";
+  }
+}
+
+function isQuotaError(e: unknown): boolean {
+  return (
+    e instanceof DOMException &&
+    (e.name === "QuotaExceededError" ||
+      e.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
+      e.code === 22)
+  );
+}
+
 function write<T>(key: string, value: T): void {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(key, JSON.stringify(value));
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    const quota = isQuotaError(e);
+    window.dispatchEvent(
+      new CustomEvent("omh:storage-error", { detail: { quota } })
+    );
+    throw new StorageWriteError(quota);
+  }
   // 같은 탭 내 다른 컴포넌트에 변경 알림
   window.dispatchEvent(new Event("omh:storage"));
 }

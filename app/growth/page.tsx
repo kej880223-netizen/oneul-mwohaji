@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useChild } from "@/lib/useStore";
+import { useRequireChild } from "@/lib/useStore";
 import { ageInMonths, ageLabel } from "@/lib/utils";
 import { PageHeader, Card, Loading } from "@/components/ui";
 import {
@@ -25,7 +25,7 @@ const DOMAIN_ORDER: MilestoneDomain[] = [
 
 export default function GrowthPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [bandKey, setBandKey] = useState<string | null>(null);
 
@@ -41,11 +41,7 @@ export default function GrowthPage() {
     return MILESTONE_BANDS.find((b) => b.key === bandKey) ?? MILESTONE_BANDS[0];
   }, [bandKey]);
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   function toggle(itemId: string) {
     if (!child) return;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useChild, useActivityLogs } from "@/lib/useStore";
@@ -36,23 +36,40 @@ export default function HomePage() {
   }, [ready, child, router]);
 
   // 오늘의 추천 미리보기 (하루 1번 세션 캐시)
+  const loadPicks = useCallback(
+    (opts?: { force?: boolean }) => {
+      if (!child) return;
+      const cacheKey = `omh.homePicks.${child.id}.${new Date().toDateString()}`;
+      if (!opts?.force) {
+        try {
+          const cached = sessionStorage.getItem(cacheKey);
+          if (cached) {
+            setPicks(JSON.parse(cached));
+            return;
+          }
+        } catch {
+          /* 캐시 손상/접근불가 시 무시하고 새로 불러온다 */
+        }
+      }
+      setError(false);
+      setPicks(null);
+      requestToday(child, DEFAULT_CONDITIONS, logs.slice(0, 10))
+        .then((acts) => {
+          setPicks(acts);
+          try {
+            sessionStorage.setItem(cacheKey, JSON.stringify(acts));
+          } catch {
+            /* 저장 실패해도 화면 표시엔 지장 없음 */
+          }
+        })
+        .catch(() => setError(true));
+    },
+    [child, logs]
+  );
+
   useEffect(() => {
-    if (!child) return;
-    const cacheKey = `omh.homePicks.${child.id}.${new Date().toDateString()}`;
-    const cached = sessionStorage.getItem(cacheKey);
-    if (cached) {
-      setPicks(JSON.parse(cached));
-      return;
-    }
-    setError(false);
-    requestToday(child, DEFAULT_CONDITIONS, logs.slice(0, 10))
-      .then((acts) => {
-        setPicks(acts);
-        sessionStorage.setItem(cacheKey, JSON.stringify(acts));
-      })
-      .catch(() => setError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [child]);
+    loadPicks();
+  }, [loadPicks]);
 
   if (!ready || !child) return <Loading label="준비 중..." />;
 
@@ -129,6 +146,11 @@ export default function HomePage() {
             <p className="text-sm text-ink-soft">
               추천을 불러오지 못했어요. 잠시 후 다시 시도해주세요.
             </p>
+            <div className="mt-3">
+              <Button variant="secondary" onClick={() => loadPicks({ force: true })}>
+                다시 시도
+              </Button>
+            </div>
           </Card>
         )}
 

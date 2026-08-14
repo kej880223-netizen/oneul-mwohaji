@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useChild, useActivityLogs } from "@/lib/useStore";
+import { useRequireChild, useActivityLogs } from "@/lib/useStore";
 import { requestToday } from "@/lib/ai/client";
 import { Activity, TodayConditions } from "@/lib/types";
 import {
@@ -28,7 +28,7 @@ type Step = "ask" | "loading" | "result" | "error";
 
 export default function TodayPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const { logs } = useActivityLogs();
 
   const [step, setStep] = useState<Step>("ask");
@@ -39,11 +39,7 @@ export default function TodayPage() {
   const [weather, setWeather] = useState<string>("");
   const [results, setResults] = useState<Activity[]>([]);
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   const canSubmit = place && time && energy && childState;
 

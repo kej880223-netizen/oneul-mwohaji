@@ -41,6 +41,8 @@ export default function OnboardingPage() {
   const [concerns, setConcerns] = useState(existing?.concerns ?? "");
   const [photo, setPhoto] = useState<string | undefined>(existing?.photo);
   const [error, setError] = useState("");
+  // 권장 나이 범위를 벗어났을 때의 '부드러운 확인' 상태(빨간 에러와 구분).
+  const [ageWarn, setAgeWarn] = useState(false);
   const [forceAllow, setForceAllow] = useState(false);
   const isEdit = !!existing;
   // 첫 실행에서만 "나는 누구인가요?"(양육자) 선택 — 부부 공유 시 작성자 표시용
@@ -69,18 +71,18 @@ export default function OnboardingPage() {
   }
 
   function submit() {
+    setError("");
     if (!name.trim()) return setError("아이 이름을 알려주세요.");
     if (!birthDate) return setError("생년월일을 알려주세요.");
 
     const months = ageInMonths(birthDate);
-    if (months < 12 || months > 60) {
-      // MVP 권장 범위는 24~48개월. 벗어나도 막지는 않고 안내만.
-      setError(
-        "이 앱은 24~48개월 아이에게 맞춰져 있어요. 그래도 계속하려면 한 번 더 눌러주세요."
-      );
-      // 두 번째 클릭에서 통과시키기 위한 플래그
+    if ((months < 12 || months > 60) && !forceAllow) {
+      // MVP 권장 범위는 24~48개월. 막지 않고 '한 번 더 확인'만 받는다.
+      // (에러가 아니라 안내이므로 별도 상태로 표시하고, 생년월일을 바꾸면
+      //  forceAllow가 리셋돼 다시 확인을 받게 된다.)
+      setAgeWarn(true);
       setForceAllow(true);
-      if (!forceAllow) return;
+      return;
     }
 
     const child: Child = {
@@ -175,10 +177,14 @@ export default function OnboardingPage() {
         </div>
 
         <Card>
-          <label className="block text-sm font-semibold text-ink mb-1.5">
+          <label
+            htmlFor="ob-name"
+            className="block text-sm font-semibold text-ink mb-1.5"
+          >
             아이 이름 <span className="text-primary">*</span>
           </label>
           <input
+            id="ob-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="예: 유안"
@@ -211,17 +217,35 @@ export default function OnboardingPage() {
         )}
 
         <Card>
-          <label className="block text-sm font-semibold text-ink mb-1.5">
+          <label
+            htmlFor="ob-birth"
+            className="block text-sm font-semibold text-ink mb-1.5"
+          >
             생년월일 <span className="text-primary">*</span>
           </label>
           <input
+            id="ob-birth"
             type="date"
             value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
+            onChange={(e) => {
+              setBirthDate(e.target.value);
+              // 생년월일이 바뀌면 이전 '계속 진행' 확인을 리셋한다.
+              setForceAllow(false);
+              setAgeWarn(false);
+            }}
             autoComplete="off"
             className="w-full rounded-xl border border-primary-soft px-3 py-2.5 text-sm focus:border-primary outline-none"
           />
           <p className="text-xs text-ink-faint mt-1">권장 연령: 24~48개월</p>
+          {ageWarn && (
+            <p
+              role="status"
+              className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 mt-2 leading-relaxed"
+            >
+              이 앱은 24~48개월 아이에게 맞춰져 있어요. 그래도 계속하려면 아래
+              버튼을 한 번 더 눌러주세요.
+            </p>
+          )}
         </Card>
 
         <Card>
@@ -241,10 +265,14 @@ export default function OnboardingPage() {
         </Card>
 
         <Card>
-          <label className="block text-sm font-semibold text-ink mb-1.5">
+          <label
+            htmlFor="ob-likes"
+            className="block text-sm font-semibold text-ink mb-1.5"
+          >
             좋아하는 것
           </label>
           <input
+            id="ob-likes"
             value={likes}
             onChange={(e) => setLikes(e.target.value)}
             placeholder="예: 공룡, 자동차, 물놀이"
@@ -254,10 +282,14 @@ export default function OnboardingPage() {
         </Card>
 
         <Card>
-          <label className="block text-sm font-semibold text-ink mb-1.5">
+          <label
+            htmlFor="ob-dislikes"
+            className="block text-sm font-semibold text-ink mb-1.5"
+          >
             싫어하는 것
           </label>
           <input
+            id="ob-dislikes"
             value={dislikes}
             onChange={(e) => setDislikes(e.target.value)}
             placeholder="예: 큰 소리, 낯선 사람"
@@ -285,10 +317,14 @@ export default function OnboardingPage() {
         </Card>
 
         <Card>
-          <label className="block text-sm font-semibold text-ink mb-1.5">
+          <label
+            htmlFor="ob-concerns"
+            className="block text-sm font-semibold text-ink mb-1.5"
+          >
             요즘 가장 고민되는 부분
           </label>
           <textarea
+            id="ob-concerns"
             value={concerns}
             onChange={(e) => setConcerns(e.target.value)}
             rows={3}

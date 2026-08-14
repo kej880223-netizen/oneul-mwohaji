@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
-  useChild,
+  useRequireChild,
   useChildren,
   useActivityLogs,
   useQuestions,
@@ -16,18 +16,14 @@ import FamilyShare from "@/components/FamilyShare";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const { children, activeId } = useChildren();
   const { logs } = useActivityLogs();
   const { questions } = useQuestions();
 
   const report = useMemo(() => buildReport(logs), [logs]);
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   function handleDeleteChild() {
     if (children.length <= 1) return;

@@ -59,7 +59,7 @@ const CODE_RE = /^[A-Z0-9]{6}$/;
 
 export async function POST(req: NextRequest) {
   try {
-    const { action, code, blob } = await req.json();
+    const { action, code, blob, base, force } = await req.json();
     if (typeof code !== "string" || !CODE_RE.test(code)) {
       return NextResponse.json({ error: "유효하지 않은 코드예요." }, { status: 400 });
     }
@@ -89,7 +89,34 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === "push") {
-      const value = JSON.stringify({ blob, updatedAt: Date.now() });
+      // 낙관적 동시성(CAS): 클라가 마지막으로 본 버전(base)과 현재 저장본의
+      // updatedAt이 다르면, 그 사이 상대가 먼저 올린 것이므로 덮어쓰지 않고
+      // 최신본을 돌려준다(클라가 재병합 후 재시도). force=true면 강제 저장
+      // (재시도 소진 시 교착 방지). GET→SET이 완전 원자적이진 않지만, 폴링
+      // 주기(수십 초) 대비 서버측 경합창(수 ms)이 매우 좁아 실질적 유실을 막는다.
+      if (!force) {
+        const current = await storeGet(key);
+        if (current) {
+          let curUpdatedAt: number | undefined;
+          try {
+            curUpdatedAt = JSON.parse(current).updatedAt;
+          } catch {
+            curUpdatedAt = undefined;
+          }
+          const baseNum = typeof base === "number" ? base : null;
+          if (curUpdatedAt !== undefined && curUpdatedAt !== baseNum) {
+            const parsed = JSON.parse(current);
+            return NextResponse.json({
+              conflict: true,
+              blob: parsed.blob,
+              updatedAt: parsed.updatedAt,
+              source,
+            });
+          }
+        }
+      }
+      const now = Date.now();
+      const value = JSON.stringify({ blob, updatedAt: now });
       if (value.length > 1_000_000) {
         return NextResponse.json(
           {
@@ -100,7 +127,7 @@ export async function POST(req: NextRequest) {
         );
       }
       await storeSet(key, value);
-      return NextResponse.json({ ok: true, updatedAt: Date.now(), source });
+      return NextResponse.json({ ok: true, updatedAt: now, source });
     }
 
     return NextResponse.json({ error: "알 수 없는 요청이에요." }, { status: 400 });

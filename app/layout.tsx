@@ -4,6 +4,7 @@ import BottomNav from "@/components/BottomNav";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import NotificationScheduler from "@/components/NotificationScheduler";
 import FamilySync from "@/components/FamilySync";
+import StorageErrorToast from "@/components/StorageErrorToast";
 
 export const metadata: Metadata = {
   applicationName: "오늘 뭐하지?",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // 확대(핀치 줌) 허용 — 저시력 사용자의 사진·글자 확대를 막지 않는다.
   viewportFit: "cover",
   themeColor: "#FDF8F3",
 };
@@ -52,6 +53,7 @@ export default function RootLayout({
         <ServiceWorkerRegister />
         <NotificationScheduler />
         <FamilySync />
+        <StorageErrorToast />
       </body>
     </html>
   );

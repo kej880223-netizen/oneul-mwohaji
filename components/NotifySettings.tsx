@@ -84,8 +84,11 @@ export default function NotifySettings() {
 
       {s.enabled && perm === "granted" && (
         <div className="mt-3 flex items-center gap-2">
-          <label className="text-sm text-ink-soft">알림 시간</label>
+          <label htmlFor="notify-time" className="text-sm text-ink-soft">
+            알림 시간
+          </label>
           <input
+            id="notify-time"
             type="time"
             value={s.time}
             onChange={(e) => changeTime(e.target.value)}

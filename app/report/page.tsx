@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useChild, useActivityLogs } from "@/lib/useStore";
+import { useRequireChild, useActivityLogs } from "@/lib/useStore";
 import { exportAll } from "@/lib/storage";
 import { computeReport, Period } from "@/lib/report";
 import { DevDomain } from "@/lib/types";
@@ -25,17 +25,13 @@ const PERIODS: { key: Period; label: string }[] = [
 
 export default function ReportPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const { logs } = useActivityLogs();
   const [period, setPeriod] = useState<Period>("week");
 
   const report = useMemo(() => computeReport(logs, period), [logs, period]);
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   function handleExport() {
     const blob = new Blob([JSON.stringify(exportAll(), null, 2)], {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useChild, useActivityLogs } from "@/lib/useStore";
+import { useRequireChild, useActivityLogs } from "@/lib/useStore";
 import { requestNow } from "@/lib/ai/client";
 import { addQuestion } from "@/lib/storage";
 import { getAuthor } from "@/lib/identity";
@@ -24,7 +24,7 @@ type Step = "pick" | "input" | "loading" | "result" | "error";
 
 export default function NowPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const { logs } = useActivityLogs();
 
   const [step, setStep] = useState<Step>("pick");
@@ -54,11 +54,7 @@ export default function NowPage() {
       a.afterwards,
     ].join(" ");
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   async function ask(cat: string, q: string) {
     if (!child) return;

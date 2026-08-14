@@ -22,6 +22,8 @@ export default function FamilyShare() {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
   const [memoryWarn, setMemoryWarn] = useState(false);
+  // 배경(30초) 자동 동기화가 최근 실패했는지 — 조용히 멈춘 상태를 알린다.
+  const [syncWarn, setSyncWarn] = useState(false);
   const [role, setRole] = useState<CaregiverRole | null>(null);
 
   useEffect(() => {
@@ -43,6 +45,16 @@ export default function FamilyShare() {
         /* noop */
       }
     }
+
+    // 배경 자동 동기화 성공/실패 신호를 구독해 표시(FamilySync가 발화).
+    const onOk = () => setSyncWarn(false);
+    const onFail = () => setSyncWarn(true);
+    window.addEventListener("omh:sync-ok", onOk);
+    window.addEventListener("omh:sync-fail", onFail);
+    return () => {
+      window.removeEventListener("omh:sync-ok", onOk);
+      window.removeEventListener("omh:sync-fail", onFail);
+    };
   }, []);
 
   if (!mounted) return null;
@@ -131,12 +143,14 @@ export default function FamilyShare() {
     try {
       const { source, trimmed } = await syncOnce(code);
       noteSource(source);
+      setSyncWarn(false); // 수동 동기화 성공 → 실패 표시 해제
       setMsg(
         trimmed > 0
           ? `동기화했어요. 다만 저장 공간 한계로 사진 ${trimmed}장은 이 기기에만 남았어요(기록은 모두 공유돼요).`
           : "동기화했어요."
       );
     } catch (e) {
+      setSyncWarn(true);
       setMsg(e instanceof Error ? e.message : "동기화 실패");
     } finally {
       setBusy(false);
@@ -228,6 +242,12 @@ export default function FamilyShare() {
 
         <FamilyMembers />
 
+        {syncWarn && (
+          <p className="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 mt-3 leading-relaxed">
+            ⚠️ 최근 자동 동기화가 지연되고 있어요(네트워크 또는 용량 문제).
+            연결되면 자동으로 다시 맞춰지고, ‘지금 동기화’로 바로 시도할 수 있어요.
+          </p>
+        )}
         {memoryWarn && (
           <p className="text-[11px] text-primary-dark mt-3 leading-relaxed">
             ⚠️ 공유 서버(KV)가 아직 배포에 연결되지 않았어요. 실제로 두 기기에서

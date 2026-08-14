@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  useChild,
+  useRequireChild,
   useActivityLogs,
   useQuestions,
   useFavorites,
@@ -45,7 +45,7 @@ type Tab = "all" | "play" | "situation" | "fav";
 
 export default function RecordsPage() {
   const router = useRouter();
-  const { child, ready } = useChild();
+  const { child, ready } = useRequireChild();
   const { logs } = useActivityLogs();
   const { questions } = useQuestions();
   const { favorites } = useFavorites();
@@ -77,11 +77,7 @@ export default function RecordsPage() {
     return merged;
   }, [logs, questions, tab]);
 
-  if (!ready) return <Loading />;
-  if (!child) {
-    router.replace("/onboarding");
-    return <Loading />;
-  }
+  if (!ready || !child) return <Loading />;
 
   return (
     <div>

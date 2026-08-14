@@ -9,11 +9,20 @@ const KEY = "omh.selectedActivity";
 
 export function setSelectedActivity(a: Activity): void {
   if (typeof window === "undefined") return;
-  sessionStorage.setItem(KEY, JSON.stringify(a));
+  try {
+    // Safari 프라이빗 모드 등에서 setItem이 던질 수 있어 방어한다.
+    sessionStorage.setItem(KEY, JSON.stringify(a));
+  } catch {
+    /* noop — 저장 실패해도 앱은 계속 동작 */
+  }
 }
 
 export function getSelectedActivity(): Activity | null {
   if (typeof window === "undefined") return null;
-  const raw = sessionStorage.getItem(KEY);
-  return raw ? (JSON.parse(raw) as Activity) : null;
+  try {
+    const raw = sessionStorage.getItem(KEY);
+    return raw ? (JSON.parse(raw) as Activity) : null;
+  } catch {
+    return null; // 손상/접근불가 시 안전 폴백
+  }
 }
