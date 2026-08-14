@@ -9,7 +9,13 @@ import {
   pullAndMerge,
   syncOnce,
 } from "@/lib/share";
-import { getRole, setProfile, ROLE_META, ROLE_OPTIONS } from "@/lib/identity";
+import {
+  getRole,
+  getProfile,
+  setProfile,
+  ROLE_META,
+  ROLE_OPTIONS,
+} from "@/lib/identity";
 import { markSelfLeft, clearMembers } from "@/lib/members";
 import { CaregiverRole } from "@/lib/types";
 import { Card, Button } from "./ui";
@@ -25,12 +31,14 @@ export default function FamilyShare() {
   // 배경(30초) 자동 동기화가 최근 실패했는지 — 조용히 멈춘 상태를 알린다.
   const [syncWarn, setSyncWarn] = useState(false);
   const [role, setRole] = useState<CaregiverRole | null>(null);
+  const [roleLabel, setRoleLabel] = useState("");
 
   useEffect(() => {
     setMounted(true);
     const existing = getFamilyCode();
     setCode(existing);
     setRole(getRole());
+    setRoleLabel(getProfile()?.label ?? "");
     // 초대 링크(?join=코드)로 들어온 경우: 아직 공유 중이 아니면 코드 자동 입력
     if (!existing) {
       try {
@@ -60,22 +68,27 @@ export default function FamilyShare() {
   if (!mounted) return null;
 
   function pickRole(r: CaregiverRole) {
-    setProfile(r);
+    setProfile(r, roleLabel);
     setRole(r);
+  }
+
+  function changeRoleLabel(v: string) {
+    setRoleLabel(v);
+    if (role) setProfile(role, v); // 역할이 이미 있으면 즉시 이름 반영
   }
 
   // "나는 누구?" 선택 — 기록에 작성자로 붙어 배우자 기기에서 구분돼 보인다.
   const roleSelector = (
     <div className="mb-3">
       <p className="text-xs text-ink-faint mb-1.5">나는 아이의…</p>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-3 gap-2">
         {ROLE_OPTIONS.map((r) => (
           <button
             key={r}
             type="button"
             onClick={() => pickRole(r)}
             className={
-              "flex-1 rounded-xl border px-2 py-1.5 text-xs font-semibold transition " +
+              "rounded-xl border px-2 py-1.5 text-xs font-semibold transition " +
               (role === r
                 ? "border-primary bg-primary-soft text-primary-dark"
                 : "border-primary-soft text-ink-soft")
@@ -85,6 +98,17 @@ export default function FamilyShare() {
           </button>
         ))}
       </div>
+      {role && (
+        <input
+          value={roleLabel}
+          onChange={(e) => changeRoleLabel(e.target.value)}
+          maxLength={12}
+          placeholder={`부를 이름 (선택) · 기본: ${ROLE_META[role].label}`}
+          autoComplete="off"
+          aria-label="부를 이름"
+          className="mt-2 w-full rounded-xl border border-primary-soft px-3 py-2 text-sm focus:border-primary outline-none"
+        />
+      )}
     </div>
   );
 

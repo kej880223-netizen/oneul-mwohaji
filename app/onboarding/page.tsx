@@ -3,7 +3,13 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveChild, getChild, addChild } from "@/lib/storage";
-import { getRole, setProfile, ROLE_META, ROLE_OPTIONS } from "@/lib/identity";
+import {
+  getRole,
+  getProfile,
+  setProfile,
+  ROLE_META,
+  ROLE_OPTIONS,
+} from "@/lib/identity";
 import {
   Child,
   Gender,
@@ -49,6 +55,10 @@ export default function OnboardingPage() {
   const showRolePicker = !isEdit && !isAddMode;
   const [role, setRole] = useState<CaregiverRole | null>(
     typeof window !== "undefined" ? getRole() : null
+  );
+  // 부를 이름(선택): 예) 외할머니, 이모, 새아빠 — 없으면 역할 기본 라벨 사용
+  const [roleLabel, setRoleLabel] = useState<string>(
+    typeof window !== "undefined" ? getProfile()?.label ?? "" : ""
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -99,8 +109,8 @@ export default function OnboardingPage() {
     };
     if (isAddMode) addChild(child);
     else saveChild(child);
-    // 첫 실행에서 고른 양육자 역할을 이 기기 프로필로 저장
-    if (showRolePicker && role) setProfile(role);
+    // 첫 실행에서 고른 양육자 역할(+부를 이름)을 이 기기 프로필로 저장
+    if (showRolePicker && role) setProfile(role, roleLabel);
     router.replace(isEdit ? "/profile" : "/");
   }
 
@@ -207,12 +217,31 @@ export default function OnboardingPage() {
                   key={r}
                   selected={role === r}
                   onClick={() => setRole(r)}
-                  className="text-center py-2.5"
+                  className="text-center py-2.5 text-xs"
                 >
                   {ROLE_META[r].emoji} {ROLE_META[r].label}
                 </OptionButton>
               ))}
             </div>
+            {role && (
+              <div className="mt-3">
+                <label
+                  htmlFor="ob-rolelabel"
+                  className="block text-xs text-ink-faint mb-1"
+                >
+                  부를 이름 (선택) — 예: 외할머니, 이모, 새아빠
+                </label>
+                <input
+                  id="ob-rolelabel"
+                  value={roleLabel}
+                  onChange={(e) => setRoleLabel(e.target.value)}
+                  maxLength={12}
+                  placeholder={ROLE_META[role].label}
+                  autoComplete="off"
+                  className="w-full rounded-xl border border-primary-soft px-3 py-2 text-sm focus:border-primary outline-none"
+                />
+              </div>
+            )}
           </Card>
         )}
 

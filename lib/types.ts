@@ -7,7 +7,15 @@
 export type Gender = "boy" | "girl" | "other";
 
 // ─── 양육자(부부 공유: 누가 기록했나) ──────────────────────
-export type CaregiverRole = "mom" | "dad" | "other";
+// 조부모까지 구체화. "other"는 그 외 catch-all(커스텀 이름과 함께 쓰면 좋음).
+export type CaregiverRole =
+  | "mom"
+  | "dad"
+  | "grandma"
+  | "grandpa"
+  | "aunt"
+  | "uncle"
+  | "other";
 
 export interface Author {
   id: string; // 작성한 기기의 deviceId

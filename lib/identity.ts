@@ -19,10 +19,22 @@ export const ROLE_META: Record<
 > = {
   mom: { label: "엄마", emoji: "👩" },
   dad: { label: "아빠", emoji: "👨" },
-  other: { label: "양육자", emoji: "🧑" },
+  grandma: { label: "할머니", emoji: "👵" },
+  grandpa: { label: "할아버지", emoji: "👴" },
+  aunt: { label: "이모·고모", emoji: "👩‍🦱" },
+  uncle: { label: "삼촌·외삼촌", emoji: "👨‍🦱" },
+  other: { label: "그 외", emoji: "🧑" },
 };
 
-export const ROLE_OPTIONS: CaregiverRole[] = ["mom", "dad", "other"];
+export const ROLE_OPTIONS: CaregiverRole[] = [
+  "mom",
+  "dad",
+  "grandma",
+  "grandpa",
+  "aunt",
+  "uncle",
+  "other",
+];
 
 // 이 기기의 고유 id (없으면 생성해 저장). 동기화 대상 아님.
 export function getDeviceId(): string {
